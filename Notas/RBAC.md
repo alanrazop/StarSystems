@@ -27,4 +27,3 @@ N:N de usuarios a roles
 N:N de roles a Funciones
 
 Se establecen mínimo 5 tablas, pues hay 3 entidades y sus asociaciones son tablas.
-
