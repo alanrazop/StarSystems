@@ -19,4 +19,29 @@ Son notas sobre los temas vistos en clase con Ricardo de las actividades grupale
 
 Aquí podrán encontrar retroalimentación de las clases.
 
-### Sesiones 
+### Prototype
+
+Prototype es un prototipo funcional en Bulma, separado y modularizado para su desarrollo
+
+#### Installación
+
+Para correrlo en tu branch:
+ 
+```powershell
+# cambia a esta branch
+git checkout felix
+# haz checkout -b para crear la branch y cambiarte a la branch recien creada
+git checkout -b mi-branch
+```
+
+Para correr el sitio:
+1. Corre estos comandos
+
+```powershell
+npm install
+npm start
+```
+
+2.En tu navegador ingresa aquí [Prototipo web](localhost:4000/)
+
+3. La dirección también aparece en la terminal

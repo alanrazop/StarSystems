@@ -17,4 +17,4 @@ app.get("/", (req, res) => {
 const rutas_natdev = require("./routes/natdev.routes");
 app.use("/home", rutas_natdev);
 
-app.listen(4000, () => console.log("Example app listening on port 4000!"));
+app.listen(4000, () => console.log("http://localhost:4000/"));
