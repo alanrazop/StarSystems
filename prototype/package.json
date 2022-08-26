@@ -2,14 +2,20 @@
   "name": "prototype",
   "version": "0.0.1",
   "description": "Prototype interface",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "keywords": [
     "prototype",
     "interface"
   ],
-  "author": "",
-  "license": "ISC"
+  "author": "Felix, Monserrat, Alan, Leonardo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
 }

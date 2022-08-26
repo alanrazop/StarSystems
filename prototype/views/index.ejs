@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html>
+<%- include('partials/head.ejs'); -%>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HomeView</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <!-- Load icons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/84d1cdccbc.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
     <!------------==                         TOP NAVBAR BEGINS                         ==------------>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
+            <a class="navbar-item" href="">
                 <img src="https://storage.googleapis.com/natgas/others/logos/natgas-logo-simple.png" height="40">
             </a>
 
@@ -31,7 +18,7 @@
             <a class="navbar-item" href="/actividades.html">
                 Actividades
             </a>
-
+            
             <a class="navbar-item" href="/colaboradores.html">
                 Colaboradores
             </a>
@@ -39,9 +26,9 @@
             <a class="navbar-item" href="/colaboradores.html">
                 Reportes
             </a>
-
+            
         </div>
-
+        
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
@@ -58,8 +45,6 @@
         </div>
         </div>
     </nav>
-
+    
     <!------------==                         TOP NAVBAR ENDS                         ==------------>
-</body>
-
-</html>
+<%- include('partials/tail.ejs'); -%>
