@@ -1,83 +1,35 @@
 <%- include('partials/head.ejs'); -%>
-<%- include('partials/sidebar.ejs'); -%>
-<div class="columns is-centered">
-  <div class="column  is-two-thirds">
-    <span class=" is-size-1">Actividades Recientes</span> 
-  </div>
-  <div class="column">
-    <br>
-    <p class="control has-icons-left">
-      <input class="input is-info is-rounded" type="text" placeholder="Buscar">
-      <span class="icon is-small is-left">
-        <i class="fas fa-search"></i>
-      </span>
-    </p>
-  </div>
-</div>
-<div class="card">
-            <div class="card-content">
-                    <table class="table is-fullwidth">
-                            <thead>
-                                <tr>
-                                    <th><abbr>#</abbr></th>
-                                    <th>Proyecto</th>
-                                    <th>Actividad</th>
-                                    <th>Duración</th>
-                                    <th>Colaboradores</th>
-                                    <th>Fecha</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Amanda</td>
-                                <td>Holmes</td>
-                                <td>Female</td>
-                                <td>22</td>
-                                <td>a.holmes@randatmail.com</td>
-                                <td>
-                                        <a class="button is-small is-primary">View</a>
-                                        <a class="button is-small is-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                    <td>2</td>
-                                    <td>Amanda</td>
-                                    <td>Holmes</td>
-                                    <td>Female</td>
-                                    <td>22</td>
-                                    <td>a.holmes@randatmail.com</td>
-                                    <td>
-                                            <a class="button is-small is-primary">Small</a>
-                                            <a class="button is-small is-danger">Delete</a>
-                                    </td>
-                            </tr>
-                            <tr>
-                                    <td>3</td>
-                                    <td>Amanda</td>
-                                    <td>Holmes</td>
-                                    <td>Female</td>
-                                    <td>22</td>
-                                    <td>a.holmes@randatmail.com</td>
-                                    <td>
-                                            <a class="button is-small is-primary">Small</a>
-                                                    <a class="button is-small is-danger">Delete</a>
-                                    </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </div>
-</div>
-<br>
-<div class="container">
-  <form>
-    <div class="field">
-      <a href="#" class="button is-rounded is-medium is-primary is-pulled-right">
-        <span class="icon is-small"><i class="fa-solid fa-file-circle-plus"></i></i></span><span>Agregar actividad</span>
-    </a>
-    </div>
-  </form>
-</div>
+  <%- include('partials/navbar-top.ejs'); -%>
+    <%- include('partials/sidebar.ejs'); -%>
 
-  <%- include('partials/tail.ejs'); -%>
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <h1>Actividades Recientes</h1>
+            </div>
+            <p class="control has-icons-left">
+              <input class="input is-info is-rounded" type="text" placeholder="Buscar">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <%- include('partials/table.ejs'); -%>
+        <br>
+        <div class="container">
+          <form>
+            <div class="field">
+              <a href="#" class="button is-rounded is-medium is-primary is-pulled-right">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-file-circle-plus"></i></span>
+                <span>Agregar actividad</span>
+              </a>
+            </div>
+          </form>
+        </div>
+
+        <%- include('partials/tail.ejs'); -%>
