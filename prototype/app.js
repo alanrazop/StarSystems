@@ -14,6 +14,16 @@ app.get("/", (req, res) => {
     res.render("index.ejs", { foo: "FOO" });
 });
 
+// -------- TEMPORAL TESTING -----------
+app.get("/reporte", (req, res) => {
+    res.render("reportes.ejs", { foo: "FOO" });
+});
+
+app.get("/colabs", (req, res) => {
+    res.render("colaboradores.ejs", { foo: "FOO" });
+});
+// -------- TEMPORAL TESTING -----------
+
 const rutas_natdev = require("./routes/natdev.routes");
 app.use("/home", rutas_natdev);
 

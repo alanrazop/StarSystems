@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HomeView</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <!-- Load icons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/84d1cdccbc.js" crossorigin="anonymous"></script>
-    <!-- Chart JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-
-<body>
+<%- include('includes/head.ejs'); -%>
     <!------------==                         TOP NAVBAR BEGINS                         ==------------>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -117,6 +101,4 @@
     <!------------==                         TILES VARIABLES ENDS                      ==------------>
 
     <script src="../js/reportes.js"></script>
-</body>
-
-</html>
+<%- include('includes/tail.ejs') %> 
