@@ -1,4 +1,4 @@
-const labels = ["January", "February", "March", "April", "May", "June"];
+const labels = ["January", "February", "March"];
 
 const data = {
   labels: labels,
@@ -13,7 +13,7 @@ const data = {
 };
 
 const config = {
-  type: "bar",
+  type: "pie",
   data: data,
   options: {},
 };
