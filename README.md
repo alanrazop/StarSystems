@@ -28,10 +28,10 @@ Prototype es un prototipo funcional en Bulma, separado y modularizado para su de
 Para correrlo en tu branch:
  
 ```powershell
-# cambia a esta branch
-git checkout felix
+# cambia a esta branch para obtener las actualizaciones
+git checkout develop
 # haz checkout -b para crear la branch y cambiarte a la branch recien creada
-git checkout -b mi-branch
+git checkout -b mibranch/feature
 ```
 
 Para correr el sitio:
