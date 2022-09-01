@@ -1,8 +1,8 @@
---- Database name ---
-CREATE DATABASE `starDB`
---- Database parameters ---
+-- Database name
+CREATE DATABASE `starDB`;
+SELECT DATABASE `starDB`;
 
---- Tabla Empleado ---
+-- Tabla Empleado
 CREATE TABLE `empleado` (
     `idEmpleado` int(11) NOT NULL,
     `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `empleado` (
     `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---- Tabla actividad ---
+-- Tabla actividad
 CREATE TABLE `actividad` (
     `numHoras` float NOT NULL,
     `descripcionActividad` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
@@ -19,23 +19,23 @@ CREATE TABLE `actividad` (
     `idProyecto` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---- Tabla proyecto ---
+-- Tabla proyecto
 CREATE TABLE `proyecto` (
-    `idProyecto` int(11) NOT NULL
+    `idProyecto` int(11) NOT NULL,
     `horas_registradas` float,
     `nombre_proyecto` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
     `descripcion_proyecto` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
     `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---- Tabla registra ---
+-- Tabla registra
 CREATE TABLE `registra` (
     `numHoras` float NOT NULL,
     `descripcion_actividad` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
     `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---- Tabla catalogo_variable ---
+-- Tabla catalogo_variable 
 CREATE TABLE `catalogo_variable` (
     `horas_vacaciones` float NOT NULL,
     `horas_trabajadas` float NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `catalogo_variable` (
     `fecha` date NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---- Tabla reporte ---
+-- Tabla reporte 
 CREATE TABLE `reporte` (
     `fecha_corte` int NOT NULL,
     `horas_totales` int NOT NULL,
@@ -56,13 +56,22 @@ CREATE TABLE `reporte` (
     `fecha` date NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---- Llaves y constraints ---
+-- Llaves primarias 
 ALTER TABLE `empleado`
-    ADD PRIMARY KEY (`correo`,`idEmpleado`);
+    ADD PRIMARY KEY (`correo`,`id_empleado`);
 
 ALTER TABLE `registra`
-    ADD PRIMARY KEY (`fecha`,`correo`)
+    ADD PRIMARY KEY (`fecha`,`correo`);
+
 ALTER TABLE `proyecto`
+    ADD PRIMARY KEY (`id_proyecto`);
+
 ALTER TABLE `actividad`
+    ADD PRIMARY KEY (`fecha`, `id_actividad`);
+
 ALTER TABLE `catalogo_variables`
+    ADD PRIMARY KEY (`fecha`);
+
 ALTER TABLE `reporte`
+    ADD PRIMARY KEY (`fecha_corte`);
+
