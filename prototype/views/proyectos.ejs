@@ -1,0 +1,40 @@
+<%- include('partials/head.ejs'); -%>
+  <%- include('partials/navbar-top.ejs'); -%>
+    <%- include('partials/sidebar.ejs'); -%>
+    
+    <div class="columns">
+      <div class="column">
+        <div class="box">
+          <div class="content">
+            <h1>Proyectos</h1>
+          </div>
+          <p class="control has-icons-left">
+            <input class="input is-rounded has-background-light" type="text" placeholder="Buscar">
+            <span class="icon is-small is-left">
+              <i class="fas fa-search"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <%- include('partials/table-projects.ejs'); -%>
+    </div>
+        <div class="container">
+          <form>
+            <div class="field">
+              <a href="#" class="button is-rounded is-medium is-pulled-left" style="background-color: #C2FF5E;">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-user-plus"></i></span>
+                <span>Agregar persona</span>
+              </a>
+              <a href="#" class="button is-rounded is-medium is-danger is-pulled-right">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-file-circle-plus"></i></span>
+                <span>Agregar proyecto</span>
+              </a>
+            </div>
+          </form>
+        </div>
+
+        <%- include('partials/tail.ejs'); -%>
