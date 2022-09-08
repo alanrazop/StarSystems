@@ -23,7 +23,8 @@
         <div class="container">
           <form>
             <div class="field">
-              <a href="#" class="button is-rounded is-medium is-primary is-pulled-right">
+              <a href="#" class="button is-rounded is-medium is-primary is-pulled-right js-modal-trigger"
+              data-target="modal-js-example">
                 <span class="icon is-small">
                   <i class="fa-solid fa-file-circle-plus"></i></span>
                 <span>Agregar tarea</span>
@@ -31,5 +32,136 @@
             </div>
           </form>
         </div>
+        
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+          // Functions to open and close a modal
+          function openModal($el) {
+            $el.classList.add('is-active');
+          }
 
+          function closeModal($el) {
+            $el.classList.remove('is-active');
+          }
+
+          function closeAllModals() {
+            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+              closeModal($modal);
+            });
+          }
+
+          // Add a click event on buttons to open a specific modal
+          (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+            const modal = $trigger.dataset.target;
+            const $target = document.getElementById(modal);
+
+            $trigger.addEventListener('click', () => {
+              openModal($target);
+            });
+          });
+
+          // Add a click event on various child elements to close the parent modal
+          (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+            const $target = $close.closest('.modal');
+
+            $close.addEventListener('click', () => {
+              closeModal($target);
+            });
+          });
+
+          // Add a keyboard event to close all modals
+          document.addEventListener('keydown', (event) => {
+            const e = event || window.event;
+
+            if (e.keyCode === 27) { // Escape key
+              closeAllModals();
+            }
+          });
+        });
+        </script>
+
+        <div id="modal-js-example" class="modal">
+          <div class="modal-background"></div>
+        
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Agregar tarea</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              <!-- Content ... -->
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Descripción: </label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <textarea name="descripcion" class="textarea" placeholder="Describe la actividad que realizaste"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Proyecto: </label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <div class="select">
+                        <select>
+                          <option>Select dropdown</option>
+                          <option>With options</option>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Horas: </label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <input class="input" type="number" placeholder="">
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Colaboradores: </label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <div class="select">
+                        <select>
+                          <option>Select dropdown</option>
+                          <option>With options</option>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Fecha: </label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                    <input class="input" type="date" id="fecha_act" name="fecha_act">
+                  </div>
+                </div>
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-success">Guardar tarea</button>
+              <button class="button">Cancelar</button>
+            </footer>
+          </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
         <%- include('partials/tail.ejs'); -%>
