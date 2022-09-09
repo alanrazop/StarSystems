@@ -109,7 +109,7 @@ INSERT INTO `empleado` (`id_empleado`,`nombre` ,`is_tiempo_completo`,`correo`,`s
 
 INSERT INTO `actividad` (`id_actividad`, `descripcion_actividad`) VALUES
 
-(1,'Diseño de proyecto Oasis')
+(1,'Diseño de proyecto Oasis');
 
 -- (1,'2022-09-05',7,'Diseño de proyecto Oasis',1),
 -- (2,'2022-09-06',9,'Implementación de recursos',NULL),
@@ -132,7 +132,8 @@ INSERT INTO `actividad` (`id_actividad`, `descripcion_actividad`) VALUES
 -- (19,'2022-10-17',3,'Junta con colaboradores',NULL),
 -- (20,'2022-10-18',6,'Entrega de documentaciones del departamento',NULL);
 
-INSERT INTO `proyecto` (`id_proyecto`,`nombre_proyecto`,`descripcion_proyecto`,`fecha_inicio`,`tarea_proyecto`,`is_activo`) VALUES
+INSERT INTO `proyecto` (`id_proyecto`,`nombre_proyecto`,`descripcion_proyecto`,`fecha_inicio`,`tarea_proyecto`,`is_activo`) 
+VALUES
 (1,'Oasis','Web app en react para fundación Oasis','2022-01-07',0,1),
 (2,'Altair','Web app en react para fundación Altair','2022-01-08',1,1),
 (3,'Pry','Web app en react para fundación Pry','2022-01-09',0,1),
@@ -147,7 +148,7 @@ INSERT INTO `registra` (
     `sub_auth0`,
     `num_horas`) VALUES
 -- sample
-(1,'ppedro@natgas.com.mx',1,'2022-09-05','auth0|9832$#%#52sdkjbs',3),
+(1,'ppedro@natgas.com.mx',1,'2022-09-05','auth0|9832$#%#52sdkjbs',3);
 
 -- -- to do
 -- (2,'eemilio@natgas.com.mx',2,'2022-09-06'),
