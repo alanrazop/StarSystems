@@ -180,21 +180,24 @@ INSERT INTO `reporte`(
     `coeficiente_efectividad`)
     VALUES (7, 4, 0, 385, 0.85);
 
-
 -- Llaves primarias 
 ALTER TABLE `empleado`
-    ADD PRIMARY KEY (`correo`,`id_empleado`);
+    ADD PRIMARY KEY (`correo`,`id_empleado`,`sub_auth0`);
+
+ALTER TABLE `rol`
+    ADD PRIMARY KEY (`id_rol`);
 
 ALTER TABLE `registra`
-    ADD PRIMARY KEY (`fecha`,`correo`);
+    ADD PRIMARY KEY (`fecha`);
 
 ALTER TABLE `proyecto`
     ADD PRIMARY KEY (`id_proyecto`);
 
 ALTER TABLE `actividad`
-    ADD PRIMARY KEY (`fecha`, `id_actividad`);
+    ADD PRIMARY KEY (`id_actividad`);
 
 ALTER TABLE `reporte`
-    ADD PRIMARY KEY (`fecha`);
+    ADD PRIMARY KEY (`fecha`,`fecha_corte`);
+
 
 
