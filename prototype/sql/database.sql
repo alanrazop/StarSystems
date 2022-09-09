@@ -4,13 +4,15 @@ DROP DATABASE `starDB`;
 -- Crea nueva base de datos
 CREATE DATABASE `starDB`;
 
-ALTER DATABASE `starDB` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci
+ALTER DATABASE `starDB` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+USE `starDB`;
 
 -- Tabla Rol
 CREATE TABLE `rol` (
     `id_rol` int(11) NOT NULL,
     `descripcion` varchar(60) NOT NULL
-) 
+);
 
 -- Tabla Empleado
 CREATE TABLE `empleado` (
@@ -20,58 +22,58 @@ CREATE TABLE `empleado` (
     `correo` varchar(60) NOT NULL,
     `sub_auth0` varchar(60) NOT NULL,
     `id_rol`int(11) NOT NULL
-) 
+);
 
 -- Tabla Registra
 CREATE TABLE `registra` (
-    `num_horas` float NOT NULL DEFAULT 0,
+    `num_horas` float NOT NULL,
     `id_actividad` int(11),
     `id_empleado` int(11),
-    `fecha` date NOT NULL,
+    `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `sub_auth0` varchar(60) NOT NULL,
     `correo` varchar(60) NOT NULL
-) 
+);
 
 -- Tabla actividad
 CREATE TABLE `actividad` (
     `descripcion_actividad` varchar(255) NOT NULL,
     `id_actividad` int(11) NOT NULL,
     `id_proyecto` int(11)
-) 
+);
 
 -- Tabla proyecto
 CREATE TABLE `proyecto` (
     `id_proyecto` int(11) NOT NULL,
     `nombre_proyecto` varchar(45) NOT NULL,
     `descripcion_proyecto` varchar(255),
-    `fecha_inicio` date,
-    `is_activo` TINYINT(1) NOT NULL DEFAULT 1,
+    `fecha_inicio` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `is_activo` TINYINT(1) NOT NULL ,
     `tarea_proyecto` TINYINT(1) NOT NULL
-) 
+);
 
 -- Tabla catalogo_variable 
 CREATE TABLE `reporte` (
     -- si quiere agregar horas de vacaciones
-    `horas_vacacion` float NOT NULL DEFAULT 0,
+    `horas_vacaciones` float NOT NULL ,
     -- si quiere agregar horas no registradas
-    `horas_trabajadas` float NOT NULL DEFAULT 0,
+    `horas_trabajadas` float NOT NULL ,
     `horas_tiempo_completo` float NOT NULL,
     `horas_tiempo_medio` float NOT NULL,
     `coeficiente_efectividad` float NOT NULL,
-    `fecha` date NOT NULL,
-    `fecha_corte` date NOT NULL
-) 
+    `fecha` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `fecha_corte` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 
--- Defaults for values
-ALTER TABLE `reporte` 
-ALTER `fecha_corte` SET DEFAULT CURDATE();
+-- -- Defaults for values
+-- ALTER TABLE `reporte` 
+-- ALTER `fecha_corte` SET URDATE();
 
-ALTER TABLE `proyecto` 
-ALTER `fecha_inicio` SET DEFAULT CURDATE();
+-- ALTER TABLE `proyecto` 
+-- ALTER `fecha_inicio` SET URDATE();
 
-ALTER TABLE `registra` 
-ALTER `fecha` SET DEFAULT CURTIME();
+-- ALTER TABLE `registra` 
+-- ALTER `fecha` SET URTIME();
 
 -- Data insertion
 INSERT INTO `rol` (`id_rol`,`descripcion`) VALUES
@@ -107,7 +109,7 @@ INSERT INTO `empleado` (`id_empleado`,`nombre` ,`is_tiempo_completo`,`correo`,`s
 
 INSERT INTO `actividad` (`id_actividad`, `descripcion_actividad`) VALUES
 
-(1,'Diseño de proyecto Oasis'),
+(1,'Diseño de proyecto Oasis')
 
 -- (1,'2022-09-05',7,'Diseño de proyecto Oasis',1),
 -- (2,'2022-09-06',9,'Implementación de recursos',NULL),
@@ -131,10 +133,10 @@ INSERT INTO `actividad` (`id_actividad`, `descripcion_actividad`) VALUES
 -- (20,'2022-10-18',6,'Entrega de documentaciones del departamento',NULL);
 
 INSERT INTO `proyecto` (`id_proyecto`,`nombre_proyecto`,`descripcion_proyecto`,`fecha_inicio`,`tarea_proyecto`,`is_activo`) VALUES
-(1,'Oasis','Web app en react para fundación Oasis','2022-01-07'0,1),
-(2,'Altair','Web app en react para fundación Altair','2022-01-08'1,1),
-(3,'Pry','Web app en react para fundación Pry','2022-01-09'0,1),
-(4,'Pyro','Web app en react para fundación Pyro','2022-01-10'0,0);
+(1,'Oasis','Web app en react para fundación Oasis','2022-01-07',0,1),
+(2,'Altair','Web app en react para fundación Altair','2022-01-08',1,1),
+(3,'Pry','Web app en react para fundación Pry','2022-01-09',0,1),
+(4,'Pyro','Web app en react para fundación Pyro','2022-01-10',0,0);
 
 
 INSERT INTO `registra` (
@@ -170,18 +172,14 @@ INSERT INTO `registra` (
 
 
 INSERT INTO `reporte`(
-    `fecha`, 
-    `fecha_corte`, 
     `horas_tiempo_completo`,
     `horas_tiempo_medio`,
     `horas_vacaciones`,
+    `horas_trabajadas`,
     `coeficiente_efectividad`)
-    VALUES (
-        -- DEFAULT
-        '2022-10-18', CURTIME(), 7, 4, 0, 0.85);
+    VALUES (7, 4, 0, 385, 0.85);
 
 
--- TO DO!
 -- Llaves primarias 
 ALTER TABLE `empleado`
     ADD PRIMARY KEY (`correo`,`id_empleado`);
