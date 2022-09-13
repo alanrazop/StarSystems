@@ -2,6 +2,7 @@
       <!-- TABLE BEGINS HERE -->
       <div class="card">
         <div class="card-content">
+          <% for (let a of actividades) { %>
           <table class="table is-fullwidth">
             <thead>
               <tr>
@@ -15,6 +16,17 @@
             </thead>
             <tbody>
               <tr>
+                <td><%= a.nombre_proyecto %></td>
+                <td><%= a.descripcion_actividad %></td>
+                <td><%= a.num_horas %></td>
+                <td><%= a.nombre %></td>
+                <td><%= a.fecha %></td>
+                <td>
+                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                </td>
+              </tr>
+              <!-- <tr>
                 <td>Oasis</td>
                 <td>Implementación</td>
                 <td>2 hrs</td>
@@ -35,20 +47,10 @@
                   <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
                   <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
                 </td>
-              </tr>
-              <tr>
-                <td>Oasis</td>
-                <td>Implementación</td>
-                <td>2 hrs</td>
-                <td>Miguel Telles</td>
-                <td>06/09/22</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
+          <% } %>
         </div>
       </div>
       <!-- TABLE ENDS HERE -->
