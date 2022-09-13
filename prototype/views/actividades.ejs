@@ -1,7 +1,7 @@
 <%- include('partials/head.ejs'); -%>
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
-    
+
       <div class="columns">
         <div class="column">
           <div class="box">
@@ -34,6 +34,8 @@
         </div>
         
         <script>
+          newPageTitle = 'Tareas';
+          document.title = newPageTitle;
           document.addEventListener('DOMContentLoaded', () => {
           // Functions to open and close a modal
           function openModal($el) {
