@@ -12,7 +12,7 @@ router.get('/tareas', actController.getActividad);
 
 router.get('/proyectos', projectsController.getProyecto);
 
-router.get('/colaboradores', colabController.getColaborador);
+router.get('/colaboradores', colabController.getEmpleado);
 
 router.get('/reportes', reporteController.getReportes);
 
