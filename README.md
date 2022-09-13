@@ -10,6 +10,7 @@
 ## Medios de contacto
 
 - Félix Javier Rojas Gallardo |  A01201946@tec.mx
+- Monserrat Karime Moreno Casas  | A01276775@tec.mx
 
 ## Organizacion de la Branch
 
