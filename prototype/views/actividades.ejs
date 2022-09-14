@@ -140,7 +140,9 @@
                       <div class="select">
                         <select>
                           <option>Select dropdown</option>
-                          <option>With options</option>
+                          <% for (let e of empleados) { %>
+                            <option><%= e.nombre %></option>
+                            <% } %>
                         </select>
                       </div>
                   </div>
