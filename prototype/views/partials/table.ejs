@@ -2,7 +2,7 @@
       <!-- TABLE BEGINS HERE -->
       <div class="card">
         <div class="card-content">
-          <% for (let a of actividades) { %>
+          
           <table class="table is-fullwidth">
             <thead>
               <tr>
@@ -15,12 +15,14 @@
               </tr>
             </thead>
             <tbody>
+              <% for (let a of actividades) { %>
+              <% let array = String(a.fecha).split(" ")%>  
               <tr>
                 <td><%= a.nombre_proyecto %></td>
                 <td><%= a.descripcion_actividad %></td>
                 <td><%= a.num_horas %></td>
                 <td><%= a.nombre %></td>
-                <td><%= a.fecha %></td>
+                <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
                 <td>
                   <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
                   <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
@@ -48,9 +50,15 @@
                   <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
                 </td>
               </tr> -->
+              <% } %>
             </tbody>
           </table>
-          <% } %>
+          
         </div>
       </div>
+      <script>
+        
+        
+        
+      </script>
       <!-- TABLE ENDS HERE -->
