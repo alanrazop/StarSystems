@@ -1,8 +1,18 @@
 const db = require('../util/database');
 
 module.exports = class Actividades {
-    //constructor(){
-    // }
+    constructor(_descripcion, _proyecto, _duracion, _colab, _fecha){
+        this.descripcion = _descripcion;
+        this.proyecto = _proyecto;
+        this.duracion = _duracion;
+        this.colab = _colab;
+        this.fecha = _fecha;
+    }
+
+    save() {
+        return db.execute('INSERT INTO actividad (descripcion_actividad) VALUES (?); ', [this.nombre])
+    }
+
     static fetchAll() {
         return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado');
     }

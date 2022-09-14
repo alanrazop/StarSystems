@@ -110,9 +110,11 @@
                     <p class="control">
                       <div class="select">
                         <select>
-                          <option>Select dropdown</option>
-                          <option>With options</option>
+                          <% for (let e of actividades){ %>
+                          <option><%= e.nombre_proyecto %></option>
+                          <% } %>
                         </select>
+                        
                       </div>
                   </div>
                 </div>

@@ -1,3 +1,4 @@
+const { request } = require('http');
 const path = require('path');
 const Actividades = require('../models/actividades.model');
 
@@ -12,3 +13,7 @@ exports.getActividad = (request, response, next) => {
             console.log(error);
         });
 };
+
+exports.postActividad = (request, response, next) => {
+    const usuario = new Actividades()
+}
