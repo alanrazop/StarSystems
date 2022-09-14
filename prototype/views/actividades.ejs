@@ -111,7 +111,9 @@
                       <div class="select">
                         <select>
                           <option>Select dropdown</option>
-                          <option>With options</option>
+                          <% for (let p of proyectos) { %>
+                          <option><%= p.nombre_proyecto %></option>
+                          <% } %>
                         </select>
                       </div>
                   </div>
