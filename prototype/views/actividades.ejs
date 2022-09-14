@@ -110,8 +110,9 @@
                     <p class="control">
                       <div class="select">
                         <select>
-                          <% for (let e of actividades){ %>
-                          <option><%= e.nombre_proyecto %></option>
+                          <option>Select dropdown</option>
+                          <% for (let p of proyectos) { %>
+                          <option><%= p.nombre_proyecto %></option>
                           <% } %>
                         </select>
                         
@@ -140,7 +141,9 @@
                       <div class="select">
                         <select>
                           <option>Select dropdown</option>
-                          <option>With options</option>
+                          <% for (let e of empleados) { %>
+                            <option><%= e.nombre %></option>
+                            <% } %>
                         </select>
                       </div>
                   </div>
