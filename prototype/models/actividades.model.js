@@ -9,8 +9,15 @@ module.exports = class Actividades {
         this.fecha = _fecha;
     }
 
+
+    // VERIFICAR EL EL UTLIMO ID GUARDADO
     save() {
-        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [this.nombre])
+        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [this.nombre, this.proyecto])
+    }
+    // VERIFICAR EL EL UTLIMO ID GUARDADO
+    //GUARDAR LA ACTIVIDAD REGISTRADA
+    saveRegistra() {
+        return db.execute('INSERT INTO actividad (num_horas,id_proyecto) VALUES (?,?); ', [this.nombre, this.proyecto])
     }
 
     static fetchAll() {
