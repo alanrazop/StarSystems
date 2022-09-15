@@ -10,7 +10,7 @@ module.exports = class Actividades {
     }
 
     save() {
-        return db.execute('INSERT INTO actividad (descripcion_actividad) VALUES (?); ', [this.nombre])
+        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [this.nombre])
     }
 
     static fetchAll() {

@@ -24,9 +24,20 @@ exports.getActividad  = (request, response, next) => {
         }).catch(error =>{
             console.log(error);
         });
-       
     })
     .catch(err => console.log(err)); 
         
 }
 
+exports.postActividad = (request, response, next) => {
+
+    const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
+
+    NuevaActividad.save()
+        .then(() => {
+            response.redirect('/home/tareas');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
