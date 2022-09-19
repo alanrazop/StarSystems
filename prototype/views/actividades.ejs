@@ -78,6 +78,7 @@
             }
           });
         });
+
         </script>
 
 
@@ -113,10 +114,10 @@
                     <div class="field">
                       <p class="control">
                         <div class="select">
-                          <select name = "select_proyecto">
-                            <option>Select dropdown</option>
+                          <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
+                            <option  value = "" selected >Select dropdown</option>
                             <% for (let p of proyectos) { %>
-                            <option><%= p.nombre_proyecto %></option>
+                            <option value = "<%= p.nombre_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
                           </select>
                           
@@ -169,7 +170,7 @@
             <footer class="modal-card-foot">
               <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
               <button class="button">Cancelar</button>
-          </div>
+          </div>         
           </div>
           <button class="modal-close is-large" aria-label="close" ></button>
         </div>
