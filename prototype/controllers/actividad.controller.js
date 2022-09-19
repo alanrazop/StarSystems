@@ -8,7 +8,7 @@ const Empleados = require('../models/empleados.model');
 exports.getActividad  = (request, response, next) => {
     Actividades.fetchAll()
     .then(([rows, fieldData]) => {
-        Empleados.fetchAll()
+        Empleados.NombreEmpleado()
         .then(([empleados,fieldData]) =>{
             Proyectos.fetchAll()
             .then(([proyectos,fieldData]) =>{
