@@ -30,13 +30,15 @@ exports.getActividad  = (request, response, next) => {
 
 exports.postActividad = (request, response, next) => {
 
-    const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
+    console.log('pOST');
 
-    NuevaActividad.save()
-        .then(() => {
-            response.redirect('/home/tareas');
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
+
+    // NuevaActividad.save()
+    //     .then(() => {
+    //         response.redirect('/home/tareas');
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
 }

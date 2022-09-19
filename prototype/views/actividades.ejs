@@ -81,7 +81,7 @@
         </script>
 
 
-
+      <form id="formTareas" class="was-validated" action="/home/tareas" method="POST">
         <div id="modal-js-example" class="modal">
           <div class="modal-background"></div>
         
@@ -93,7 +93,7 @@
 
             <section class="modal-card-body">
               <!-- Content ... -->
-              <form id="formPeriodo" class="was-validated" action="/home/tareas" method="POST">
+
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
                     <label class="label">Descripción: </label>
@@ -169,9 +169,9 @@
             <footer class="modal-card-foot">
               <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
               <button class="button">Cancelar</button>
-            </footer>
           </div>
           </div>
           <button class="modal-close is-large" aria-label="close" ></button>
         </div>
+      </footer>  
         <%- include('partials/tail.ejs'); -%>
