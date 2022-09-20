@@ -33,6 +33,7 @@ exports.postActividad = (request, response, next) => {
     console.log('POST');
     console.log(request.body.descripcion);
     console.log(request.body.select_proyecto);
+    console.log(request.body.select_colaborador);
     console.log(request.body.fecha_act);
     // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
 
