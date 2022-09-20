@@ -4,10 +4,20 @@
         <div class="title"> Modificar horas de actividad</div>
         <form action="/home/edit" method="POST">
         <fieldset>
+            <label for="equipo">Agregar personas:</label>
+            <div class="select is-link">
+              <select>
+                <option disabled selected>Agregar</option>
+                <% for (let e of empleados) { %>
+                  <option><%= e.nombre %></option>
+                  <% } %>
+              </select>
+            </div>
+            <br>
             <label for="equipo">Horas registradas:</label>
             <div class="column is-half">
             <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" value="<%= actividades.num_horas.toFixed(2) %>" required>
+            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
             </div>    
         </fieldset>
         <br>

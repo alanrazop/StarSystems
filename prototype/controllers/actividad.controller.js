@@ -50,9 +50,17 @@ exports.postActividad = (request, response, next) => {
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
+            Empleados.NombreEmpleado()
+            .then(([empleados,fieldData]) => {
+                console.log(empleados);
                 response.render(path.join('modAct.ejs'), {
-                    actividades: rows[0]
+                    actividades: rows[0],
+                    empleados: empleados,
                 });
+            })
+            .catch(err => {
+                console.log(err);
+            })
         })
         .catch(err => {
             console.log(err);
