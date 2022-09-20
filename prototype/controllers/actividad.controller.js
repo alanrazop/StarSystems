@@ -37,6 +37,29 @@ exports.postActividad = (request, response, next) => {
     console.log(request.body.input_horas);
     console.log(request.body.select_colaborador);
     console.log(request.body.fecha_act);
+
+    
+    // //console.log(id_proyecto);
+    // Proyectos.idProyecto(nombre_proyecto );
+    // console.log(Proyectos.idProyecto(nombre_proyecto ));
+    
+    let nombre_proyecto = request.body.select_proyecto;
+    console.log(nombre_proyecto);
+    
+    Proyectos.idProyecto(request.body.select_proyecto)
+        .then(([proyectos,fieldData]) => {
+            console.log(fieldData);
+            console.log(proyectos);
+            console.log(Proyectos.idProyecto(nombre_proyecto));   
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    // console.log(Proyectos.idProyecto(id_proyecto));
+
+
+
     // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
 
     // NuevaActividad.save()
@@ -63,7 +86,6 @@ exports.getEditAct = (request, response, next) => {
 exports.postEditAct = (request, response, next) => {
     
     Actividades.fetchOne(request.body.id)
-    
     .then(([rows, fieldData]) => {
         let horas = request.body.num_horas;
         console.log(horas);
