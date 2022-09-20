@@ -60,9 +60,13 @@ exports.getEditAct = (request, response, next) => {
 };
 
 exports.postEditAct = (request, response, next) => {
+    
     Actividades.fetchOne(request.body.id)
+    
     .then(([rows, fieldData]) => {
-        rows[0].num_horas = request.body.num_horas;
+        let horas = request.body.num_horas;
+        console.log(horas);
+        rows[0].num_horas = horas;
         console.log(rows[0]);
         Actividades.saveEdit(rows[0])
             .then(() => {

@@ -7,7 +7,7 @@
             <label for="equipo">Horas registradas:</label>
             <div class="column is-half">
             <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any"  value="<%= actividades.num_horas %>" required>
+            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" value="<%= actividades.num_horas.toFixed(2) %>" required>
             </div>    
         </fieldset>
         <br>
