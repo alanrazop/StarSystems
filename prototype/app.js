@@ -21,7 +21,6 @@ const rutas_natdev = require("./routes/natdev.routes");
 app.use('/home', rutas_natdev);
 
 app.use((request, response, next) => {
-    console.log('Middleware!');
     response.status(404).send('¡Error 404! El recurso solicitado no existe'); //Manda la respuesta
 });
 

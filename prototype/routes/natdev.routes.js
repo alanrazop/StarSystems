@@ -10,9 +10,18 @@ const router = express.Router();
 // Route handling
 router.get('/tareas', actController.getActividad);
 
+router.post('/tareas', actController.postActividad);
+
+router.get('/edit/:id', actController.getEditAct);
+
+router.post('/edit', actController.postEditAct);
+
+
+
+
 router.get('/proyectos', projectsController.getProyecto);
 
-router.get('/colaboradores', colabController.getColaborador);
+router.get('/colaboradores', colabController.getEmpleado);
 
 router.get('/reportes', reporteController.getReportes);
 
