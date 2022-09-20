@@ -23,8 +23,9 @@
                 <td><%= a.nombre %></td>
                 <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
                 <td>
-                  <a class="button is-dark is-inverted js-modal-trigger" data-target="runEditModal<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                  <a class="button is-dark is-inverted js-modal-trigger" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
                   <!-- EDIT ACTIVITY MODAL BEGINS HERE -->
+                  
                   <div id="runEditModal<%= a.id_actividad %>" class="modal">
                     <div class="modal-background"></div>
                 
@@ -60,6 +61,7 @@
                             </div>
                           </div>
                         </div>
+                        <form action="/home/tareas/edit" method="POST">
                         <div class="field is-horizontal">
                           <div class="field-label is-normal">
                             <label class="label">Horas: </label>
@@ -67,7 +69,10 @@
                           <div class="field-body">
                             <div class="field">
                               <p class="control">
-                                <input class="input is-dark has-background-warning" type="number" placeholder="<%= a.num_horas %>">
+                                
+                                  <input id="id" name="id" type="hidden">
+                                  <input class="input is-dark has-background-warning" type="number" placeholder="<%= a.num_horas %>">
+                              
                             </div>
                           </div>
                         </div>
@@ -84,7 +89,7 @@
                         </div>
                         </section>
                         <footer class="modal-card-foot">
-                          <button type="submit" class="button is-success">Guardar cambios</button>
+                          <input type="submit" class="button is-success" value="Guardar cambios">
                           <button class="button">Cancelar</button>
                         </footer>
                       </div>

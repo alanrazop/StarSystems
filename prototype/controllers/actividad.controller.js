@@ -2,6 +2,7 @@ const path = require('path');
 const Actividades = require('../models/actividades.model');
 const Proyectos = require('../models/proyectos.model');
 const Empleados = require('../models/empleados.model');
+const { request } = require('http');
 
 
 
@@ -45,3 +46,33 @@ exports.postActividad = (request, response, next) => {
     //         console.log(err);
     //     });
 }
+
+exports.getEditAct = (request, response, next) => {
+    Actividades.fetchOne(request.params.id)
+        .then(([rows, fieldData]) => {
+                response.render(path.join('modAct.ejs'), {
+                    actividades: rows[0]
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        }) 
+};
+
+exports.postEditAct = (request, response, next) => {
+    Actividades.fetchOne(request.body.id)
+    .then(([rows, fieldData]) => {
+        rows[0].num_horas = request.body.num_horas;
+        console.log(rows[0]);
+        Actividades.saveEdit(rows[0])
+            .then(() => {
+                response.redirect('/home/tareas');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    })
+    .catch(err => {
+    console.log(err);
+});
+};
