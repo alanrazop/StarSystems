@@ -41,4 +41,5 @@ module.exports = class Reporte{
     static buscaReporte(u_fecha) {
         return db.execute('SELECT fecha_corte FROM reporte WHERE fecha_corte LIKE ?', ['%'+u_fecha+'%']);
     }
+
 }
