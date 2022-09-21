@@ -1,8 +1,8 @@
 <%- include('partials/head.ejs'); -%>
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
-
-      <div class="columns">
+    
+    <div class="columns">
         <div class="column">
           <div class="box">
             <div class="content">
@@ -89,29 +89,31 @@
                 </div>
               </div>
 
+              <%- include('partials/er-table.ejs'); -%>
+<!-- 
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child">
                   <table class="table is-bordered is-striped is-narrow is-hoverable">
                     <tbody>
                       <tr>
                         <th>Coeficiente</th>
-                        <td><input class="input" type="text" placeholder=".85"></td>
+                        <td><input class="input" type="text" name="coeficiente" placeholder=".85"></td>
                       </tr>
                       <tr>
                         <th>Vacaciones TM</th>
-                        <td><input class="input" type="text" placeholder="12"></td>
+                        <td><input class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
                       </tr>
                       <tr>
                         <th>Vacaciones TC</th>
-                        <td><input class="input" type="text" placeholder="5"></td>
+                        <td><input class="input" type="text" name="vacaciones_tc" placeholder="5"></td>
                       </tr>
                       <tr>
                         <th>NGblock TM</th>
-                        <td><input class="input" type="text" placeholder="8"></td>
+                        <td><input class="input" type="text" name="ngblock_tm" placeholder="8"></td>
                       </tr>
                       <tr>
                         <th>NGblock TC</th>
-                        <td><input class="input" type="text" placeholder="5"></td>
+                        <td><input class="input" type="text" name="ngblock_tc" placeholder="5"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -138,7 +140,8 @@
                     </tbody>
                   </table>
                 </article>
-              </div>
+              </div> -->
+
             </div>
           </div>
         </div>
