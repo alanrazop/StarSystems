@@ -11,8 +11,8 @@ module.exports = class Actividades {
 
 
     // VERIFICAR EL EL UTLIMO ID GUARDADO
-    save() {
-        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [this.nombre, this.proyecto])
+    static save(actividad) {
+        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [actividad.descripcion, actividad.proyecto])
     }
     // VERIFICAR EL EL UTLIMO ID GUARDADO
     //GUARDAR LA ACTIVIDAD REGISTRADA

@@ -43,32 +43,33 @@ exports.postActividad = (request, response, next) => {
     // Proyectos.idProyecto(nombre_proyecto );
     // console.log(Proyectos.idProyecto(nombre_proyecto ));
     
-    let nombre_proyecto = request.body.select_proyecto;
-    console.log(nombre_proyecto);
+    // let nombre_proyecto = request.body.select_proyecto;
+    // console.log(nombre_proyecto);
     
-    Proyectos.idProyecto(request.body.select_proyecto)
-        .then(([proyectos,fieldData]) => {
-            console.log(fieldData);
-            console.log(proyectos);
-            console.log(Proyectos.idProyecto(nombre_proyecto));   
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    // Proyectos.idProyecto(request.body.select_proyecto)
+    //     .then(([proyectos,fieldData]) => {
+    //         console.log( fieldData);
+    //         console.log( proyectos);
+    //         console.log(Proyectos.idProyecto(nombre_proyecto));   
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
 
     // console.log(Proyectos.idProyecto(id_proyecto));
 
 
 
-    // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
+    const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyecto);
+    console.log(NuevaActividad);
 
-    // NuevaActividad.save()
-    //     .then(() => {
-    //         response.redirect('/home/tareas');   
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     });
+    Actividades.save(NuevaActividad)
+        .then(() => {
+            response.redirect('/home/tareas');   
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 exports.getEditAct = (request, response, next) => {
@@ -111,3 +112,4 @@ exports.postEditAct = (request, response, next) => {
     console.log(err);
 });
 };
+
