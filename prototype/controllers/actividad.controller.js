@@ -29,7 +29,7 @@ exports.getActividad  = (request, response, next) => {
         
 }
 
-exports.postActividad = (request, response, next) => {
+exports.postActividad =  (request, response, next) => {
 
     console.log('POST');
     console.log(request.body.descripcion);
@@ -38,38 +38,34 @@ exports.postActividad = (request, response, next) => {
     console.log(request.body.select_colaborador);
     console.log(request.body.fecha_act);
 
-    
-    // //console.log(id_proyecto);
-    // Proyectos.idProyecto(nombre_proyecto );
-    // console.log(Proyectos.idProyecto(nombre_proyecto ));
-    
-    // let nombre_proyecto = request.body.select_proyecto;
-    // console.log(nombre_proyecto);
-    
-    // Proyectos.idProyecto(request.body.select_proyecto)
-    //     .then(([proyectos,fieldData]) => {
-    //         console.log( fieldData);
-    //         console.log( proyectos);
-    //         console.log(Proyectos.idProyecto(nombre_proyecto));   
+    // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyecto);
+    // console.log(NuevaActividad);
+
+    const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas,request.body.select_colaborador,request.body.fecha_act);
+    console.log(NuevoRegistro);
+
+
+    // Actividades.save(NuevoRegistro)
+    //     .then(() => {
+    //         Actividades.saveRegistra(NuevoRegistro)
+    //         .then(() => {
+    //             response.redirect('/home/tareas'); 
+                
+    //         }).catch(error => {
+    //             console.log(error);
+    //         });
+    //     }).catch(error =>{
+    //         console.log(error);
+    //     });
+
+
+    // Actividades.save(NuevoRegistro)
+    //     .then(() => {
+    //         response.redirect('/home/tareas');   
     //     })
     //     .catch(err => {
     //         console.log(err);
     //     });
-
-    // console.log(Proyectos.idProyecto(id_proyecto));
-
-
-
-    const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyecto);
-    console.log(NuevaActividad);
-
-    Actividades.save(NuevaActividad)
-        .then(() => {
-            response.redirect('/home/tareas');   
-        })
-        .catch(err => {
-            console.log(err);
-        });
 }
 
 exports.getEditAct = (request, response, next) => {

@@ -16,8 +16,8 @@ module.exports = class Actividades {
     }
     // VERIFICAR EL EL UTLIMO ID GUARDADO
     //GUARDAR LA ACTIVIDAD REGISTRADA
-    saveRegistra() {
-        return db.execute('INSERT INTO actividad (num_horas,id_proyecto) VALUES (?,?); ', [this.nombre, this.proyecto])
+    static saveRegistra(actividad) {
+        return db.execute('INSERT INTO actividad (num_horas, id_actividad, id_empleado, fecha) VALUES (?,?); ', [actividad.nombre, actividad.proyecto])
     }
 
     static saveEdit(actividad) {

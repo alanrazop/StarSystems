@@ -8,7 +8,7 @@ module.exports = class Empleados {
     }
 
     static NombreEmpleado(){
-        return db.execute('SELECT DISTINCT nombre FROM empleado e, rol r WHERE e.id_rol = r.id_rol');
+        return db.execute('SELECT  * FROM empleado e, rol r WHERE e.id_rol = r.id_rol');
     }
 
     // static NombreEmpleadoRegistrables(empleadoSolicitante){
