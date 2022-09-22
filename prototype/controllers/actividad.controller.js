@@ -2,7 +2,6 @@ const path = require('path');
 const Actividades = require('../models/actividades.model');
 const Proyectos = require('../models/proyectos.model');
 const Empleados = require('../models/empleados.model');
-const { request } = require('http');
 
 
 
@@ -37,6 +36,29 @@ exports.postActividad = (request, response, next) => {
     console.log(request.body.input_horas);
     console.log(request.body.select_colaborador);
     console.log(request.body.fecha_act);
+
+    
+    // //console.log(id_proyecto);
+    // Proyectos.idProyecto(nombre_proyecto );
+    // console.log(Proyectos.idProyecto(nombre_proyecto ));
+    
+    let nombre_proyecto = request.body.select_proyecto;
+    console.log(nombre_proyecto);
+    
+    Proyectos.idProyecto(request.body.select_proyecto)
+        .then(([proyectos,fieldData]) => {
+            console.log(fieldData);
+            console.log(proyectos);
+            console.log(Proyectos.idProyecto(nombre_proyecto));   
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    // console.log(Proyectos.idProyecto(id_proyecto));
+
+
+
     // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyectos,request.body.fecha_act );
 
     // NuevaActividad.save()
@@ -51,9 +73,17 @@ exports.postActividad = (request, response, next) => {
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
+            Empleados.NombreEmpleado()
+            .then(([empleados,fieldData]) => {
+                console.log(empleados);
                 response.render(path.join('modAct.ejs'), {
-                    actividades: rows[0]
+                    actividades: rows[0],
+                    empleados: empleados,
                 });
+            })
+            .catch(err => {
+                console.log(err);
+            })
         })
         .catch(err => {
             console.log(err);
@@ -63,7 +93,6 @@ exports.getEditAct = (request, response, next) => {
 exports.postEditAct = (request, response, next) => {
     
     Actividades.fetchOne(request.body.id)
-    
     .then(([rows, fieldData]) => {
         let horas = request.body.num_horas;
         console.log(horas);
@@ -80,4 +109,18 @@ exports.postEditAct = (request, response, next) => {
     .catch(err => {
     console.log(err);
 });
+};
+
+exports.postDeleteAct = (request, response, next) => {
+    Actividades.fetchOne(request.body.id)
+        .then(([rows, fieldData]) => {
+            Actividades.deleteOne(rows[0])
+                .then(() => {
+                    response.redirect('/home/tareas');
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+        .catch(err => {console.log(err);});
 };

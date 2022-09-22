@@ -14,8 +14,8 @@ module.exports = class Proyectos{
         return db.execute('SELECT * FROM proyecto');
     }
 
-    idProyecto(nombre_proyecto) {
-        return db.execute('SELECT id_proyecto FROM proyecto WHERE nombre_proyecto = ?');
+    static idProyecto(nombre_proyecto) {
+        return db.execute('SELECT id_proyecto FROM proyecto WHERE nombre_proyecto = ?', [nombre_proyecto]) ;
         
     }
 

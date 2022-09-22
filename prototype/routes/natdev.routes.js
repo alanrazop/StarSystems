@@ -16,6 +16,8 @@ router.get('/edit/:id', actController.getEditAct);
 
 router.post('/edit', actController.postEditAct);
 
+router.post('/delete', actController.postDeleteAct);
+
 
 
 
