@@ -2,7 +2,6 @@ const path = require('path');
 const Actividades = require('../models/actividades.model');
 const Proyectos = require('../models/proyectos.model');
 const Empleados = require('../models/empleados.model');
-const { request } = require('http');
 
 
 
@@ -110,4 +109,18 @@ exports.postEditAct = (request, response, next) => {
     .catch(err => {
     console.log(err);
 });
+};
+
+exports.postDeleteAct = (request, response, next) => {
+    Actividades.fetchOne(request.body.id)
+        .then(([rows, fieldData]) => {
+            Actividades.deleteOne(rows[0])
+                .then(() => {
+                    response.redirect('/home/tareas');
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+        .catch(err => {console.log(err);});
 };

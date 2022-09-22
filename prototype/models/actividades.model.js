@@ -32,6 +32,10 @@ module.exports = class Actividades {
         return db.execute('SELECT * FROM registra WHERE id_actividad = ?', [id]);
     }
 
+    static deleteOne(id) {
+        return db.execute('CALL eliminar_actividad(?)', [id]);
+    }
+
     // static fetchVerProyectoAct() {
     //     return db.execute('SELECT * FROM actividad a, proyecto p WHERE a.id_proyecto = p.id_proyecto');
     // }

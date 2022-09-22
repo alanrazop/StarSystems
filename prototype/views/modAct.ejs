@@ -4,8 +4,8 @@
         <div class="title"> Modificar horas de actividad</div>
         <form action="/home/edit" method="POST">
         <fieldset>
-            <label for="equipo">Agregar personas:</label>
-            <div class="select is-link">
+            <label class="label" for="equipo">Agregar personas: </label>
+            <div class="select">
               <select>
                 <option disabled selected>Agregar</option>
                 <% for (let e of empleados) { %>
@@ -13,15 +13,23 @@
                   <% } %>
               </select>
             </div>
-            <br>
-            <label for="equipo">Horas registradas:</label>
-            <div class="column is-half">
-            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
-            </div>    
+            <br><br>
+            
+              <label class="label" for="equipo">Horas registradas:</label>
+              <div class="column is-half">
+              <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
+              <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
+              </div>
         </fieldset>
-        <br>
         <input type="submit" class="button is-primary" value="Guardar cambios">
+        <button class="button" href="/home/tareas">Cancelar</button>
         </form>
+        <br><br>
+        <form action="/home/delete" method="POST"></form>
+          <label class="label">Eliminar:</label>
+          <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
+          <button class="button is-danger" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
+        </form> 
+        
 
         <%- include('partials/tail.ejs'); -%>
