@@ -17,7 +17,7 @@ module.exports = class Actividades {
     // VERIFICAR EL EL UTLIMO ID GUARDADO
     //GUARDAR LA ACTIVIDAD REGISTRADA
     static saveRegistra(actividad) {
-        return db.execute('INSERT INTO registra (num_horas, id_actividad, id_empleado, fecha) VALUES (?,?); ', [actividad.nombre, actividad.proyecto])
+        return db.execute('CALL agregar_actividad (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha])
     }
 
     static saveEdit(actividad) {

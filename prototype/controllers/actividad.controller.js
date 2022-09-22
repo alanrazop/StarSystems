@@ -44,6 +44,15 @@ exports.postActividad =  (request, response, next) => {
     const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas,request.body.select_colaborador,request.body.fecha_act);
     console.log(NuevoRegistro);
 
+    Actividades.saveRegistra(NuevoRegistro)
+    .then(() => {
+        response.redirect('/home/tareas');   
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+
 
     // Actividades.save(NuevoRegistro)
     //     .then(() => {
