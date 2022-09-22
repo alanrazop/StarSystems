@@ -33,7 +33,7 @@ module.exports = class Actividades {
     }
 
     static deleteOne(id) {
-        return db.execute('CALL eliminar_actividad(?)', [id]);
+        return db.execute('CALL eliminar_actividad (?)', [id.id_actividad]);
     }
 
     // static fetchVerProyectoAct() {
