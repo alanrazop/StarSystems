@@ -58,7 +58,7 @@ exports.postActividad =  (request, response, next) => {
     //         console.log(error);
     //     });
 
-
+    //ESTE SI FUNCIONA --------------------------
     // Actividades.save(NuevoRegistro)
     //     .then(() => {
     //         response.redirect('/home/tareas');   
