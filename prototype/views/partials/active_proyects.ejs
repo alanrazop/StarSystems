@@ -12,8 +12,9 @@
                 </thead>
                 <tbody>
                    
-                    <% for (var pa of proyectosA) { %>
-                   
+                  <% var total = 0 %>
+                  <% for (let pa of proyectosA) { %>
+                    <% total += pa.total_horas %>
                     <tr>
                       <td><%=  pa.nombre_proyecto%></td>
                       <td><%=  pa.total_horas%></td>
@@ -21,13 +22,12 @@
                     <% } %>
                 </tbody>
 
-                <!-- <tfoot>
+                <tfoot>
                   <tr>
                     <th>Total</th>
-                    <td>50</td>
-                    <td>70</td>
+                    <td><%- total %> </td>
                   </tr>
-                </tfoot> -->
+                </tfoot>
               </table>
             </article>
           </div>
