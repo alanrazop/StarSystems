@@ -12,12 +12,15 @@ app.set('views', 'views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+//manipular fácilmente las peticiones que llegan en formato JSON
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     res.render("index.ejs", { foo: "FOO" });
 });
 
 const rutas_natdev = require("./routes/natdev.routes");
+
 app.use('/home', rutas_natdev);
 
 app.use((request, response, next) => {
