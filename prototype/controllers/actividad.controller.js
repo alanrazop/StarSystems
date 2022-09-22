@@ -38,8 +38,7 @@ exports.postActividad =  (request, response, next) => {
     console.log(request.body.select_colaborador);
     console.log(request.body.fecha_act);
 
-    // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyecto);
-    // console.log(NuevaActividad);
+
 
     const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas,request.body.select_colaborador,request.body.fecha_act);
     console.log(NuevoRegistro);
@@ -53,28 +52,6 @@ exports.postActividad =  (request, response, next) => {
     });
 
 
-
-    // Actividades.save(NuevoRegistro)
-    //     .then(() => {
-    //         Actividades.saveRegistra(NuevoRegistro)
-    //         .then(() => {
-    //             response.redirect('/home/tareas'); 
-                
-    //         }).catch(error => {
-    //             console.log(error);
-    //         });
-    //     }).catch(error =>{
-    //         console.log(error);
-    //     });
-
-    //ESTE SI FUNCIONA --------------------------
-    // Actividades.save(NuevoRegistro)
-    //     .then(() => {
-    //         response.redirect('/home/tareas');   
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     });
 }
 
 exports.getEditAct = (request, response, next) => {
