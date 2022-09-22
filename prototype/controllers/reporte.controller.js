@@ -12,11 +12,11 @@ exports.getReportes = (request, response, next) => {
   
         response.render(path.join('reportes.ejs'), {
             proyectosA:  row[0],
-            // horas_vacaciones: rows[0].horas_vacaciones,
-            // horas_trabajadas: rows[0].horas_trabajadas,
-            // horas_tiempo_completo: rows[0].horas_tiempo_completo,
-            // horas_tiempo_medio: rows[0].horas_tiempo_medio,
-            // coeficiente_efectividad: rows[0].coeficiente_efectividad           
+            horas_vacaciones: rows[0].horas_vacaciones,
+            horas_trabajadas: rows[0].horas_trabajadas,
+            horas_tiempo_completo: rows[0].horas_tiempo_completo,
+            horas_tiempo_medio: rows[0].horas_tiempo_medio,
+            coeficiente_efectividad: rows[0].coeficiente_efectividad           
         })})
     .catch(err => console.log(err));
 }) 

@@ -6,13 +6,14 @@
               <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                 <thead>
                   <tr>
-                    <th>nombre_proyecto</th>
-                    <th>total_horas</th>
+                    <th>Nombre del Proyecto</th>
+                    <th>Total de Horas</th>
                   </tr>
                 </thead>
                 <tbody>
-                    
+                   
                     <% for (var pa of proyectosA) { %>
+                   
                     <tr>
                       <td><%=  pa.nombre_proyecto%></td>
                       <td><%=  pa.total_horas%></td>
@@ -20,13 +21,13 @@
                     <% } %>
                 </tbody>
 
-                <tfoot>
+                <!-- <tfoot>
                   <tr>
                     <th>Total</th>
                     <td>50</td>
                     <td>70</td>
                   </tr>
-                </tfoot>
+                </tfoot> -->
               </table>
             </article>
           </div>
