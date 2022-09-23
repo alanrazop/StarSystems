@@ -11,13 +11,13 @@ module.exports = class Actividades {
 
 
     // VERIFICAR EL EL UTLIMO ID GUARDADO
-    save() {
-        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [this.nombre, this.proyecto])
+    static save(actividad) {
+        return db.execute('INSERT INTO actividad (descripcion_actividad,id_proyecto) VALUES (?,?); ', [actividad.descripcion, actividad.proyecto])
     }
     // VERIFICAR EL EL UTLIMO ID GUARDADO
     //GUARDAR LA ACTIVIDAD REGISTRADA
-    saveRegistra() {
-        return db.execute('INSERT INTO actividad (num_horas,id_proyecto) VALUES (?,?); ', [this.nombre, this.proyecto])
+    static saveRegistra(actividad) {
+        return db.execute('CALL agregar_actividad (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha])
     }
 
     static saveEdit(actividad) {
@@ -30,6 +30,10 @@ module.exports = class Actividades {
 
     static fetchOne(id) {
         return db.execute('SELECT * FROM registra WHERE id_actividad = ?', [id]);
+    }
+
+    static deleteOne(id) {
+        return db.execute('CALL eliminar_actividad (?)', [id.id_actividad]);
     }
 
     // static fetchVerProyectoAct() {

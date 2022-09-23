@@ -16,7 +16,7 @@ router.get('/edit/:id', actController.getEditAct);
 
 router.post('/edit', actController.postEditAct);
 
-
+router.post('/delete', actController.postDeleteAct);
 
 
 router.get('/proyectos', projectsController.getProyecto);
@@ -24,5 +24,7 @@ router.get('/proyectos', projectsController.getProyecto);
 router.get('/colaboradores', colabController.getEmpleado);
 
 router.get('/reportes', reporteController.getReportes);
+
+router.get('/colaboradores/buscar/:valor', colabController.getBuscarColab);
 
 module.exports = router;

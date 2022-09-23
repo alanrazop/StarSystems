@@ -117,7 +117,7 @@
                           <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
                             <option  value = "" selected >Select dropdown</option>
                             <% for (let p of proyectos) { %>
-                            <option value = "<%= p.nombre_proyecto %>"> <%= p.nombre_proyecto %></option>
+                            <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
                           </select>
                           
@@ -148,7 +148,7 @@
                           <select name = "select_colaborador">
                             <option value = "" selected>Select dropdown</option>
                             <% for (let e of empleados) { %>
-                              <option><%= e.nombre %></option>
+                              <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
                               <% } %>
                           </select>
                         </div>
