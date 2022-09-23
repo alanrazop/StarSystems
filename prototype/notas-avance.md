@@ -53,9 +53,27 @@ Reportar todo lo que hacemos para tanto nosotros como los interesados
 
 **Hacer todo lo que no queremos hacer pero que beneficia al equipo y su comunicación**
 
-### Acciones
+# Acciones
 
 - Formalizar las acciones con cambios específicos en los commits
 - Mostrar ingeniería de los casos de uso
 - Documentar todo lo que hacemos
 - Codificar -> Probar -> Mostrar a Socio -> Corregir
+
+## Recomendaciones para nuestro proyecto
+
+- Rango de fechas
+- Log de casos de prueba:
+	- La documentación se hace para cualquier otro, no para tí. Realizar ese log ayuda como herramienta para el futuro.
+- Avance general del proyecto
+- Elaborar una tabla de estado del proyecto
+
+## Dudas del sistema
+
+- Mostrar tareas con filtro
+- El debugging tener en cuenta los flujos alternos
+- Al crear tarea, filtrar lo de los proyectos activos. Utilizar la búsqueda con queries de la tarea
+- Hay muchas actividades y tareas al mismo tiempo
+- Buscar por palabra que hacen match
+- Si el proyecto ya tiene una tarea asignada, asegurarse que no cascadee, usar borrados lógicos
+
