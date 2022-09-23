@@ -1,0 +1,37 @@
+
+      <div class="tile is-vertical">
+        <div class="tile">
+          <div class="tile is-parent is-vertical">
+            <article class="tile is-child">
+              <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Nombre del Proyecto</th>
+                    <th>Total de Horas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   
+                  <% let total = 0 %>
+                  <% for (let pa of proyectosA) { %>
+                    <% total += pa.total_horas %>
+                    <tr>
+                      <td><%=  pa.nombre_proyecto%></td>
+                      <td><%=  pa.total_horas%></td>
+                    </tr>        
+                    <% } %>
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    <th>Total</th>
+                    <td><%- total %> </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </article>
+          </div>
+        </div>
+      </div>
+
+ 

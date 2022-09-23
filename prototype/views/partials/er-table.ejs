@@ -1,0 +1,50 @@
+              <div class="tile is-parent is-vertical">
+                <article class="tile is-child">
+                  <table class="table is-bordered is-striped is-narrow is-hoverable">
+                    <tbody>
+                      <tr>
+                        <th>Coeficiente</th>
+                        <td><input class="input" value=<%=coeficiente_efectividad.toFixed(2)%> type="text" name="coeficiente" placeholder=".85"></td>
+                      </tr>
+                      <tr>
+                        <th>Vacaciones TM</th>
+                        <td><input class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
+                      </tr>
+                      <tr>
+                        <th>Vacaciones TC</th>
+                        <td><input class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc" placeholder="5"></td>
+                      </tr>
+                      <tr>
+                        <th>NGblock TM</th>
+                        <td><input class="input" value="0" type="text" name="ngblock_tm" placeholder="8"></td>
+                      </tr>
+                      <tr>
+                        <th>NGblock TC</th>
+                        <td><input class="input" value="0" type="text" name="ngblock_tc" placeholder="5"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </article>
+                <article class="tile is-child">
+                  <table class="table is-bordered is-striped is-narrow is-hoverable">
+                    <tbody>
+                      <tr>
+                        <th>Horas capacidad</th>
+                        <td><input class="input" name="horas_capacidad" type="text" readonly></td>
+                      </tr>
+                      <tr>
+                        <th>Horas ajustadas</th>
+                        <td><input class="input" name="horas_ajustadas" value=<%=horas_trabajadas%> type="text" readonly></td>
+                      </tr>
+                      <tr>
+                        <th>Efectividad</th>
+                        <td><input class="input" name="efectividad" type="text" readonly></td>
+                      </tr>
+                      <tr>
+                        <th>Capacidad ajustada</th>
+                        <td><input class="input" name="capacidad_ajustada" type="text" readonly></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </article>
+              </div>

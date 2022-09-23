@@ -78,8 +78,11 @@
             }
           });
         });
+
         </script>
 
+
+      <form id="formTareas" class="was-validated" action="/home/tareas" method="POST">
         <div id="modal-js-example" class="modal">
           <div class="modal-background"></div>
         
@@ -88,80 +91,89 @@
               <p class="modal-card-title">Agregar tarea</p>
               <button class="delete" aria-label="close"></button>
             </header>
+
             <section class="modal-card-body">
               <!-- Content ... -->
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Descripción: </label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                      <textarea name="descripcion" class="textarea" placeholder="Describe la actividad que realizaste"></textarea>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Descripción: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <textarea name="descripcion" class="textarea" placeholder="Describe la actividad que realizaste"></textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Proyecto: </label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                      <div class="select">
-                        <select>
-                          <option>Select dropdown</option>
-                          <option>With options</option>
-                        </select>
-                      </div>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Proyecto: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <div class="select">
+                          <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
+                            <option  value = "" selected >Select dropdown</option>
+                            <% for (let p of proyectos) { %>
+                            <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
+                            <% } %>
+                          </select>
+                          
+                        </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Horas: </label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                      <input class="input" type="number" placeholder="">
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Horas: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <input class="input" id = "input_horas" name = "input_horas" type="number" placeholder="">
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Colaboradores: </label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                      <div class="select">
-                        <select>
-                          <option>Select dropdown</option>
-                          <option>With options</option>
-                        </select>
-                      </div>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Colaboradores: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <div class="select">
+                          <select name = "select_colaborador">
+                            <option value = "" selected>Select dropdown</option>
+                            <% for (let e of empleados) { %>
+                              <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
+                              <% } %>
+                          </select>
+                        </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Fecha: </label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                    <input class="input" type="date" id="fecha_act" name="fecha_act">
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Fecha: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                      <input class="input" type="date" id="fecha_act" name="fecha_act">
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </section>
             <footer class="modal-card-foot">
-              <button class="button is-success">Guardar tarea</button>
+              <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
               <button class="button">Cancelar</button>
-            </footer>
+          </div>         
           </div>
-          </div>
-          <button class="modal-close is-large" aria-label="close"></button>
+          <button class="modal-close is-large" aria-label="close" ></button>
         </div>
+      </footer>  
         <%- include('partials/tail.ejs'); -%>
