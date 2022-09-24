@@ -4,7 +4,38 @@
     <!------------==                         TOP NAVBAR BEGINS                         ==------------>
     <div class="content">
         <h1 class="is-size-1" style="text-align: center;">Bienvenido al portal de proyectos</h1>
-        <h2>Recuerda Registrar tus horas</h2>
+        <h5 style="text-align: center;">Desarrollado por Star Systems</h5>
+        <% for (e of imagenes) { %>
+        <img src="<% if (e.archivo) { %>
+          <%= e.archivo %>
+          <% } else { %>
+            https://blogs.iadb.org/conocimiento-abierto/wp-content/uploads/sites/10/2019/12/banner-lecciones-aprendidas-proyectos-desarrollo-2019.jpg
+          <% } %>">
+        <% }%>
+        <span>Cambia el fondo de pantalla: </span>
+        <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
+        <div id="file-js-example" class="file has-name is-info is-small">
+          <label class="file-label">
+            <input class="file-input" type="file" name="archivo">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Cargar archivo
+              </span>
+            </span>
+            <span class="file-name">
+              Sin archivos seleccionados
+            </span>
+          </label>
+        </div>
+        <br>
+        <input class="button" type="submit" name="enviar" value="Guardar imagen">
+      </form>
+        
+        
+        <h2>Recuerda registrar tus horas</h2>
         <p>Nadie quiere trabajar<strong> tiempo extra</strong>, por lo que cuando tengas oportunidad agrega tus horas en las areas correspondientes</p>
 
         <h3>Third level</h3>
@@ -88,4 +119,13 @@
         <p>Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus.</p>
       </div>
     <!------------==                         TOP NAVBAR ENDS                         ==------------>
+    <script>
+      const fileInput = document.querySelector('#file-js-example input[type=file]');
+      fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+          const fileName = document.querySelector('#file-js-example .file-name');
+          fileName.textContent = fileInput.files[0].name;
+        }
+      }
+    </script>
     <%- include('partials/tail.ejs'); -%>
