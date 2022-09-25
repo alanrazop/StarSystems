@@ -12,11 +12,11 @@
             https://blogs.iadb.org/conocimiento-abierto/wp-content/uploads/sites/10/2019/12/banner-lecciones-aprendidas-proyectos-desarrollo-2019.jpg
           <% } %>">
         <% }%>
-        <span>Cambia el fondo de pantalla: </span>
+        <div>Cambia el fondo de pantalla: </div>
         <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
         <div id="file-js-example" class="file has-name is-info is-small">
           <label class="file-label">
-            <input class="file-input" type="file" name="archivo">
+            <input class="file-input" type="file" name="archivo" required>
             <span class="file-cta">
               <span class="file-icon">
                 <i class="fas fa-upload"></i>
@@ -31,7 +31,7 @@
           </label>
         </div>
         <br>
-        <input class="button" type="submit" name="enviar" value="Guardar imagen">
+        <input id="save" class="button" type="submit" name="enviar" value="Guardar imagen">
       </form>
         
         
@@ -127,5 +127,8 @@
           fileName.textContent = fileInput.files[0].name;
         }
       }
+      document.getElementById('save').addEventListener('click', function hola(){
+            Swal.fire('Fondo de pantalla agregado')
+          });
     </script>
     <%- include('partials/tail.ejs'); -%>
