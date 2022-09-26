@@ -152,19 +152,28 @@
                   <div class="field-label is-normal">
                     <label class="label">Colaboradores: </label>
                   </div>
+
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
                         <div class="select">
-                          <select name = "select_colaborador">
+                          <select name = "select_colaborador" id = "select_colaborador">
                             <option value = "" selected>Select dropdown</option>
                             <% for (let e of empleados) { %>
                               <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
                               <% } %>
                           </select>
+                          
                         </div>
+                        <a class="button is-success" id="AgregarEmpleado" onclick="agregarEmpleado()"> </a>
                     </div>
+                  </div>
                 </div>
+
+               <div id = "Lista_Empleados">
+
+               </div>
+
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
                     <label class="label">Fecha: </label>
@@ -210,6 +219,21 @@
             return false;
           }
         }
+
+
+        const arrayColaboradores  = [];
+        // se cambia al hacer click en busqueda click
+
+        function agregarEmpleado(){
+          const colaborador = document.getElementById("select_colaborador");
+          const colaboradorActual = colaborador.options[colaborador.selectedIndex];
+          // aqui escribimos los nombres de los colaboradores
+          const lista = document.getElementById("Lista_Empleados");
+          lista.innerHTML = lista.innerHTML + '<div class="notification is-info is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
+          arrayColaboradores.push(colaboradorActual.value);
+        }
+
+
 
         const accion_asincrona = () => {
           console.log('Accion asincrona');
