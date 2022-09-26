@@ -20,6 +20,7 @@ router.post('/delete', actController.postDeleteAct);
 
 
 router.get('/proyectos', projectsController.getProyecto);
+router.get('tareas/buscar/:valor', projectsController.getBuscar);
 
 router.get('/colaboradores', colabController.getEmpleado);
 

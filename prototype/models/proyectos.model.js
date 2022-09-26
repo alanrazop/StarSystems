@@ -19,6 +19,8 @@ module.exports = class Proyectos{
         
     }
 
-
+    static buscar(valor) {
+        return db.execute('SELECT * FROM proyecto WHERE nombre_proyecto like ?', ['%' + valor + '%']);
+    }
 
 }

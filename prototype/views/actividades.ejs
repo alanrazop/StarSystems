@@ -105,6 +105,7 @@
                         <textarea name="descripcion" class="textarea" placeholder="Describe la actividad que realizaste"></textarea>
                     </div>
                   </div>
+                  
                 </div>
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
@@ -113,15 +114,23 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <div class="select">
-                          <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
+                        <!-- <div class="select"> -->
+
+                          <div class = "input-field">
+                            <input class ="input" type = "text" placeholder = "Ingresar nombre proyecto" name = "select_proyecto" id = "select_proyecto">
+                          </div>
+                          <div id="listaProyectos">
+
+
+                          </div>
+
+                          <!-- <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
                             <option  value = "" selected >Select dropdown</option>
                             <% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
-                            <% } %>
-                          </select>
-                          
-                        </div>
+                            <% } %> -->
+                          <!-- </select>  -->
+                        <!-- </div> -->
                     </div>
                   </div>
                 </div>
@@ -153,7 +162,6 @@
                           </select>
                         </div>
                     </div>
-                  </div>
                 </div>
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
@@ -170,10 +178,58 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
-              <button class="button">Cancelar</button>
+              <button class="button" onclick="alertaCancelado();">Cancelar</button>
           </div>         
           </div>
           <button class="modal-close is-large" aria-label="close" ></button>
         </div>
       </footer>  
-        <%- include('partials/tail.ejs'); -%>
+      <%- include('partials/tail.ejs'); -%>
+
+      <script>
+
+        function alertaCancelado(){
+          return confirm ("¿Seguro que desea cancelar?\n Esta actividad no será guardada.");
+        }
+
+        const accion_asincrona = () => {
+          console.log('Accion asincrona');
+          const valor = document.getElementById('select_proyecto').value;
+          //función que manda la petición asíncrona
+          fetch('/home/tareas/buscar/' + valor, {
+          method: 'GET',
+          }).then(result => {
+          return result.json(); //Regresa otra promesa
+          }).then(data => {
+          //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+            console.log(data);
+            
+            let html = '';
+            if (data.proyectos.length > 0) {
+              html = '';
+                for (p of data.proyectos) {
+                  html += `<div class="card" id="drop-card">`;
+                  html += '<header class="card-header">';
+                  html += `<p class="card-header-title"  data-proyecto = "${ p.id_proyecto }" data-proyectoID=${ p.id_proyecto }>`;
+                  html += p.nombre_proyecto ;
+                  html += '</p>';
+                  html += '</header>';
+                  html += '</div>';
+                }
+            } else {
+              html = '<h2>No hay proyectos registrados que coincidan con los criterios de búsqueda</h2>';
+            }
+              document.getElementById("listaProyectos").innerHTML = html;
+              document
+              .querySelectorAll("#drop-card")
+              .forEach((agregar) => agregar.addEventListener("click", busquedaClick));
+          }).catch(err => {
+              console.log(err);
+            });
+      };
+      
+      document.getElementById('select_proyecto').onkeyup = accion_asincrona;
+
+      </script>
+
+      
