@@ -7,7 +7,6 @@ const reporteController = require('../controllers/reporte.controller');
 
 const { requiresAuth } = require('express-openid-connect');
 
-
 const router = express.Router();
 
 // Route handling

@@ -48,14 +48,13 @@ app.get('/', (request, response) => {
 
 // ---- config auth0 ----
 
+const rutas_admin = require("./routes/admin.routes");
+const rutas_colab = require("./routes/colab.routes");
+const rutas_coord = require("./routes/coord.routes");
 
-app.get("/", (request, response) => {
-    response.render("index.ejs", { foo: "FOO" });
-});
-
-const rutas_natdev = require("./routes/natdev.routes");
-
-app.use('/home', requiresAuth(), rutas_natdev);
+app.use('/lider', requiresAuth(), rutas_admin);
+app.use('/coordinador', requiresAuth(), rutas_coord);
+app.use('/colaborador', requiresAuth(), rutas_colab);
 
 app.use((request, response, next) => {
     response.status(404).send('¡Error 404! El recurso solicitado no existe'); //Manda la respuesta
