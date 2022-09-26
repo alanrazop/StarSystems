@@ -158,14 +158,14 @@
                       <p class="control">
                         <div class="select">
                           <select name = "select_colaborador" id = "select_colaborador">
-                            <option value = "" selected>Select dropdown</option>
+                            <option value="" disabled selected>Select dropdown</option>
                             <% for (let e of empleados) { %>
                               <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
                               <% } %>
                           </select>
                           
                         </div>
-                        <a class="button is-success" id="AgregarEmpleado" onclick="agregarEmpleado()"> </a>
+                        <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()">  <i class="fa fa-user-plus" aria-hidden="true"></i> </a>
                     </div>
                   </div>
                 </div>
@@ -229,7 +229,7 @@
           const colaboradorActual = colaborador.options[colaborador.selectedIndex];
           // aqui escribimos los nombres de los colaboradores
           const lista = document.getElementById("Lista_Empleados");
-          lista.innerHTML = lista.innerHTML + '<div class="notification is-info is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
+          lista.innerHTML = lista.innerHTML + '<div class="notification is-link is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
           arrayColaboradores.push(colaboradorActual.value);
         }
 
