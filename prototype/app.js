@@ -5,6 +5,14 @@ const path = require("path");
 // express maneja rutas
 const express = require("express");
 const app = express();
+const { auth } = require('express-openid-connect');
+const { requiresAuth } = require('express-openid-connect');
+
+app.get('/profile', requiresAuth(), (request, response) => {
+  response.send(JSON.stringify(request.oidc.user));
+});
+
+
 // view engine es ejs, views es views por default
 app.set("view engine", "ejs");
 app.set('views', 'views');
@@ -18,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // ---- config auth0 ----
-const { auth } = require('express-openid-connect');
+
 
 // ESTA CONFIG LA VOY ABORRAR, SOLO ES PARA PROBAR
 const config = {
@@ -47,7 +55,7 @@ app.get("/", (request, response) => {
 
 const rutas_natdev = require("./routes/natdev.routes");
 
-app.use('/home', rutas_natdev);
+app.use('/home', requiresAuth(), rutas_natdev);
 
 app.use((request, response, next) => {
     response.status(404).send('¡Error 404! El recurso solicitado no existe'); //Manda la respuesta
