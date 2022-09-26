@@ -20,7 +20,6 @@ router.post('/edit', actController.postEditAct);
 
 router.post('/delete', actController.postDeleteAct);
 
-
 router.get('/proyectos', projectsController.getProyecto);
 
 router.get('/colaboradores', colabController.getEmpleado);
