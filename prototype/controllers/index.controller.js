@@ -6,7 +6,6 @@ const Index = require('../models/index.model');
 exports.getImage = (request, response, next) => {
     Index.fetchAll()
          .then(([rows, fieldData]) => {
-            console.log(rows);
             response.render(path.join('index.ejs'), {
                  imagenes: rows,
              });
