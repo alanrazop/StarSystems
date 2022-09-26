@@ -114,23 +114,25 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <!-- <div class="select"> -->
+                        <div class="select">
 
-                          <div class = "input-field">
+
+                          <!-- INPUT PROYECTOS ------------------------------ -->
+                          <!-- <div class = "input-field">
                             <input class ="input" type = "text" placeholder = "Ingresar nombre proyecto" name = "select_proyecto" id = "select_proyecto">
                           </div>
                           <div id="listaProyectos">
 
 
-                          </div>
+                          </div> -->
 
-                          <!-- <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
+                          <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
                             <option  value = "" selected >Select dropdown</option>
                             <% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
-                            <% } %> -->
-                          <!-- </select>  -->
-                        <!-- </div> -->
+                            <% } %>
+                          </select> 
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -177,7 +179,7 @@
               </form>
             </section>
             <footer class="modal-card-foot">
-              <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
+              <button class="button is-success" type="submit" id="buttonRegistrar" required > Guardar tarea </button>
               <button class="button" onclick="alertaCancelado();">Cancelar</button>
           </div>         
           </div>
@@ -190,6 +192,23 @@
 
         function alertaCancelado(){
           return confirm ("¿Seguro que desea cancelar?\n Esta actividad no será guardada.");
+        }
+
+        function Verificar(){
+                
+          
+          let descripcion  = document.getElementById('descripcion');
+          let select_proyecto = document.getElementById('select_proyecto');
+          let input_horas = document.getElementById('input_horas');
+          let select_colaborador =  document.getElementById('select_colaborador');
+          let fecha_act = document.getElementById('fecha_act');
+
+          
+          if (descripcion == " " ) {
+            alert("Campo vacío. \nVerifique sus datos");
+            // location.reload();
+            return false;
+          }
         }
 
         const accion_asincrona = () => {

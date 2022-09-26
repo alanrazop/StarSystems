@@ -1,10 +1,12 @@
 // dependencias
 const ejs = require("ejs");
+//const alert = Window.alert();
 const bodyParser = require("body-parser");
 const path = require("path");
 // express maneja rutas
 const express = require("express");
 const app = express();
+
 // view engine es ejs, views es views por default
 app.set("view engine", "ejs");
 app.set('views', 'views');
@@ -18,6 +20,7 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
     res.render("index.ejs", { foo: "FOO" });
 });
+
 
 const rutas_natdev = require("./routes/natdev.routes");
 

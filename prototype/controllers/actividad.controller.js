@@ -2,7 +2,9 @@ const path = require('path');
 const Actividades = require('../models/actividades.model');
 const Proyectos = require('../models/proyectos.model');
 const Empleados = require('../models/empleados.model');
+const { get } = require('http');
 
+//import {alert} from './app.js';
 
 
 exports.getActividad  = (request, response, next) => {
@@ -24,8 +26,7 @@ exports.getActividad  = (request, response, next) => {
             console.log(error);
         }); 
     })
-    .catch(err => console.log(err)); 
-        
+    .catch(err => console.log(err));    
 }
 
 exports.postActividad =  (request, response, next) => {
@@ -38,19 +39,39 @@ exports.postActividad =  (request, response, next) => {
     console.log(request.body.fecha_act);
 
 
+    // function Vertificar(){   
+    //     let descripcion  = request.body.descripcion;
+    //     // let select_proyecto = document.getElementById('select_proyecto');
+    //     // let input_horas = document.getElementById('input_horas');
+    //     // let select_colaborador =  document.getElementById('select_colaborador');
+    //     // let fecha_act = document.getElementById('fecha_act');
+
+        
+    //     if (descripcion == " " ) {
+    //       alert("Campo vacío. \nVerifique sus datos");
+    //       // location.reload();
+    //       return false;
+    //     }        
+    //   }
 
     const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas,request.body.select_colaborador,request.body.fecha_act);
     console.log(NuevoRegistro);
 
-    Actividades.saveRegistra(NuevoRegistro)
-    .then(() => {
-        response.redirect('/home/tareas');   
-    })
-    .catch(err => {
-        console.log(err);
-    });
+        if (request.body.descripcion == "" ||  request.body.select_proyecto == "" || request.body.input_horas == "" || request.body.select_colaborador == "" || request.body.fecha_act == "" ){
+            console.log(request.body.descripcion);
+            response.redirect('/home/tareas');
+        }  
 
+        else {
+            Actividades.saveRegistra(NuevoRegistro)
+            .then(() => {
+                response.redirect('/home/tareas');   
+            })
+            .catch(err => {
+                console.log(err);
+            });
 
+        } 
 }
 
 exports.getEditAct = (request, response, next) => {
