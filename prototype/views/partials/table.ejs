@@ -14,7 +14,7 @@
               </tr>
             </thead>
             <tbody>
-              <% for (var a of actividades) { %>
+              <% for (let a of actividades) { %>
               <% let array = String(a.fecha).split(" ")%>  
               <tr>
                 <td><%= a.nombre_proyecto %></td>
