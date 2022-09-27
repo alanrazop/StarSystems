@@ -40,28 +40,48 @@ exports.postActividad =  (request, response, next) => {
     console.log(request.body.check_empleados);
     console.log(request.body.fecha_act);
 
+    let empleado_relleno ;
+    const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas, empleado_relleno, request.body.fecha_act);
+    console.log(empleado_relleno);
 
-    // const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas,request.body.select_colaborador,request.body.fecha_act);
-    // console.log(NuevoRegistro);
+   // const NuevaActividad = new Actividades (request.body.descripcion, request.body.select_proyecto);
 
+
+    Actividades.save(NuevoRegistro)
+    .then(() => {
+        console.log(NuevoRegistro);
+        })
+        .catch(err => {
+            console.log(err);
+    })
+
+    const check_empleados = request.body.check_empleados;
+
+    if (request.body.descripcion == "" ||  request.body.select_proyecto == "" || request.body.input_horas == ""  || request.body.fecha_act == "" ){
+        console.log(request.body.descripcion);
+        response.redirect('/home/tareas');
+    }  
+
+    for ( let e of check_empleados ){
+        console.log('Esta es la e ' + e);
+        NuevoRegistro.colab = e;
+        console.log(NuevoRegistro.colab);
+    
+                
+                    Actividades.saveRegistra(NuevoRegistro)
+                    .then(() => {  
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                
+        }
+        response.redirect('/home/tareas'); 
+    
+    }
 
     
-    //     if (request.body.descripcion == "" ||  request.body.select_proyecto == "" || request.body.input_horas == "" || request.body.select_colaborador == "" || request.body.fecha_act == "" ){
-    //         console.log(request.body.descripcion);
-    //         response.redirect('/home/tareas');
-    //     }  
 
-    //     else {
-
-        //         Actividades.saveRegistra(NuevoRegistro)
-        //         .then(() => {
-        //             response.redirect('/home/tareas');   
-        //         })
-        //         .catch(err => {
-        //             console.log(err);
-        //         });
-    //     } 
-}
 
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
