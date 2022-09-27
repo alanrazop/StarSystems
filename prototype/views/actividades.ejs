@@ -156,23 +156,17 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <div class="select">
-                          <select name = "select_colaborador" id = "select_colaborador">
-                            <option value="" disabled selected>Select dropdown</option>
-                            <% for (let e of empleados) { %>
-                              <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
-                              <% } %>
-                          </select>
-                          
+                        <div>
+                          <% for (let e of empleados) { %>
+                            <label>
+                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                            <% } %>
+                               
                         </div>
-                        <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()">  <i class="fa fa-user-plus" aria-hidden="true"></i> </a>
+    
                     </div>
                   </div>
                 </div>
-
-               <div id = "Lista_Empleados">
-
-               </div>
 
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
@@ -202,38 +196,6 @@
         function alertaCancelado(){
           return confirm ("¿Seguro que desea cancelar?\n Esta actividad no será guardada.");
         }
-
-        // function Verificar(){
-                
-          
-        //   let descripcion  = document.getElementById('descripcion');
-        //   let select_proyecto = document.getElementById('select_proyecto');
-        //   let input_horas = document.getElementById('input_horas');
-        //   let select_colaborador =  document.getElementById('select_colaborador');
-        //   let fecha_act = document.getElementById('fecha_act');
-
-          
-        //   if (descripcion == " " ) {
-        //     alert("Campo vacío. \nVerifique sus datos");
-        //     // location.reload();
-        //     return false;
-        //   }
-        // }
-
-
-        const arrayColaboradores  = [];
-        // se cambia al hacer click en busqueda click
-
-        function agregarEmpleado(){
-          const colaborador = document.getElementById("select_colaborador");
-          const colaboradorActual = colaborador.options[colaborador.selectedIndex];
-          // aqui escribimos los nombres de los colaboradores
-          const lista = document.getElementById("Lista_Empleados");
-          lista.innerHTML = lista.innerHTML + '<div class="notification is-link is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
-          arrayColaboradores.push(colaboradorActual.value);
-        }
-
-
 
         const accion_asincrona = () => {
           console.log('Accion asincrona');
