@@ -54,8 +54,12 @@ exports.postActividad =  (request, response, next) => {
     //     }        
     //   }
 
+    console.log(arrayColaboradores);
+
     const NuevoRegistro = new Actividades (request.body.descripcion, request.body.select_proyecto,request.body.input_horas,request.body.select_colaborador,request.body.fecha_act);
     console.log(NuevoRegistro);
+
+    
     
         if (request.body.descripcion == "" ||  request.body.select_proyecto == "" || request.body.input_horas == "" || request.body.select_colaborador == "" || request.body.fecha_act == "" ){
             console.log(request.body.descripcion);
@@ -70,7 +74,6 @@ exports.postActividad =  (request, response, next) => {
             .catch(err => {
                 console.log(err);
             });
-
         } 
 }
 
