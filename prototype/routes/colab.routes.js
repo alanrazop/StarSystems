@@ -11,6 +11,7 @@ const { requiresAuth } = require('express-openid-connect');
 const router = express.Router();
 
 // Route handling
+router.get('/proyectos', projectsController.getProyecto);
 router.get('/tareas', actController.getActividad);
 
 router.post('/tareas', actController.postActividad);
@@ -21,7 +22,6 @@ router.post('/edit', actController.postEditAct);
 
 router.post('/delete', actController.postDeleteAct);
 
-router.get('/proyectos', projectsController.getProyecto);
 
 router.get('/colaboradores', colabController.getEmpleado);
 

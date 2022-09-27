@@ -52,9 +52,9 @@ const rutas_lider = require("./routes/lider.routes");
 const rutas_colab = require("./routes/colab.routes");
 const rutas_coord = require("./routes/coord.routes");
 
-app.use('/lider',       requiresAuth(), rutas_lider);
-app.use('/coordinador', requiresAuth(), rutas_coord);
-app.use('/colaborador', requiresAuth(), rutas_colab);
+app.use('/lider', requiresAuth(), rutas_lider);
+app.use('/coord', requiresAuth(), rutas_coord);
+app.use('/colab', requiresAuth(), rutas_colab);
 
 app.use('/', (request, response, next) => {
     response.render(path.join('error.ejs')); //Manda la respuesta
