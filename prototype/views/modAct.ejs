@@ -5,14 +5,16 @@
         <form action="/home/edit" method="POST">
         <fieldset>
             <label class="label" for="equipo">Agregar personas: </label>
-            <div class="select">
-              <select>
-                <option disabled selected>Agregar</option>
+            <div class="select is-rounded">
+              <select name="select_colaborador" id="select_colaborador">
+                <option disabled selected>Escoge un usuario</option>
                 <% for (let e of empleados) { %>
-                  <option><%= e.nombre %></option>
+                  <option value="<%= e.id_empleado %>"><%= e.nombre %></option>
                   <% } %>
               </select>
             </div>
+            <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()"><i class="fa-solid fa-user-plus"></i></a>
+            <div id="Lista_Empleados"></div>
             <br><br>
             
               <label class="label" for="equipo">Horas registradas:</label>
@@ -46,6 +48,18 @@
               title: 'Tarea eliminada con éxito'
             })
           });
+
+          const arrayColaboradores  = [];
+          // se cambia al hacer click en busqueda click
+
+          function agregarEmpleado(){
+            const colaborador = document.getElementById("select_colaborador");
+            const colaboradorActual = colaborador.options[colaborador.selectedIndex];
+            // aqui escribimos los nombres de los colaboradores
+            const lista = document.getElementById("Lista_Empleados");
+            lista.innerHTML = lista.innerHTML + '<div class="notification is-link is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
+            arrayColaboradores.push(colaboradorActual.value);
+          }
         </script>
         
 
