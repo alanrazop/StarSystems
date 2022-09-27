@@ -7,7 +7,7 @@ exports.getProyecto = (request, response, next) => {
         .then(([rows, fieldData]) => {
             console.log(rows);
             response.render(path.join('proyectos.ejs'), {
-                proyectos: rows});
+                proyecto: rows});
         }).catch(error => {
             console.log(error);
         })

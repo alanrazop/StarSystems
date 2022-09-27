@@ -12,8 +12,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Oasis</td>
+              <% for (let p of proyecto) { %>
+                <tr>
+                    <td> <%= p.nombre_proyecto %> </td> 
+                    <td> <%= p.descripcion_proyecto %> </td> 
+                    <td> <%= p.lider %> </td> 
+                    <td> <%= 'sample' %> </td>
+                    <td>
+                      <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                      <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                    </td>
+                </tr>
+              <% } %>
+
+                <!-- <td>Oasis</td>
                 <td>Generar un proyecto de...</td>
                 <td>Juan Topo</td>
                 <td>Miguel Telles, Ana Sarmiento</td>
@@ -40,8 +52,7 @@
                 <td>
                   <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
                   <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td>
-              </tr>
+                </td> -->
             </tbody>
           </table>
         </div>
