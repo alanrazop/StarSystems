@@ -35,88 +35,224 @@
       </div>
     </div>
 
-    <!-- --- MODAL PROYECTO BEGIN --- -->
+    <!-- --- MODAL PERSONA BEGIN --- -->
     <div id="modal-js-example" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Modal title</p>
+          <p class="modal-card-title">Agregar persona</p>
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <p>Hola</p>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Proyecto: </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <div class="select is-rounded">
+                    <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
+                      <option  value = "" selected >Select dropdown</option>
+                      <% for (let p of proyecto) { %>
+                      <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
+                      <% } %>
+                    </select>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Colaboradores: </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <% for (let e of empleados) { %>
+                    <label>
+                      <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                    <% } %>
+                  </div>
+                
+                </div>
+            </div> 
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
-          <button class="button">Cancel</button>
+          <button class="button is-success">Guardar</button>
+          <button class="button">Cancelar</button>
         </footer>
       </div>
     </div>
-    <!-- --- MODAL PROYECTO END --- -->
+    <!-- --- MODAL PERSONA END --- -->
 
-    <!-- --- MODAL PERSONA BEGIN --- -->
+    <!-- --- MODAL PROYECTO BEGIN --- -->
+    <form id="formProyectos" class="was-validated" action="/home/nuevo-proyecto" method="POST">
     <div id="modal-js-example2" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Modal title</p>
+          <p class="modal-card-title">Agregar proyecto</p>
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <p>Adios</p>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Nombre: </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                      <input class="input" type="text" name="nombre" id="nombre_pr" required>
+                  </div>
+                </div>
+            </div> 
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Descripción: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                  <textarea class="textarea" type="textarea" name="descripcion" id="desc_pr" placeholder="Describa en una oración su proyecto."></textarea>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Líder: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <div class="select">
+                      <select name = "select_colaborador">
+                        <option disabled selected>Elige un usuario...</option>
+                        <% for (let e of empleados) { %>
+                          <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
+                          <% } %>
+                      </select>
+                    </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Fecha: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                  <input class="input" type="date" id="fecha_act" name="fecha_act" required>
+                </div>
+              </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Estatus: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <div class="select">
+                      <select  class="form-select" name="select_estatus" >
+                        <option value = "" selected>Elige una opcion...</option>
+                        <option value = "1">Activo</option>
+                        <option value = "0">Inactivo</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Es tarea: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <div class="select">
+                      <select  class="form-select" name="select_tarea_proyecto">
+                        <option value = "" selected>Elige una opcion...</option>
+                        <option value = "1">Si</option>
+                        <option value = "0">No</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
-          <button class="button">Cancel</button>
+          <button class="button is-success" type="submit" id="buttonRegistrar">Guardar</button>
+          <button class="button">Cancelar</button>
         </footer>
       </div>
     </div>
     <!-- --- MODAL PERSONA END --- -->
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-      // Functions to open and close a modal
-      function openModal($el) {
-        $el.classList.add('is-active');
-      }
-
-      function closeModal($el) {
-        $el.classList.remove('is-active');
-      }
-
-      function closeAllModals() {
-        (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-          closeModal($modal);
-        });
-      }
-
-      // Add a click event on buttons to open a specific modal
-      (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-        const modal = $trigger.dataset.target;
-        const $target = document.getElementById(modal);
-
-        $trigger.addEventListener('click', () => {
-          openModal($target);
-        });
-      });
-
-      // Add a click event on various child elements to close the parent modal
-      (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-        const $target = $close.closest('.modal');
-
-        $close.addEventListener('click', () => {
-          closeModal($target);
-        });
-      });
-
-      // Add a keyboard event to close all modals
-      document.addEventListener('keydown', (event) => {
-        const e = event || window.event;
-
-        if (e.keyCode === 27) { // Escape key
-          closeAllModals();
+             document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+          $el.classList.add('is-active');
         }
+
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+          (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+            closeModal($modal);
+          });
+        }
+
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
       });
-    });
+     
+        document.getElementById('buttonRegistrar').addEventListener('click', () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Proyecto registrado con éxito'
+          })
+        });
+
+    const arrayColaboradores  = [];
+          // se cambia al hacer click en busqueda click
+          function agregarEmpleado(){
+            const colaborador = document.getElementById("select_colaborador");
+            const colaboradorActual = colaborador.options[colaborador.selectedIndex];
+            // aqui escribimos los nombres de los colaboradores
+            const lista = document.getElementById("Lista_Empleados");
+            lista.innerHTML = lista.innerHTML + '<div class="notification is-link is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
+            arrayColaboradores.push(colaboradorActual.value);
+          }
     </script>
         <%- include('partials/tail.ejs'); -%>

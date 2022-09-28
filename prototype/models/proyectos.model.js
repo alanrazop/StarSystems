@@ -10,6 +10,10 @@ module.exports = class Proyectos{
 
     }
 
+    static saveProject(proyecto) {
+        return db.execute('INSERT INTO proyecto (nombre_proyecto, descripcion_proyecto, fecha_inicio, is_activo, tarea_proyecto) VALUES (?, ?, ?, ?, ?);', [proyecto.nombre_proyecto, proyecto.descripcion_proyecto, proyecto.fecha_inicio, proyecto.is_activo, proyecto.tarea_proyecto]);
+    }
+
     static fetchAll() {
         return db.execute('SELECT * FROM proyecto');
     }
@@ -20,5 +24,9 @@ module.exports = class Proyectos{
 
     static LiderProyecto() {
         return db.execute('SELECT nombre_proyecto, descripcion_proyecto, e.nombre as lider FROM proyecto p, actividad a, registra r, empleado e  where p.id_proyecto = a.id_proyecto AND a.id_actividad = r.id_actividad AND r.id_empleado = e.id_empleado AND p.tarea_proyecto = 0 AND e.id_rol = 2;');
+    }
+
+    static fetchLideres(){
+        return db.execute('SELECT * FROM `empleado` WHERE id_rol IN (1,2)')
     }
 }
