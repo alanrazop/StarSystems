@@ -1,40 +1,43 @@
 <%- include('partials/head.ejs'); -%>
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
-        <div class="title"> Modificar horas de actividad</div>
-        <form action="/home/edit" method="POST">
-        <fieldset>
-            <label class="label" for="equipo">Agregar personas: </label>
-            <div class="select is-rounded">
-              <select name="select_colaborador" id="select_colaborador">
-                <option disabled selected>Escoge un usuario</option>
-                <% for (let e of empleados) { %>
-                  <option value="<%= e.id_empleado %>"><%= e.nombre %></option>
-                  <% } %>
-              </select>
+    <div style="text-align: center;">
+      <div class="title"> Modificar horas de actividad</div>
+      <form action="/home/edit" method="POST">
+      <fieldset>
+          <label class="label" for="equipo">Agregar personas: </label>
+          <div class="select is-rounded">
+            <select name="select_colaborador" id="select_colaborador" required>
+              <option disabled selected>Escoge un usuario</option>
+              <% for (let e of empleados) { %>
+                <option value="<%= e.id_empleado %>"><%= e.nombre %></option>
+                <% } %>
+            </select>
+          </div>
+          <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()"><i class="fa-solid fa-user-plus"></i></a>
+          <div class="column is-half is-offset-one-quarter"id="Lista_Empleados"></div>
+          <br>
+          
+            <label class="label" for="equipo">Horas registradas:</label>
+            <div class="column is-half is-offset-one-quarter">
+            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
+            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
             </div>
-            <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()"><i class="fa-solid fa-user-plus"></i></a>
-            <div id="Lista_Empleados"></div>
-            <br><br>
-            
-              <label class="label" for="equipo">Horas registradas:</label>
-              <div class="column is-half">
-              <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-              <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
-              </div>
-        </fieldset>
-        <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
-        <button class="button" href="/home/tareas">Cancelar</button>
+      </fieldset>
+      <br>
+      <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
+      <button class="button" href="/home/tareas">Cancelar</button>
 
 
-        </form>
-        <br><br>
+      </form>
+      <br><br>
 
-        <form action="/home/delete" method="POST">
-        <label class="label">Eliminar:</label>
-        <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-        <button id="delete" class="button is-danger" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
-        </form> 
+      <form action="/home/delete" method="POST">
+      <label class="label">Eliminar actividad:</label>
+      <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
+      <button id="delete" class="button is-danger" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
+      </form> </div>
+        
         <script>
           document.getElementById('save').addEventListener('click', () => {
             Swal.fire({
