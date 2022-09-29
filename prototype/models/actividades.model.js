@@ -25,8 +25,16 @@ module.exports = class Actividades {
     // }
 
     static saveEdit(actividad) {
-        return db.execute('UPDATE registra SET num_horas = ? WHERE id_actividad = ?', [actividad.num_horas, actividad.id_actividad]);
+        return db.execute('CALL modificar_actividad (?,?,?,?,?,S?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha, actividad.id_actividad])
     }
+
+
+    // call modificar_actividad('ya leo si funciono',16,5,1,"2022-09-22",315);
+
+
+    // static saveEdit(actividad) {
+    //     return db.execute('UPDATE registra SET num_horas = ? WHERE id_actividad = ?', [actividad.num_horas, actividad.id_actividad]);
+    // }
 
     static fetchAll() {
         return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado');
