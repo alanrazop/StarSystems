@@ -4,12 +4,18 @@ const actController = require('../controllers/actividad.controller');
 const projectsController = require('../controllers/proyecto.controller');
 const colabController = require('../controllers/colaborador.controller');
 const reporteController = require('../controllers/reporte.controller');
+const indexController = require('../controllers/index.controller');
 
 const { requiresAuth } = require('express-openid-connect');
 
 const router = express.Router();
 
 // Route handling
+
+router.get('/', indexController.getImage);
+
+router.post('/image', indexController.postImage);
+
 router.get('/tareas', actController.getActividad);
 
 router.post('/tareas', actController.postActividad);
