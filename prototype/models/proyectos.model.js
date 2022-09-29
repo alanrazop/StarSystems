@@ -14,6 +14,10 @@ module.exports = class Proyectos{
         return db.execute('INSERT INTO proyecto (nombre_proyecto, descripcion_proyecto, fecha_inicio, is_activo, tarea_proyecto) VALUES (?, ?, ?, ?, ?);', [proyecto.nombre_proyecto, proyecto.descripcion_proyecto, proyecto.fecha_inicio, proyecto.is_activo, proyecto.tarea_proyecto]);
     }
 
+    static saveEdit(proyecto) {
+        return db.execute('UPDATE proyecto SET nombre_proyecto = ?, descripcion_proyecto = ? WHERE id_proyecto = ?', [proyecto.nombre_proyecto, proyecto.descripcion_proyecto,  proyecto.id_proyecto]);
+    }
+
     static fetchAll() {
         return db.execute('SELECT * FROM proyecto');
     }
@@ -28,5 +32,13 @@ module.exports = class Proyectos{
 
     static fetchLideres(){
         return db.execute('SELECT * FROM `empleado` WHERE id_rol IN (1,2)')
+    }
+
+    static fetchOne(id) {
+        return db.execute('SELECT * FROM proyecto WHERE id_proyecto = ?', [id]);
+    }
+
+    static deleteOne(id) {
+        return db.execute('DELETE FROM proyecto WHERE id_proyecto = ?;', [id.id_proyecto]);
     }
 }

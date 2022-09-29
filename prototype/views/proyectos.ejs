@@ -13,7 +13,7 @@
         </span>
       </p>
     </div>
-    <div class="block">
+    <div class="block" id="lista_proyectos">
       <%- include('partials/table-projects.ejs'); -%>
     </div>
     <div class="block">
@@ -184,15 +184,65 @@
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success" type="submit" id="buttonRegistrar">Guardar</button>
-          <button class="button">Cancelar</button>
+          <button class="button is-success" type="submit" id="buttonRegistrar">Guardar proyecto</button>
+          <button class="button" >Cancelar</button>
         </footer>
       </div>
     </div>
     <!-- --- MODAL PERSONA END --- -->
 
     <script>
-             document.addEventListener('DOMContentLoaded', () => {
+        const accion_asincrona = () => {
+        const valor = document.getElementById('buscar_proyecto').value;
+
+        //función que manda la petición asíncrona
+        fetch('/home/proyectos/buscar/' + valor, {
+            method: 'GET'
+        }).then(result => {
+            return result.json(); //Regresa otra promesa
+        }).then(data => {
+            //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+            console.log(data);
+            let html = '';
+
+            if (data.proyecto.length > 0) {
+              html += '<div class="columns is-multiline">'
+              for (e of data.proyecto) {
+                html += '<div class="column is-half">';
+                html += '<div class="card has-background-white-ter">'
+                html += '<div class="card-content">';
+                html += '<div class="media">';
+                html += '<div class="media-left">';
+                html += '<figure class="image is-48x48">';
+                html += '<img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg" alt="Placeholder image">';
+                html += '</figure>';
+                html += '</div>';
+                html += '<div class="media-content">';
+                html += '<p class="title is-4">' + e.nombre + '</p>';
+                e.is_tiempo_completo ? e.is_tiempo_completo = "Tiempo completo" : e.is_tiempo_completo = "Medio tiempo" ;
+                html += '<p class="subtitle is-6">' +  e.descripcion + ' | ' + e.is_tiempo_completo + '</p>';
+                html += '</div>';
+                html += '</div>';
+                html += '<div class="content">';
+                html += 'Proyectos: Oasis';
+                html +=' </div>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+              }
+            }
+            else {
+              html = '<h2>No hay proyectos registrados que coincidan con la búsqueda</h2>';
+            }
+            document.getElementById('lista_proyectos').innerHTML = html;
+            
+        }).catch(err => {
+            console.log(err);
+        });
+      };
+      document.getElementById('buscar_proyecto').onkeyup = accion_asincrona;
+
+        document.addEventListener('DOMContentLoaded', () => {
         // Functions to open and close a modal
         function openModal($el) {
           $el.classList.add('is-active');

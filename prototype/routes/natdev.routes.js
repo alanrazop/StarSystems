@@ -33,6 +33,10 @@ router.get('/proyectos', projectsController.getProyecto);
 
 router.post('/nuevo-proyecto', projectsController.postProyecto);
 
+router.post('/proyectos/edit', projectsController.postEditProject);
+
+router.post('/proyectos/delete', projectsController.postDeleteProject);
+
 // ------------- COLABORADORES -------------
 
 router.get('/colaboradores', colabController.getEmpleado);
