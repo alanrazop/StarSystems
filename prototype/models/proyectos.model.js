@@ -34,8 +34,8 @@ module.exports = class Proyectos{
         return db.execute('SELECT * FROM `empleado` WHERE id_rol IN (1,2)')
     }
 
-    static fetchColaboradores(nombre_proyecto){
-        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.nombre_proyecto = ?', [nombre_proyecto.nombre_proyecto]);
+    static fetchColaboradores(id_proyecto){
+        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.id_proyecto = ?', [id_proyecto]);
     }
 
     static fetchOne(id) {
@@ -45,4 +45,11 @@ module.exports = class Proyectos{
     static deleteOne(id) {
         return db.execute('DELETE FROM proyecto WHERE id_proyecto = ?;', [id.id_proyecto]);
     }
+
+    static fetchProjectsWithParticipants() {
+        return db.execute('SELECT * FROM proyecto');
+    }
 }
+
+
+//[{id: "1", nombre: "OASIS", participantes: [{nombre: "Juan"}, {nombre: "Pedro"}]}]
