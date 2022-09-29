@@ -29,7 +29,7 @@ module.exports = class Actividades {
     }
 
     static fetchOne(id) {
-        return db.execute('SELECT * FROM registra WHERE id_actividad = ?', [id]);
+        return db.execute('SELECT * FROM registra r, actividad a WHERE r.id_actividad = ? and a.id_actividad = r.id_actividad', [id] );
     }
 
     static deleteOne(id) {
