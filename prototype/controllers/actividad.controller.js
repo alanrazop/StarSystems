@@ -4,7 +4,6 @@ const Proyectos = require('../models/proyectos.model');
 const Empleados = require('../models/empleados.model');
 
 
-
 exports.getActividad  = (request, response, next) => {
     Actividades.fetchAll()
     .then(([rows, fieldData]) => {
