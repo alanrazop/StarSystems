@@ -1,5 +1,14 @@
 const path = require('path');
+const PA = require('../models/proyectos_activos.model')
+const Proyectos = require('../models/proyectos.model.js')
 
 exports.getProyecto = (request, response, next) => {
-    response.render(path.join('proyectos.ejs'));
+    Proyectos.LiderProyecto()
+        .then(([rows, fieldData]) => {
+            console.log(rows);
+            response.render(path.join('proyectos.ejs'), {
+                proyecto: rows});
+        }).catch(error => {
+            console.log(error);
+        })
 };
