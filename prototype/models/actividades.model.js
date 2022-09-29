@@ -20,6 +20,10 @@ module.exports = class Actividades {
         return db.execute('CALL agregar_actividad (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha])
     }
 
+    // static saveEdit(actividad) {
+    //     return db.execute('UPDATE registra SET  descripcion_actividad = ? , num_horas = ?, WHERE id_actividad = ?', [descripcion_actividad, actividad.num_horas, actividad.id_actividad]);
+    // }
+
     static saveEdit(actividad) {
         return db.execute('UPDATE registra SET num_horas = ? WHERE id_actividad = ?', [actividad.num_horas, actividad.id_actividad]);
     }
