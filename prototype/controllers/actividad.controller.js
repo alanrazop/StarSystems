@@ -42,12 +42,12 @@ exports.postActividad =  (request, response, next) => {
     console.log(NuevoRegistro);
 
     Actividades.saveRegistra(NuevoRegistro)
-    .then(() => {
-        response.redirect('/home/tareas');   
-    })
-    .catch(err => {
-        console.log(err);
-    });
+        .then(() => {
+            response.redirect('/home/tareas');   
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
 
 }

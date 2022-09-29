@@ -15,6 +15,10 @@ module.exports = class Empleados {
         return db.execute('SELECT * FROM empleado e, rol r WHERE e.nombre LIKE ? AND e.id_rol = r.id_rol', ['%' + valor + '%']);
     }
 
+    static fetchLideresCoord(){
+        return db.execute('SELECT * FROM `empleado` WHERE id_rol IN (1,2)')
+    }
+
     // static NombreEmpleadoRegistrables(empleadoSolicitante){
     //     return db.execute('SELECT DISTINCT nombre FROM empleado e, rol r WHERE e.id_rol = r.id_rol AND e.id_empleado != ?', [empleadoSolicitante]);
     // } 
