@@ -69,7 +69,7 @@
                     <label class="label">Colaboradores: </label>
                   </div>
                   <div class="field-body">
-                    <div class="field">
+                    <div class="table">
                       <p class="control">
                         <div class="select">
                           <select name = "select_colaborador" required>
@@ -97,7 +97,7 @@
             </section>
             <section class="buttons is-right">
               <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
-              <button class="button">Cancelar</button>
+              <a class="button" href = "/home/tareas">Cancelar</a>
               <form action="/home/delete" method="POST">
               <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
               <button id="delete" class="button is-danger" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
