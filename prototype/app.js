@@ -1,3 +1,5 @@
+// environment vars
+const authconfig = require('./auth0.env');
 // dependencias
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
@@ -6,10 +8,74 @@ const multer = require('multer');
 // express maneja rutas
 const express = require("express");
 const app = express();
-const { auth, requiresAuth } = require('express-openid-connect');
+const { auth, 
+    requiresAuth, 
+    claimEquals,
+    claimIncludes,
+    claimCheck } = require('express-openid-connect');
 
-// environment vars
-const authconfig = require('./auth0.env');
+const axios = require("axios").default;
+const options = {
+  method: 'POST',
+  url: 'https://dev-fx-x8vee.us.auth0.com/oauth/token',
+  headers: {'content-type': 'application/x-www-form-urlencoded'},
+  data: new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: 'ebjmTkCRasIP7rZTr94JMv30LylM148G',
+    client_secret: 'dELPyfnxxVy0zoar9J6UbzsmS94L1zDtdasLwfiEsphJFrY4nGIHeGxgxGTDOmnL',
+    audience: 'https://API-test.com'
+  })
+};
+
+axios.request(options).then(function (response) {
+  console.log(response.data);
+}).catch(function (error) {
+  console.error(error);
+});
+
+// // ---------------------- JSON WEB TOKEN BEGIN --------------------
+// const { expressjwt : jwt } = require('express-jwt');
+// const jwks = require('jwks-rsa');
+
+// const jwtCheck = jwt({
+//       secret: jwks.expressJwtSecret({
+//           cache: true,
+//           rateLimit: true,
+//           jwksRequestsPerMinute: 5,
+//           jwksUri: 'https://dev-fx-x8vee.us.auth0.com/.well-known/jwks.json'
+//     }),
+//     audience: 'https://API-test.com',
+//     issuer: 'https://dev-fx-x8vee.us.auth0.com/',
+//     algorithms: ['RS256']
+// });
+
+// app.use(jwtCheck);
+
+// app.get('/authorized', function (req, res) {
+//     res.send('Secured Resource');
+// });
+
+// const jwtCheck = jwt({
+    //       secret: jwks.expressJwtSecret({
+        //           cache: true,
+        //           rateLimit: true,
+        //           jwksRequestsPerMinute: 5,
+        //           jwksUri: 'https://dev-fx-x8vee.us.auth0.com/.well-known/jwks.json'
+        //     }),
+        //     audience: 'http://localhost:4000',
+        //     issuer: 'https://dev-fx-x8vee.us.auth0.com/',
+        //     algorithms: ['RS256']
+        // });
+        
+        // app.use(jwtCheck);
+        
+        // app.get('/authorized', function (req, res) {
+            //     res.send('Secured Resource');
+// });
+// ---------------------- JSON WEB TOKEN END ----------------------
+
+
+
 // console.log(authconfig);
 
 
@@ -50,6 +116,10 @@ app.use(bodyParser.json());
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(authconfig));
 
+app.get( '/', claimCheck(({ isAdmin }) => isAdmin),
+    (req, res) => res.send(`Hello ${req.oidc.user.sub}, this is the payroll section.`)
+  );
+
 // ---- config auth0 ----
 
 const rutas_lider = require("./routes/lider.routes");
@@ -60,10 +130,7 @@ app.use('/lider', requiresAuth(), rutas_lider);
 app.use('/coord', requiresAuth(), rutas_coord);
 app.use('/colab', requiresAuth(), rutas_colab);
 
-// app.get('/', async (request, response, next) => {
-//     const user_info = await request.oidc.fetchUserInfo();
-//     res.send(`hello ${user_info.sub}`);
-// });
+
 
 
 app.listen(4000, () => console.log("http://localhost:4000/"));
