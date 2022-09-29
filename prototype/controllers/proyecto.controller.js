@@ -4,30 +4,22 @@ const Proyectos = require('../models/proyectos.model.js');
 const Empleados = require('../models/empleados.model');
 const { response } = require('express');
 
-exports.getProyecto = (request, response, next) => {
-    Proyectos.fetchAll()
-        .then(([rows, fieldData]) => {
-            console.log(rows)
-            Empleados.fetchAll()
-                .then(([lideres, fieldData]) => {
-                    Proyectos.fetchColaboradores(rows[1])
-                    .then(([colabs, fieldData]) => {
-                        console.log(colabs)
-                        response.render(path.join('proyectos.ejs'), {
-                            proyecto: rows,
-                            empleados: lideres,
-                            colaboradores: colabs
-                        })
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
-                    
-                })
-            
-        }).catch(error => {
-            console.log(error);
-        })
+exports.getProyecto = async (request, response, next) => {
+    let proyectos;
+    await Proyectos.fetchAll()
+        .then( async ([rows, fieldData]) => {
+            for (let proyecto of rows) {
+                [colaboradores, fieldData] = await Proyectos.fetchColaboradores(proyecto.id_proyecto); 
+                proyecto.participantes = colaboradores; 
+            }     
+            proyectos = rows;
+        }).catch(err => {
+            console.log(err);
+        });  
+    console.log(proyectos);
+    response.render(path.join('proyectos.ejs'), {
+        proyecto: proyectos,
+    });                 
 };
 
 exports.postProyecto = (request, response, next) => {

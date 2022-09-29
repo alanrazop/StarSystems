@@ -19,9 +19,10 @@
                     <td> <%= p.descripcion_proyecto %> </td> 
                     <td> sample </td> 
                     <td>
-                      <%for (c of colaboradores) {%>
-                      <p><%= c.nombre %></p>
-                        <% } %>
+                      <% for (let participante of p.participantes) { %>
+                        <%= participante.nombre %> 
+                        <br>
+                      <% }%>
                     </td>
                     <td> 
                       <% if (p.is_activo == 0){ %>

@@ -69,10 +69,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <% for (let e of empleados) { %>
-                    <label>
-                      <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
-                    <% } %>
+                  
                   </div>
                 
                 </div>
@@ -118,24 +115,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Líder: </label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <p class="control">
-                    <div class="select">
-                      <select name = "select_colaborador">
-                        <option disabled selected>Elige un usuario...</option>
-                        <% for (let e of empleados) { %>
-                          <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
-                          <% } %>
-                      </select>
-                    </div>
-                </div>
-              </div>
-            </div> -->
+            
             <div class="field is-horizontal">
               <div class="field-label is-normal">
                 <label class="label">Fecha: </label>
