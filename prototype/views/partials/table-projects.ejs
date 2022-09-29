@@ -8,6 +8,7 @@
                 <th>Descripción</th>
                 <th>Líder</th>
                 <th>Colaboradores</th>
+                <th>Estatus</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -17,10 +18,21 @@
                     <td> <%= p.nombre_proyecto %> </td> 
                     <td> <%= p.descripcion_proyecto %> </td> 
                     <td> sample </td> 
-                    <td> <%= 'sample' %> </td>
                     <td>
-                      <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                      <a class="button is-danger is-light js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                      <%for (c of colaboradores) {%>
+                      <p><%= c.nombre %></p>
+                        <% } %>
+                    </td>
+                    <td> 
+                      <% if (p.is_activo == 0){ %>
+                        <span class="tag is-danger is-light">Inactivo</span>
+                        <% } else { %>
+                          <span class="tag is-success is-light">Activo</span>
+                          <% } %>
+                    </td>
+                    <td>
+                      <a class="button is-black is-inverted js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                      <a class="button is-danger is-inverted js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
 
                       <form action="/home/proyectos/edit" method="POST">
                         <input id="id" name="id" type="hidden" value="<%= p.id_proyecto %>">

@@ -15,7 +15,7 @@ module.exports = class Proyectos{
     }
 
     static saveEdit(proyecto) {
-        return db.execute('UPDATE proyecto SET nombre_proyecto = ?, descripcion_proyecto = ? WHERE id_proyecto = ?', [proyecto.nombre_proyecto, proyecto.descripcion_proyecto,  proyecto.id_proyecto]);
+        return db.execute('UPDATE proyecto SET nombre_proyecto = ?, descripcion_proyecto = ?, is_activo = ?, tarea_proyecto = ? WHERE id_proyecto = ?', [proyecto.nombre_proyecto, proyecto.descripcion_proyecto, proyecto.is_activo, proyecto.tarea_proyecto, proyecto.id_proyecto]);
     }
 
     static fetchAll() {
@@ -32,6 +32,10 @@ module.exports = class Proyectos{
 
     static fetchLideres(){
         return db.execute('SELECT * FROM `empleado` WHERE id_rol IN (1,2)')
+    }
+
+    static fetchColaboradores(nombre_proyecto){
+        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.nombre_proyecto = ?', [nombre_proyecto.nombre_proyecto]);
     }
 
     static fetchOne(id) {

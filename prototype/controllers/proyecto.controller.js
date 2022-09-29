@@ -7,12 +7,22 @@ const { response } = require('express');
 exports.getProyecto = (request, response, next) => {
     Proyectos.fetchAll()
         .then(([rows, fieldData]) => {
-            Empleados.fetchLideresCoord()
-                .then(([empleados, fieldData]) => {
-                    response.render(path.join('proyectos.ejs'), {
-                        proyecto: rows,
-                        empleados: empleados,
+            console.log(rows)
+            Empleados.fetchAll()
+                .then(([lideres, fieldData]) => {
+                    Proyectos.fetchColaboradores(rows[1])
+                    .then(([colabs, fieldData]) => {
+                        console.log(colabs)
+                        response.render(path.join('proyectos.ejs'), {
+                            proyecto: rows,
+                            empleados: lideres,
+                            colaboradores: colabs
+                        })
                     })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                    
                 })
             
         }).catch(error => {
