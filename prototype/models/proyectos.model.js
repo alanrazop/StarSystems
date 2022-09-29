@@ -35,7 +35,7 @@ module.exports = class Proyectos{
     }
 
     static fetchColaboradores(id_proyecto){
-        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.id_proyecto = ?', [id_proyecto]);
+        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.id_proyecto = ? GROUP BY e.nombre', [id_proyecto]);
     }
 
     static fetchOne(id) {
