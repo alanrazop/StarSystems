@@ -30,6 +30,7 @@ router.post('/delete', actController.postDeleteAct);
 // ------------- PROYECTOS -------------
 
 router.get('/proyectos', projectsController.getProyecto);
+//router.get('tareas/buscar/:valor', projectsController.getBuscar);
 
 router.post('/nuevo-proyecto', projectsController.postProyecto);
 

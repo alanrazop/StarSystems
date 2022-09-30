@@ -1,5 +1,6 @@
 // dependencias
 const ejs = require("ejs");
+//const alert = Window.alert();
 const bodyParser = require("body-parser");
 const path = require("path");
 const multer = require('multer');

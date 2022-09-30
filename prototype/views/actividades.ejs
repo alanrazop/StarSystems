@@ -59,6 +59,7 @@
                         <textarea name="descripcion" class="textarea" placeholder="Describe la actividad que realizaste" required></textarea>
                     </div>
                   </div>
+                  
                 </div>
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
@@ -73,8 +74,7 @@
                             <% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
-                          </select>
-                          
+                          </select> 
                         </div>
                     </div>
                   </div>
@@ -95,20 +95,22 @@
                   <div class="field-label is-normal">
                     <label class="label">Colaboradores: </label>
                   </div>
+
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <div class="select">
-                          <select name = "select_colaborador" required>
-                            <option value = "" selected>Select dropdown</option>
-                            <% for (let e of empleados) { %>
-                              <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
-                              <% } %>
-                          </select>
+                        <div>
+                          <% for (let e of empleados) { %>
+                            <label>
+                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                            <% } %>
+                               
                         </div>
+    
                     </div>
                   </div>
                 </div>
+
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
                     <label class="label">Fecha: </label>
@@ -123,8 +125,8 @@
               </form>
             </section>
             <footer class="modal-card-foot">
-              <button class="button is-success" type="submit" id="buttonRegistrar" > Guardar tarea </button>
-              <button class="button">Cancelar</button>
+              <button class="button is-success" type="submit" id="buttonRegistrar" required > Guardar tarea </button>
+              <button class="button" onclick="alertaCancelado();">Cancelar</button>
           </div>         
           </div>
           <button class="modal-close is-large" aria-label="close" ></button>

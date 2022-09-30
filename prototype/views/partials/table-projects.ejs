@@ -1,7 +1,7 @@
       <!-- TABLE BEGINS HERE -->
       <div class="card">
         <div class="card-content">
-          <table class="table is-fullwidth">
+          <table class="table is-fullwidth is-centered" >
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -20,8 +20,7 @@
                     <td> sample </td> 
                     <td>
                       <% for (let participante of p.participantes) { %>
-                        <%= participante.nombre %> 
-                        <br>
+                        <p><%= participante.nombre %></p>
                       <% }%>
                     </td>
                     <td> 
@@ -32,8 +31,8 @@
                           <% } %>
                     </td>
                     <td>
-                      <a class="button is-black is-inverted js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                      <a class="button is-danger is-inverted js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                      <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                      <a class="button is-danger is-light js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
 
                       <form action="/home/proyectos/edit" method="POST">
                         <input id="id" name="id" type="hidden" value="<%= p.id_proyecto %>">
@@ -94,8 +93,8 @@
                                         <p class="control">
                                           <div class="select is-rounded">
                                             <select class="form-select" name = "tarea_proyecto" id = "tarea_proyecto">
-                                              <option value="1" selected>Si</option>
-                                              <option value="0">No</option>
+                                              <option value="0" selected>No</option>
+                                              <option value="1" >Si</option>
                                             </select>
                                           </div>
                                         </div>

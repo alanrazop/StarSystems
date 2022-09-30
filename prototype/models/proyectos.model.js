@@ -26,6 +26,9 @@ module.exports = class Proyectos{
         return db.execute('SELECT id_proyecto FROM proyecto WHERE nombre_proyecto = ?', [nombre_proyecto]) ;
     }
 
+    static buscar(valor) {
+        return db.execute('SELECT * FROM proyecto WHERE nombre_proyecto like ?', ['%' + valor + '%']);
+    }
     static LiderProyecto() {
         return db.execute('SELECT nombre_proyecto, descripcion_proyecto, e.nombre as lider FROM proyecto p, actividad a, registra r, empleado e  where p.id_proyecto = a.id_proyecto AND a.id_actividad = r.id_actividad AND r.id_empleado = e.id_empleado AND p.tarea_proyecto = 0 AND e.id_rol = 2;');
     }
@@ -35,7 +38,7 @@ module.exports = class Proyectos{
     }
 
     static fetchColaboradores(id_proyecto){
-        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.id_proyecto = ?', [id_proyecto]);
+        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and p.id_proyecto = ? GROUP BY e.nombre', [id_proyecto]);
     }
 
     static fetchOne(id) {
@@ -43,7 +46,7 @@ module.exports = class Proyectos{
     }
 
     static deleteOne(id) {
-        return db.execute('DELETE FROM proyecto WHERE id_proyecto = ?;', [id.id_proyecto]);
+        return db.execute('DELETE FROM proyecto  WHERE id_proyecto = ? ;', [id.id_proyecto]);
     }
 
     static fetchProjectsWithParticipants() {

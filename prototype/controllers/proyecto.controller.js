@@ -16,10 +16,10 @@ exports.getProyecto = async (request, response, next) => {
         }).catch(err => {
             console.log(err);
         });  
-    console.log(proyectos);
+        console.log(proyectos);
     response.render(path.join('proyectos.ejs'), {
         proyecto: proyectos,
-    });                 
+    });     
 };
 
 exports.postProyecto = (request, response, next) => {

@@ -20,7 +20,11 @@
                 <td><%= a.nombre_proyecto %></td>
                 <td><%= a.descripcion_actividad %></td>
                 <td><%= a.num_horas.toFixed(1) %></td>
-                <td><%= a.nombre %></td>
+                <td>
+                  <% for (let participante of a.participantes) { %>
+                  <p><%= participante.nombre %></p>
+                <% }%>
+                </td>
                 <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
                 <td>
                   <a class="button is-dark is-inverted js-modal-trigger" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
@@ -103,7 +107,7 @@
           </table>
         </div>
       </div>
- 
+
       <!-- TABLE ENDS HERE -->
 
       <!-- EDIT ACTIVITY MODAL SCRIPT BEGINS HERE --> 
