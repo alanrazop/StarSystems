@@ -46,7 +46,7 @@ module.exports = class Proyectos{
     }
 
     static deleteOne(id) {
-        return db.execute('DELETE FROM proyecto WHERE id_proyecto = ?;', [id.id_proyecto]);
+        return db.execute('DELETE FROM proyecto  WHERE id_proyecto = ? ;', [id.id_proyecto]);
     }
 
     static fetchProjectsWithParticipants() {
