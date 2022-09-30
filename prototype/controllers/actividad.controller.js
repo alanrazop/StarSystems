@@ -41,10 +41,10 @@ exports.postActividad = async (request, response, next) => {
 
     console.log('--- FIN DE LOS REQUEST ---- \n');
 
-    let empleado_relleno ;
+    let empleado_relleno = '';
     const check_empleados = request.body.check_empleados;
-    const NuevoRegistro = new Registra (0, request.body.input_horas, empleado_relleno, request.body.fecha_act);
-    const NuevaActividad = new Actividades (0,request.body.descripcion,request.body.select_proyecto,  );
+    const NuevoRegistro = new Registra (request.body.input_horas, 0,  empleado_relleno, request.body.fecha_act);
+    const NuevaActividad = new Actividades (0,request.body.descripcion,request.body.select_proyecto, request.body.input_horas, empleado_relleno, request.body.fecha_act);
     console.log(NuevaActividad);
 
     await Actividades.save(NuevaActividad)
@@ -62,8 +62,8 @@ exports.postActividad = async (request, response, next) => {
 
     console.log(check_empleados);
 
-        await Actividades.LastId()
-        .then( async ([rows, fieldData]) => {
+    await Actividades.LastId()
+        .then(async ([rows, fieldData]) => {
             NuevoRegistro.id_actividad = rows[0].id_actividad;
             console.log ('Nuevo id act: ' +  NuevoRegistro.id_actividad);
             
@@ -71,8 +71,8 @@ exports.postActividad = async (request, response, next) => {
                 NuevoRegistro.colab = e;
                 console.log(NuevoRegistro);
                 console.log('id del colaborador: ' + NuevoRegistro.colab);
-                Registra.saveRegistra(NuevoRegistro)
-                    .then(() => {  
+                await Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
                         console.log('-------------');
                         console.log(NuevoRegistro);
                         console.log('-------------');
