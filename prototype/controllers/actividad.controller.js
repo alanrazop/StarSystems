@@ -73,9 +73,9 @@ exports.postActividad = async (request, response, next) => {
                 console.log('id del colaborador: ' + NuevoRegistro.colab);
                 await Registra.saveRegistra(NuevoRegistro)
                     .then(async() => {  
-                        console.log('-------------');
+                        console.log('-------------\n');
                         console.log(NuevoRegistro);
-                        console.log('-------------');
+                        console.log('-------------\n');
                         
                     })
                     .catch(err => {
