@@ -13,20 +13,20 @@
         </span>
       </p>
     </div>
-    <div class="block">
+    <div class="block" id="lista_proyectos">
       <%- include('partials/table-projects.ejs'); -%>
     </div>
     <div class="block">
       <div class="level">
         <div class="level-item has-text-centered">
-          <button href="#" class="button is-rounded is-medium is-vcentered" style="background-color: #C2FF5E;">
+          <button href="#" class="button is-rounded is-medium is-vcentered js-modal-trigger" data-target="modal-js-example" style="background-color: #C2FF5E;">
             <span class="icon is-small">
               <i class="fa-solid fa-user-plus"></i></span>
             <span>Agregar persona</span>
             </button>
         </div>
-        <div class="level-item has-text-centered">
-          <button href="#" class="button is-rounded is-medium is-danger ">
+        <div class="level-item has-text-centered ">
+          <button href="#" class="button is-rounded is-medium is-danger js-modal-trigger" data-target="modal-js-example2">
             <span class="icon is-small">
               <i class="fa-solid fa-file-circle-plus"></i></span>
             <span>Agregar proyecto</span>
@@ -35,4 +35,254 @@
       </div>
     </div>
 
+    <!-- --- MODAL PERSONA BEGIN --- -->
+    <div id="modal-js-example" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Agregar persona</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Proyecto: </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <div class="select is-rounded">
+                    <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
+                      <option  value = "" selected >Select dropdown</option>
+                      <% for (let p of proyecto) { %>
+                      <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
+                      <% } %>
+                    </select>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Colaboradores: </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  
+                  </div>
+                
+                </div>
+            </div> 
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Guardar</button>
+          <button class="button">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+    <!-- --- MODAL PERSONA END --- -->
+
+    <!-- --- MODAL PROYECTO BEGIN --- -->
+    <form id="formProyectos" class="was-validated" action="/home/nuevo-proyecto" method="POST">
+    <div id="modal-js-example2" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Agregar proyecto</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Nombre: </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                      <input class="input" type="text" name="nombre" id="nombre_pr" required>
+                  </div>
+                </div>
+            </div> 
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Descripción: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                  <textarea class="textarea" type="textarea" name="descripcion" id="desc_pr" placeholder="Describa en una oración su proyecto."></textarea>
+                </div>
+              </div>
+            </div>
+            
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Fecha: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                  <input class="input" type="date" id="fecha_act" name="fecha_act" required>
+                </div>
+              </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Estatus: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <div class="select">
+                      <select  class="form-select" name="select_estatus" >
+                        <option value = "" selected>Elige una opcion...</option>
+                        <option value = "1">Activo</option>
+                        <option value = "0">Inactivo</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Es tarea: </label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <div class="select">
+                      <select  class="form-select" name="select_tarea_proyecto">
+                        <option value = "" selected>Elige una opcion...</option>
+                        <option value = "1">Si</option>
+                        <option value = "0">No</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" type="submit" id="buttonRegistrar">Guardar proyecto</button>
+          <button class="button" >Cancelar</button>
+        </footer>
+      </div>
+    </div>
+    <!-- --- MODAL PERSONA END --- -->
+
+    <script>
+        const accion_asincrona = () => {
+        const valor = document.getElementById('buscar_proyecto').value;
+
+        //función que manda la petición asíncrona
+        fetch('/home/proyectos/buscar/' + valor, {
+            method: 'GET'
+        }).then(result => {
+            return result.json(); //Regresa otra promesa
+        }).then(data => {
+            //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+            console.log(data);
+            let html = '';
+
+            if (data.proyecto.length > 0) {
+              html += '<div class="columns is-multiline">'
+              for (e of data.proyecto) {
+                html += '<div class="column is-half">';
+                html += '<div class="card has-background-white-ter">'
+                html += '<div class="card-content">';
+                html += '<div class="media">';
+                html += '<div class="media-left">';
+                html += '<figure class="image is-48x48">';
+                html += '<img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg" alt="Placeholder image">';
+                html += '</figure>';
+                html += '</div>';
+                html += '<div class="media-content">';
+                html += '<p class="title is-4">' + e.nombre + '</p>';
+                e.is_tiempo_completo ? e.is_tiempo_completo = "Tiempo completo" : e.is_tiempo_completo = "Medio tiempo" ;
+                html += '<p class="subtitle is-6">' +  e.descripcion + ' | ' + e.is_tiempo_completo + '</p>';
+                html += '</div>';
+                html += '</div>';
+                html += '<div class="content">';
+                html += 'Proyectos: Oasis';
+                html +=' </div>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+              }
+            }
+            else {
+              html = '<h2>No hay proyectos registrados que coincidan con la búsqueda</h2>';
+            }
+            document.getElementById('lista_proyectos').innerHTML = html;
+            
+        }).catch(err => {
+            console.log(err);
+        });
+      };
+      document.getElementById('buscar_proyecto').onkeyup = accion_asincrona;
+
+        document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+          $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+          (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+            closeModal($modal);
+          });
+        }
+
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
+      });
+     
+        document.getElementById('buttonRegistrar').addEventListener('click', () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Proyecto registrado con éxito'
+          })
+        });
+
+    const arrayColaboradores  = [];
+          // se cambia al hacer click en busqueda click
+          function agregarEmpleado(){
+            const colaborador = document.getElementById("select_colaborador");
+            const colaboradorActual = colaborador.options[colaborador.selectedIndex];
+            // aqui escribimos los nombres de los colaboradores
+            const lista = document.getElementById("Lista_Empleados");
+            lista.innerHTML = lista.innerHTML + '<div class="notification is-link is-light py-2 my-3 notificacionAgregarColab">' + colaboradorActual.innerHTML +' </div>';
+            arrayColaboradores.push(colaboradorActual.value);
+          }
+    </script>
         <%- include('partials/tail.ejs'); -%>

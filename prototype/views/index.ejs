@@ -50,9 +50,12 @@
             <div class="tile is-parent">
               <article class="tile is-child notification has-background-primary-light">
                 <p class="title">Horas por proyecto</p>
-                
-                  <canvas id="myChart" ></canvas>
-                
+                <% for (let e of proyectosA) {%>
+                  <p class="title is-5"><%= e.nombre_proyecto %></p>
+                  <label><%= e.total_horas%> hrs</label>
+                  <progress class="progress is-info" value="<%= e.total_horas%>" max="100"></progress>
+                  <p></p>
+                  <% } %>
                   
               </article>
             </div>
@@ -94,12 +97,23 @@
       document.getElementById('save').addEventListener('click', function hola(){
             Swal.fire('Fondo de pantalla agregado')
       });
-      var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-      var yValues = [55, 49, 44, 24, 15];
-      var barColors = ["red", "green","blue","orange","brown"];
+      
+        var xValues = ['Adios'];
+        var yValues = [5];
+        var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+          "#e8c3b9",
+          "#1e7145"
+        ];
+
+
+
+
 
       new Chart("myChart", {
-        type: "bar",
+        type: "doughnut",
         data: {
           labels: xValues,
           datasets: [{
@@ -108,10 +122,9 @@
           }]
         },
         options: {
-          legend: {display: false},
           title: {
             display: true,
-            text: "World Wine Production 2018"
+            text: "World Wide Wine Production 2018"
           }
         }
       });
