@@ -39,14 +39,13 @@ exports.postActividad = async (request, response, next) => {
     console.log('request.body.empleados: ' + request.body.check_empleados);
     console.log('request.body.fecha : ' + request.body.fecha_act);
 
-    console.log('FIN DE LOS REQUEST ............ \n');
+    console.log('--- FIN DE LOS REQUEST ---- \n');
 
     let empleado_relleno ;
     const check_empleados = request.body.check_empleados;
-
-
     const NuevoRegistro = new Registra (0, request.body.input_horas, empleado_relleno, request.body.fecha_act);
-    const NuevaActividad = new Actividades (request.body.descripcion,request.body.select_proyecto );
+    const NuevaActividad = new Actividades (0,request.body.descripcion,request.body.select_proyecto,  );
+    console.log(NuevaActividad);
 
     await Actividades.save(NuevaActividad)
     .then(async () => {
@@ -62,18 +61,17 @@ exports.postActividad = async (request, response, next) => {
 
 
     console.log(check_empleados);
-        // console.log('Esta es la e ' + e);
 
-        Actividades.LastId()
-        .then( ([rows, fieldData]) => {
-            NuevaActividad.id_actividad = rows[0].id_actividad;
+        await Actividades.LastId()
+        .then( async ([rows, fieldData]) => {
+            NuevoRegistro.id_actividad = rows[0].id_actividad;
             console.log ('Nuevo id act: ' +  NuevoRegistro.id_actividad);
             
             for ( let e of check_empleados ){
                 NuevoRegistro.colab = e;
                 console.log(NuevoRegistro);
                 console.log('id del colaborador: ' + NuevoRegistro.colab);
-                Actividades.saveRegistra(NuevoRegistro)
+                Registra.saveRegistra(NuevoRegistro)
                     .then(() => {  
                         console.log('-------------');
                         console.log(NuevoRegistro);
@@ -84,8 +82,6 @@ exports.postActividad = async (request, response, next) => {
                         console.log(err);
                     })  
             }  
-           
-
     })
         .catch(err => {
             console.log(err);

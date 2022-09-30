@@ -17,11 +17,11 @@ module.exports = class Actividades {
     }
     // VERIFICAR EL EL UTLIMO ID GUARDADO
     //GUARDAR LA ACTIVIDAD REGISTRADA
-    static saveRegistra(actividad) {
+    // static saveRegistra(actividad) {
         
-        //return db.execute('cALL agregar_actividad  (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha])
-        return db.execute('INSERT INTO registra (num_horas, id_actividad, id_empleado, fecha) VALUES  (?,?,?,?,?)', [actividad.duracion, actividad.id_Actividad, actividad.colab, actividad.fecha])
-    }
+    //     //return db.execute('cALL agregar_actividad  (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha])
+    //     return db.execute('INSERT INTO registra (num_horas, id_actividad, id_empleado, fecha) VALUES  (?,?,?,?,?)', [actividad.duracion, actividad.id_Actividad, actividad.colab, actividad.fecha])
+    // }
 
     static LastId(){
         return db.execute('SELECT id_actividad FROM actividad ORDER BY id_actividad DESC LIMIT 1')
