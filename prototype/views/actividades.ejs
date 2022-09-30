@@ -33,53 +33,7 @@
           </form>
         </div>
         
-        <script>
-          document.addEventListener('DOMContentLoaded', () => {
-          // Functions to open and close a modal
-          function openModal($el) {
-            $el.classList.add('is-active');
-          }
 
-          function closeModal($el) {
-            $el.classList.remove('is-active');
-          }
-
-          function closeAllModals() {
-            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-              closeModal($modal);
-            });
-          }
-
-          // Add a click event on buttons to open a specific modal
-          (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-            const modal = $trigger.dataset.target;
-            const $target = document.getElementById(modal);
-
-            $trigger.addEventListener('click', () => {
-              openModal($target);
-            });
-          });
-
-          // Add a click event on various child elements to close the parent modal
-          (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-            const $target = $close.closest('.modal');
-
-            $close.addEventListener('click', () => {
-              closeModal($target);
-            });
-          });
-
-          // Add a keyboard event to close all modals
-          document.addEventListener('keydown', (event) => {
-            const e = event || window.event;
-
-            if (e.keyCode === 27) { // Escape key
-              closeAllModals();
-            }
-          });
-        });
-
-        </script>
 
 
       <form id="formTareas" class="was-validated" action="/home/tareas" method="POST">
@@ -188,53 +142,60 @@
           </div>
           <button class="modal-close is-large" aria-label="close" ></button>
         </div>
-      </footer>  
-      <%- include('partials/tail.ejs'); -%>
-
+      </footer> 
       <script>
-
-        function alertaCancelado(){
-          return confirm ("¿Seguro que desea cancelar?\n Esta actividad no será guardada.");
+        document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+          $el.classList.add('is-active');
         }
 
-        const accion_asincrona = () => {
-          console.log('Accion asincrona');
-          const valor = document.getElementById('select_proyecto').value;
-          //función que manda la petición asíncrona
-          fetch('/home/tareas/buscar/' + valor, {
-          method: 'GET',
-          }).then(result => {
-          return result.json(); //Regresa otra promesa
-          }).then(data => {
-          //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
-            console.log(data);
-            
-            let html = '';
-            if (data.proyectos.length > 0) {
-              html = '';
-                for (p of data.proyectos) {
-                  html += `<div class="card" id="drop-card">`;
-                  html += '<header class="card-header">';
-                  html += `<p class="card-header-title"  data-proyecto = "${ p.id_proyecto }" data-proyectoID=${ p.id_proyecto }>`;
-                  html += p.nombre_proyecto ;
-                  html += '</p>';
-                  html += '</header>';
-                  html += '</div>';
-                }
-            } else {
-              html = '<h2>No hay proyectos registrados que coincidan con los criterios de búsqueda</h2>';
-            }
-              document.getElementById("listaProyectos").innerHTML = html;
-              document
-              .querySelectorAll("#drop-card")
-              .forEach((agregar) => agregar.addEventListener("click", busquedaClick));
-          }).catch(err => {
-              console.log(err);
-            });
-      };
-      
-      document.getElementById('select_proyecto').onkeyup = accion_asincrona;
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
 
-      </script>
+        function closeAllModals() {
+          (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+            closeModal($modal);
+          });
+        }
 
-      
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
+      });
+     
+        document.getElementById('buttonRegistrar').addEventListener('click', () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Tarea registrada con éxito'
+          })
+        });
+
+
+      </script> 
+        <%- include('partials/tail.ejs'); -%>

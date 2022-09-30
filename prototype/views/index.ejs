@@ -3,89 +3,117 @@
 <%- include('partials/sidebar.ejs'); -%>
     <!------------==                         TOP NAVBAR BEGINS                         ==------------>
     <div class="content">
-        <h1 class="is-size-1" style="text-align: center;">Bienvenido al portal de proyectos</h1>
-        <h2>Recuerda Registrar tus horas</h2>
-        <p>Nadie quiere trabajar<strong> tiempo extra</strong>, por lo que cuando tengas oportunidad agrega tus horas en las areas correspondientes</p>
-
-        <h3>Third level</h3>
-        <p>Quisque ante lacus, malesuada ac auctor vitae, congue <a href="#">non ante</a>. Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus.</p>
-        <ol>
-          <li>Donec blandit a lorem id convallis.</li>
-          <li>Cras gravida arcu at diam gravida gravida.</li>
-          <li>Integer in volutpat libero.</li>
-          <li>Donec a diam tellus.</li>
-          <li>Aenean nec tortor orci.</li>
-          <li>Quisque aliquam cursus urna, non bibendum massa viverra eget.</li>
-          <li>Vivamus maximus ultricies pulvinar.</li>
-        </ol>
-        <blockquote>Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis.</blockquote>
-        <p>Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et <em>justo sodales</em> elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.</p>
-        <p>Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo.</p>
-        <dl>
-          <dt>Web</dt>
-          <dd>The part of the Internet that contains websites and web pages</dd>
-          <dt>HTML</dt>
-          <dd>A markup language for creating web pages</dd>
-          <dt>CSS</dt>
-          <dd>A technology to make HTML look better</dd>
-        </dl>
-        <p>Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.</p>
-        <h4>Fourth level</h4>
-        <p>Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.</p>
-        <pre>
-      &lt;!DOCTYPE html&gt;
-      &lt;html&gt;
-        &lt;head&gt;
-          &lt;title&gt;Hello World&lt;/title&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
-          &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra nec nulla vitae mollis.&lt;/p&gt;
-        &lt;/body&gt;
-      &lt;/html&gt;
-      </pre>
-        <p>Maecenas eleifend sollicitudin dui, faucibus sollicitudin augue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>One</th>
-              <th>Two</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Three</td>
-              <td>Four</td>
-            </tr>
-            <tr>
-              <td>Five</td>
-              <td>Six</td>
-            </tr>
-            <tr>
-              <td>Seven</td>
-              <td>Eight</td>
-            </tr>
-            <tr>
-              <td>Nine</td>
-              <td>Ten</td>
-            </tr>
-            <tr>
-              <td>Eleven</td>
-              <td>Twelve</td>
-            </tr>
-          </tbody>
-        </table>
-        <p>Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque.</p>
-        <h5>Fifth level</h5>
-        <p>Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.</p>
-        <figure>
-          <img src="https://bulma.io/images/placeholders/256x256.png">
-          <img src="https://bulma.io/images/placeholders/256x256.png">
-          <figcaption>
-            Figure 1: Some beautiful placeholders
-          </figcaption>
-        </figure>
-        <h6>Sixth level</h6>
-        <p>Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus.</p>
+        <div class="block">
+          <h1 class="is-size-1" style="text-align: center;">Bienvenido al portal de proyectos</h1>
+          <p class="is-size-6" style="text-align: center;">Desarrollado por Star Systems </p>
+        </div>
+        <% for (e of imagenes) { %>
+        <img src="<% if (e.archivo) { %>
+          <%= e.archivo %>
+          <% } else { %>
+            https://blogs.iadb.org/conocimiento-abierto/wp-content/uploads/sites/10/2019/12/banner-lecciones-aprendidas-proyectos-desarrollo-2019.jpg
+          <% } %>">
+        <% }%>
+        
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child notification is-success">
+                <p class="title">Recuerda registrar tus horas</p>
+                <p>Nadie quiere trabajar<strong> tiempo extra</strong>, por lo que cuando tengas oportunidad agrega tus horas en las areas correspondientes</p>
+              </article>
+              <article class="tile is-child notification is-light">
+                <p class="title">Cambia el fondo de pantalla</p>
+                <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
+                  <div id="file-js-example" class="file has-name is-info is-small">
+                    <label class="file-label">
+                      <input class="file-input" type="file" name="archivo" required>
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                          Cargar archivo
+                        </span>
+                      </span>
+                      <span class="file-name">
+                        Sin archivos seleccionados
+                      </span>
+                    </label>
+                  </div>
+                  <br>
+                  <input id="save" class="button is-small is-info is-outlined is-rounded" type="submit" name="enviar" value="Guardar imagen">
+                </form>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child notification has-background-primary-light">
+                <p class="title">Horas por proyecto</p>
+                
+                  <canvas id="myChart" ></canvas>
+                
+                  
+              </article>
+            </div>
+          </div>
+          <div class="tile is-parent">
+            
+            <article class="tile is-child notification is-danger">
+              <p class="title"><em>¡Ojo! </em><i class="fa fa-eye"></i> </p>
+              <p class="is-size-5">Verifica que tus horas se vean actualizadas en los <strong>proyectos</strong> que estas involucrado</p>
+              <div class="content">
+                <!-- Content -->
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="message is-link">
+            <div class="message-header">
+              <p>¿Cuál es el propósito de este sistema?</p>
+              <button class="delete" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+            </div>
+          </article>
+        </div>
       </div>
+
+    </div>      
     <!------------==                         TOP NAVBAR ENDS                         ==------------>
+    <script>
+      const fileInput = document.querySelector('#file-js-example input[type=file]');
+      fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+          const fileName = document.querySelector('#file-js-example .file-name');
+          fileName.textContent = fileInput.files[0].name;
+        }
+      }
+      document.getElementById('save').addEventListener('click', function hola(){
+            Swal.fire('Fondo de pantalla agregado')
+      });
+      var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+      var yValues = [55, 49, 44, 24, 15];
+      var barColors = ["red", "green","blue","orange","brown"];
+
+      new Chart("myChart", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          legend: {display: false},
+          title: {
+            display: true,
+            text: "World Wine Production 2018"
+          }
+        }
+      });
+    </script>
     <%- include('partials/tail.ejs'); -%>
