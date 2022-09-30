@@ -28,6 +28,7 @@ exports.getActividad  = (request, response, next) => {
         
 }
 
+
 exports.postActividad =  (request, response, next) => {
 
     console.log('POST');
@@ -53,57 +54,50 @@ exports.postActividad =  (request, response, next) => {
 
 }
 
+
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
             Empleados.NombreEmpleado()
-            .then(([empleados,fieldData]) => {
-    
-                console.log(rows[0].descripcion_actividad);     
-                console.log('truena aqui');                
+            .then(([empleados,fieldData]) => {  
+                Proyectos.fetchAll()
+                .then(([proyectos,fieldData]) =>{                       
                 response.render(path.join('modAct.ejs'), {
                     actividades: rows[0],
                     empleados: empleados,
-                });
+                    proyecto: proyectos
+                })
             })
             .catch(err => {
                 console.log(err);
             })
+        })        .catch(err => {
+            console.log(err);
+        }) 
+}).catch(err => {
+    console.log(err);
+}) ;
+}
+
+exports.postEditAct = (request, response, next) => {
+    console.log('Si paso por aqui');
+    console.log(request.body.id);
+
+    const NuevoRegistro = new Actividades (request.body.descripcion, 
+                                           request.body.id_proyecto,
+                                           request.body.input_horas,
+                                           request.body.select_colaborador,
+                                           request.body.fecha_act,
+                                           );
+    NuevoRegistro.id = request.body.id;
+    console.log(NuevoRegistro)
+        Actividades.saveEdit(NuevoRegistro)
+        .then(() => {
+            response.redirect('/home/tareas');
         })
         .catch(err => {
             console.log(err);
-        }) 
-};
-
-exports.postEditAct = (request, response, next) => {
-    
-    Actividades.fetchOne(request.body.id)
-    .then(([rows, fieldData]) => {
-         console.log(request.body.descripcion);
-         console.log(request.body.proyecto);
-         console.log( request.body.num_horas);
-         console.log(request.body.colab);
-         console.log(request.body.fecha);
-         console.log(request.body.id_actividad);
-        rows[0].descripcion = request.body.descripcion;
-        rows[0].proyecto = request.body.proyecto;
-        rows[0].num_horas = request.body.num_horas;
-        rows[0].colab = request.body.colab;
-        rows[0].fecha = request.body.fecha; 
-        rows[0].id_actividad = request.body.id_actividad; 
-        console.log(id_actividad);
-
-        Actividades.saveEdit(rows[0])
-            .then(() => {
-                response.redirect('/home/tareas');
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    })
-    .catch(err => {
-    console.log(err);
-});
+        });
 };
 
 exports.postDeleteAct = (request, response, next) => {

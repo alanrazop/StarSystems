@@ -55,6 +55,15 @@
                 </div>
               </div>
 
+              <br>
+
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label"> Actividad del Proyecto </label>
+                </div>
+                      <p name="proyecto"  class="textarea"><%= proyecto[0].nombre_proyecto %></p>
+                      <input id="proyecto" name="id_proyecto" type="hidden" value="<%= proyecto[0].id_proyecto %>">
+              </div>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
                   <label class="label">Horas: </label>
@@ -99,8 +108,9 @@
               </div>
         
           </section>
-          <section class="buttons is-right">
+          <section id = "modAct" class="buttons is-right">
             <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
+            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
           </form>
             <a class="button" href = "/home/tareas">Cancelar</a>
             <form action="/home/delete" method="POST">

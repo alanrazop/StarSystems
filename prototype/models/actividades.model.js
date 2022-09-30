@@ -25,7 +25,7 @@ module.exports = class Actividades {
     // }
 
     static saveEdit(actividad) {
-        return db.execute('CALL modificar_actividad (?,?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.num_horas, actividad.colab, actividad.fecha, actividad.id_actividad])
+        return db.execute('CALL modificar_actividad (?,?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha, actividad.id])
     }
 
 
