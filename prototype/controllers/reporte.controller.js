@@ -3,19 +3,23 @@ const Reporte = require('../models/reporte.model');
 const Proyectos_activos = require('../models/proyectos_activos.model');
 
 exports.getReportes = (request, response, next) => {
+    Proyectos_activos.fetchAll().then(([row,  fieldData ]) => {  
+        console.log(row[0]);
+    
+    
     Reporte.fetchAll().then(([rows, fieldData]) => {
-        Proyectos_activos.fetchAll().then(([rows, fieldData]) => {
-            console.log(rows[0]);
-        }) 
-        .catch(err => console.log(err));
 
+  
         response.render(path.join('reportes.ejs'), {
+            proyectosA:  row[0],
             horas_vacaciones: rows[0].horas_vacaciones,
             horas_trabajadas: rows[0].horas_trabajadas,
             horas_tiempo_completo: rows[0].horas_tiempo_completo,
             horas_tiempo_medio: rows[0].horas_tiempo_medio,
-            coeficiente_efectividad: rows[0].coeficiente_efectividad
+            coeficiente_efectividad: rows[0].coeficiente_efectividad           
         })})
+    .catch(err => console.log(err));
+}) 
     .catch(err => console.log(err));
     }
 
