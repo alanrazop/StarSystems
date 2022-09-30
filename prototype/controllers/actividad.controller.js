@@ -59,8 +59,8 @@ exports.getEditAct = (request, response, next) => {
             Empleados.NombreEmpleado()
             .then(([empleados,fieldData]) => {
     
-                console.log(rows[0].descripcion_actividad);
-                
+                console.log(rows[0].descripcion_actividad);     
+                console.log('truena aqui');                
                 response.render(path.join('modAct.ejs'), {
                     actividades: rows[0],
                     empleados: empleados,
@@ -79,10 +79,20 @@ exports.postEditAct = (request, response, next) => {
     
     Actividades.fetchOne(request.body.id)
     .then(([rows, fieldData]) => {
-        let horas = request.body.num_horas;
-        console.log(horas);
-        rows[0].num_horas = horas;
-        console.log(rows[0]);
+         console.log(request.body.descripcion);
+         console.log(request.body.proyecto);
+         console.log( request.body.num_horas);
+         console.log(request.body.colab);
+         console.log(request.body.fecha);
+         console.log(request.body.id_actividad);
+        rows[0].descripcion = request.body.descripcion;
+        rows[0].proyecto = request.body.proyecto;
+        rows[0].num_horas = request.body.num_horas;
+        rows[0].colab = request.body.colab;
+        rows[0].fecha = request.body.fecha; 
+        rows[0].id_actividad = request.body.id_actividad; 
+        console.log(id_actividad);
+
         Actividades.saveEdit(rows[0])
             .then(() => {
                 response.redirect('/home/tareas');
