@@ -57,7 +57,9 @@ exports.getEditAct = (request, response, next) => {
         .then(([rows, fieldData]) => {
             Empleados.NombreEmpleado()
             .then(([empleados,fieldData]) => {
-                console.log(empleados);
+    
+                console.log(rows[0].descripcion_actividad);
+                
                 response.render(path.join('modAct.ejs'), {
                     actividades: rows[0],
                     empleados: empleados,

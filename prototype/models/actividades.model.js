@@ -20,16 +20,28 @@ module.exports = class Actividades {
         return db.execute('CALL agregar_actividad (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha])
     }
 
+    // static saveEdit(actividad) {
+    //     return db.execute('UPDATE registra SET  descripcion_actividad = ? , num_horas = ?, WHERE id_actividad = ?', [descripcion_actividad, actividad.num_horas, actividad.id_actividad]);
+    // }
+
     static saveEdit(actividad) {
-        return db.execute('UPDATE registra SET num_horas = ? WHERE id_actividad = ?', [actividad.num_horas, actividad.id_actividad]);
+        return db.execute('CALL modificar_actividad (?,?,?,?,?,S?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha, actividad.id_actividad])
     }
+
+
+    // call modificar_actividad('ya leo si funciono',16,5,1,"2022-09-22",315);
+
+
+    // static saveEdit(actividad) {
+    //     return db.execute('UPDATE registra SET num_horas = ? WHERE id_actividad = ?', [actividad.num_horas, actividad.id_actividad]);
+    // }
 
     static fetchAll() {
         return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado');
     }
 
     static fetchOne(id) {
-        return db.execute('SELECT * FROM registra WHERE id_actividad = ?', [id]);
+        return db.execute('SELECT * FROM registra r, actividad a WHERE r.id_actividad = ? and a.id_actividad = r.id_actividad', [id] );
     }
 
     static deleteOne(id) {
