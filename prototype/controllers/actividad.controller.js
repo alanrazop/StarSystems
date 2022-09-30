@@ -8,15 +8,47 @@ const { get } = require('http');
 //import {alert} from './app.js';
 
 
-exports.getActividad  = (request, response, next) => {
-    Actividades.fetchAll()
-    .then(([rows, fieldData]) => {
+// exports.getActividad  = (request, response, next) => {
+//     Actividades.fetchAll()
+//     .then(([rows, fieldData]) => {
+//         Actividades.fetchColaboradores()
+//         .then(([empleados,fieldData]) =>{
+//             Proyectos.fetchAll()
+//             .then(([proyectos,fieldData]) =>{
+//                 response.render(path.join('actividades.ejs'), {
+//                     actividades: rows,
+//                     empleados:empleados,
+//                     proyectos: proyectos
+//                 })
+//             }).catch(error => {
+//                 console.log(error);
+//             });
+//         }).catch(error =>{
+//             console.log(error);
+//         }); 
+//     })
+//     .catch(err => console.log(err));    
+// }
+
+exports.getActividad = async (request, response, next) => {
+    let actividades;
+    await Actividades.fetchAll()
+        .then( async ([rows, fieldData]) => {
+            for (let actividad of rows) {
+                [colaboradores, fieldData] = await Actividades.fetchColaboradores(actividad.id_actividad); 
+                actividad.participantes = colaboradores; 
+            }     
+            actividades = rows;
+        }).catch(err => {
+            console.log(err);
+        });  
+        console.log(actividades);
         Empleados.NombreEmpleado()
         .then(([empleados,fieldData]) =>{
             Proyectos.fetchAll()
             .then(([proyectos,fieldData]) =>{
                 response.render(path.join('actividades.ejs'), {
-                    actividades: rows,
+                    actividades: actividades,
                     empleados:empleados,
                     proyectos: proyectos
                 })
@@ -25,10 +57,8 @@ exports.getActividad  = (request, response, next) => {
             });
         }).catch(error =>{
             console.log(error);
-        }); 
-    })
-    .catch(err => console.log(err));    
-}
+        });    
+};
 
 exports.postActividad = async (request, response, next) => {
 

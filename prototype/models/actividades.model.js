@@ -31,7 +31,7 @@ module.exports = class Actividades {
     }
 
     static fetchAll() {
-        return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado');
+        return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado GROUP BY a.descripcion_actividad');
     }
 
     static fetchOne(id) {
@@ -42,6 +42,9 @@ module.exports = class Actividades {
         return db.execute('CALL eliminar_actividad (?)', [id.id_actividad]);
     }
 
+    static fetchColaboradores(id_actividad){
+        return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and a.id_actividad = ? GROUP BY e.nombre', [id_actividad]);
+    }
 
 
     // static fetchVerProyectoAct() {

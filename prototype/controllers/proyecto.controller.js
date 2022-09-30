@@ -16,7 +16,7 @@ exports.getProyecto = async (request, response, next) => {
         }).catch(err => {
             console.log(err);
         });  
-    
+        console.log(proyectos);
     response.render(path.join('proyectos.ejs'), {
         proyecto: proyectos,
     });     
