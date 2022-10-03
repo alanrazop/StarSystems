@@ -59,11 +59,10 @@
 
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                  <label class="label"> Actividad del Proyecto </label>
+                  <label class="label">Proyecto: </label>
                 </div>
-                      <p name="proyecto"  class="textarea" disabled><%= proyecto[0].nombre_proyecto %></p>
-                      <input id="proyecto" name="id_proyecto" type="hidden" value="<%= proyecto[0].id_proyecto %>">
-
+                      <p name="proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
+                      <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.nombre_proyecto %>">
               </div>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
@@ -86,6 +85,7 @@
                     <p class="control">
                       <div class="select">
                         <select name = "select_colaborador" required>
+                          <%= empleados.nombre %>
                           <option value = "" selected>Select dropdown</option>
                           <% for (let e of empleados) { %>
                             <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>

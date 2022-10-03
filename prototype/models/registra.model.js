@@ -8,6 +8,9 @@ module.exports = class Registra {
         this.fecha = _fecha;
     }
 
+    static fetchAll (){
+        return db.execute('SELECT * FROM registra');
+    }
 
     static saveRegistra(actividad) {
         

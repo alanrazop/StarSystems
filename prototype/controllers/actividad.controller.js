@@ -102,7 +102,7 @@ exports.getEditAct = (request, response, next) => {
         .then(([rows, fieldData]) => {
             Empleados.NombreEmpleado()
             .then(([empleados,fieldData]) => {  
-                Proyectos.fetchAll()
+                Registra.fetchAll()
                 .then(([proyectos,fieldData]) =>{                       
                 response.render(path.join('modAct.ejs'), {
                     actividades: rows[0],
