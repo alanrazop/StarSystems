@@ -125,13 +125,15 @@ exports.postEditAct = (request, response, next) => {
     console.log('Si paso por aqui');
     console.log(request.body.id);
 
-    const NuevoRegistro = new Actividades (request.body.descripcion, 
-                                           request.body.id_proyecto,
+    const NuevoRegistro = new Actividades (
+                                             request.body.id,
+                                            request.body.descripcion,
+                                            request.body.id_proyecto,
                                            request.body.input_horas,
                                            request.body.select_colaborador,
-                                           request.body.fecha_act,
+                                           request.body.fecha_act
                                            );
-    NuevoRegistro.id = request.body.id;
+     NuevoRegistro.id = request.body.id;
     console.log(NuevoRegistro)
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
