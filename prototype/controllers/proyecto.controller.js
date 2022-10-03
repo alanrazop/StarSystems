@@ -3,6 +3,7 @@ const PA = require('../models/proyectos_activos.model');
 const Proyectos = require('../models/proyectos.model.js');
 const Empleados = require('../models/empleados.model');
 const { response } = require('express');
+const User = require('../models/user.model')
 
 exports.getProyecto = async (request, response, next) => {
     let proyectos;

@@ -12,6 +12,7 @@ const router = express.Router();
 
 // Route handling
 router.get('/proyectos', projectsController.getProyecto);
+
 router.get('/tareas', actController.getActividad);
 
 router.post('/tareas', actController.postActividad);
