@@ -1,8 +1,8 @@
       <!-- TABLE BEGINS HERE -->
       <div class="card">
         <div class="card-content">
-          <table class="table is-fullwidth is-centered" >
-            <thead>
+          <table class="table is-fullwidth" >
+            <thead >
               <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -20,7 +20,7 @@
                     <td> sample </td> 
                     <td>
                       <% for (let participante of p.participantes) { %>
-                        <p><%= participante.nombre %></p>
+                        <div><%= participante.nombre %></div>
                       <% }%>
                     </td>
                     <td> 
