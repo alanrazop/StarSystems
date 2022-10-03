@@ -100,7 +100,7 @@ exports.postActividad = async (request, response, next) => {
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
-            Empleados.NombreEmpleado()
+            Registra.fetchAll()
             .then(([empleados,fieldData]) => {  
                 Proyectos.fetchAll()
                 .then(([proyectos,fieldData]) =>{                       

@@ -62,8 +62,8 @@
                   <label class="label"> Actividad del Proyecto </label>
                 </div>
                 
-                  <p id="proyecto" name="id_proyecto"  class="textarea"><%= proyecto[0].nombre_proyecto %></p>
-                  <input id="proyecto" name="id_proyecto" type="hidden" value="<%= proyecto.nombre_proyecto %>"> 
+                  <p id="proyecto" name="id_proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
+                  <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.nombre_proyecto %>"> 
                       
               </div>
               <div class="field is-horizontal">
@@ -73,7 +73,7 @@
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                      <input class="input" id = "input_horas" name = "input_horas" value="<%= actividades.num_horas %>" >
+                      <input class="input" id = "input_horas" name = "input_horas" value="<%= actividades.num_horas %>" min="0" >
                     </p>
                   </div>
                 </div>
