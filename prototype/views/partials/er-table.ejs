@@ -1,6 +1,6 @@
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child">
-                  <table id ="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="getVars()">
+                  <table id ="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
                     <tbody>
                       <tr>
                         <th>Coeficiente</th>
@@ -47,8 +47,13 @@
                     </tbody>
                   </table>
                 </article>
-                <script type="text/javascript">
-                  async function getVars(){
+                <article class="tile is-child">
+                  <canvas id="myChart" width="400" height="400"></canvas>
+                </article>
+              </div>
+
+              <script>
+                async function getVars(){
                     let variables_ajuste = {
                       coef:  parseFloat(document.getElementById("coeficiente").value), 
                       ng_tm: parseInt(document.getElementById("ng_tm").value),
@@ -59,6 +64,56 @@
                     console.log(variables_ajuste);
                    return variables_ajuste;
                   }
+
                   console.log('variables cargadas')
-                </script>
-              </div>
+                  
+async function createChart(variables_ajuste) {  
+              const ctx = document.getElementById('myChart').getContext('2d');
+              const myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: ['Coeficiente', 'NG_tc', 'NG_tm', 'V_TC', 'V_TM'],
+                      datasets: [{
+                          label: 'indicadores',
+                          data: [variables_ajuste.coef, 
+                                variables_ajuste.ng_tc, 
+                                variables_ajuste.ng_tm, 
+                                variables_ajuste.v_tc, 
+                                variables_ajuste.v_tm],
+
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 206, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',
+                              'rgba(255, 159, 64, 0.2)'
+                          ],
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          y: {
+                              beginAtZero: true
+                          }
+                      }
+                  }
+              });
+                  }
+                  
+              async function renderChart() {
+                await getVars().then((vars) => {
+                  console.log(vars);
+                  createChart(vars); 
+                })
+                .catch(err => {console.log(err)} )
+              }
+              </script>
+              
