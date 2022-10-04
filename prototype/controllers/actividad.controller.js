@@ -122,6 +122,7 @@ exports.getEditAct = (request, response, next) => {
 }
 
 exports.postEditAct = (request, response, next) => {
+    // AKI
     console.log('Si paso por aqui');
     console.log(request.body.id);
 
