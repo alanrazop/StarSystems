@@ -5,11 +5,9 @@ const projectsController = require('../controllers/proyecto.controller');
 const colabController = require('../controllers/colaborador.controller');
 const userController = require('../controllers/user.controller');
 
-const { requiresAuth } = require('express-openid-connect');
-
 const router = express.Router();
 
-router.get('/', userController.getUser);
+router.get('/', userController.getUserProfile);
 
 
 // Route handling

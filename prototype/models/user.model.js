@@ -1,5 +1,3 @@
-const { auth, requiresAuth, claimEquals,claimIncludes,claimCheck } = require('express-openid-connect');
-
 module.exports = class User {
     constructor(thing) {
         this.nickname = thing.nickname,
@@ -14,5 +12,13 @@ module.exports = class User {
 
     static fetchSession() {
         return this.sid;
+    }
+
+    static fetchName() {
+        return this.nickname;
+    }
+    
+    static fetchAll() {
+        return this;
     }
 }

@@ -41,8 +41,6 @@ exports.postProyecto = (request, response, next) => {
         });
 };
 
-
-
 exports.postEditProject = (request, response, next) => {
     Proyectos.fetchOne(request.body.id)
     .then(([rows, fieldData]) => {
