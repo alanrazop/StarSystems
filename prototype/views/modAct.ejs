@@ -2,46 +2,12 @@
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
     <div style="text-align: center;">
-      <!-- <div class="title"> Modificar horas de actividad</div>
-      <form action="/home/edit" method="POST">
-      <fieldset>
-          <label class="label" for="equipo">Agregar personas: </label>
-          <div class="select is-rounded">
-            <select name="select_colaborador" id="select_colaborador" required>
-              <option disabled selected>Escoge un usuario</option>
-              <% for (let e of empleados) { %>
-                <option value="<%= e.id_empleado %>"><%= e.nombre %></option>
-                <% } %>
-            </select>
-          </div>
-          <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()"><i class="fa-solid fa-user-plus"></i></a>
-          <div class="column is-half is-offset-one-quarter"id="Lista_Empleados"></div>
-          <br>
-          
-            <label class="label" for="equipo">Horas registradas:</label>
-            <div class="column is-half is-offset-one-quarter">
-            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
-            </div>
-      </fieldset>
-      <br>
-      <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
-      <button class="button" href="/home/tareas">Cancelar</button>
-
-
-      </form> -->
-
       <form action="/home/edit" method="POST"> 
-
-
-
         <div class="box">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Modificar tarea</p>
-          </header>
-
+          <div class="column is-centered ">
+            <p class="title ">Modificar tarea</p>
+          </div>
           <section class="modal-card-body">
-            <!-- Content ... -->
 
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
@@ -50,22 +16,24 @@
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                      <input name="descripcion"  class="textarea" value =" <%= actividades.descripcion_actividad %>" ></input>
+                      <input name="descripcion"  class="input" value ="<%= actividades.descripcion_actividad %>" ></input>
                   </div>
                 </div>
               </div>
-
               <br>
-
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                  <label class="label"> Actividad del Proyecto </label>
+                  <label class="label">Proyecto: </label>
                 </div>
-                
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
                   <p id="proyecto" name="id_proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
                   <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.id_proyecto %>"> 
-                      
+                    </div>  
+                </div>  
               </div>
+              <br>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
                   <label class="label">Horas: </label>
@@ -78,6 +46,7 @@
                   </div>
                 </div>
               </div>
+              <br>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
                   <label class="label">Colaboradores: </label>
@@ -85,49 +54,47 @@
                 <div class="field-body">
                   <div class="table">
                     <p class="control">
-                      
+                      <input id="id" name="id" type="hidden" value="<%= actividades.id_empleado %>">
+                      <div class="columns is-multiline">
                         <% for (let e of empleados) { %>
-                          <label>
-                            <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                          
+                            <div class="column is-one-fifth">
+                              <label>
+                                <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                            </div>
                           <% } %>
-                 
+                        </div>
                       </div>
                   </div>
                 </div>
-              </div>
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Fecha: </label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                    <input class="input" type="date" id="fecha_act" name="fecha_act" required>
-                    
+                <br>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Fecha: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                      <input class="input" type="date" id="fecha_act" name="fecha_act" required>
+                      
+                    </div>
                   </div>
                 </div>
+              </section>
+              <section id = "modAct" class="buttons is-right">
+                <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
+                <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
+              </form>
+                <a class="button" href = "/home/tareas">Cancelar</a>
+                <form action="/home/delete" method="POST">
+                <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
+                <button id="delete" class="button is-danger" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
+                </form></section>
               </div>
-        
-          </section>
-          <section id = "modAct" class="buttons is-right">
-            <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
-            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-          </form>
-            <a class="button" href = "/home/tareas">Cancelar</a>
-            <form action="/home/delete" method="POST">
-            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-            <button id="delete" class="button is-danger" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
-            </form></section>
         </div>         
         </div>
       </div>
-      
-
-
-
-      <br><br>
-
-        
+    
         <script>
           document.getElementById('save').addEventListener('click', () => {
             Swal.fire({

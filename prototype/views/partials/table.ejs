@@ -1,16 +1,20 @@
-
+  <style>
+    table {
+      text-align: center;
+    }
+  </style>
       <!-- TABLE BEGINS HERE -->
       <div class="card">
         <div class="card-content ">
           <table class="table is-fullwidth">
             <thead>
               <tr>
-                <th>Proyecto</th>
-                <th>Actividad</th>
-                <th>Duración</th>
-                <th>Colaboradores</th>
-                <th>Fecha</th>
-                <th>Acciones</th>
+                <th style="text-align: center;">Proyecto</th>
+                <th style="text-align: center;">Actividad</th>
+                <th style="text-align: center;" >Duración</th>
+                <th style="text-align: center;">Colaboradores</th>
+                <th style="text-align: center;">Fecha</th>
+                <th style="text-align: center;">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -22,7 +26,7 @@
                 <td><%= a.num_horas.toFixed(1) %></td>
                 <td>
                   <% for (let participante of a.participantes) { %>
-                  <p><%= participante.nombre %></p>
+                  <span><%= participante.nombre %>, </span>
                 <% }%>
                 </td>
                 <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
