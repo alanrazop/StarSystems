@@ -1,6 +1,5 @@
 const db = require('../util/database');
 
-
 //  considerar columna vacaciones tiempo medio en base de datos
 module.exports = class Reporte{
     constructor(_vacaciones_reporte, _trabajadas_reporte, _tiempo_completo_reporte, _tiempo_medio_reporte, _coeficiente_efectividad, _fecha_inicio, _fecha_corte){
