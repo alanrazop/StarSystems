@@ -31,7 +31,7 @@ module.exports = class Actividades {
         return db.execute('SELECT id_actividad FROM actividad ORDER BY id_actividad DESC LIMIT 1')
     }
     static saveEdit(actividad) {
-        return db.execute('CALL modificar_actividad (?,?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.colab, actividad.fecha, actividad.id])
+        return db.execute('CALL modificar_actividad (?,?,?,?,?)', [actividad.descripcion, actividad.proyecto, actividad.duracion, actividad.fecha, actividad.id])
     }
 
 

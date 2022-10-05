@@ -63,7 +63,7 @@
                 </div>
                 
                   <p id="proyecto" name="id_proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
-                  <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.nombre_proyecto %>"> 
+                  <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.id_proyecto %>"> 
                       
               </div>
               <div class="field is-horizontal">
@@ -85,13 +85,12 @@
                 <div class="field-body">
                   <div class="table">
                     <p class="control">
-                      <div class="select">
-                        <select name = "select_colaborador" required>
-                          <option value = "" selected>Select dropdown</option>
-                          <% for (let e of empleados) { %>
-                            <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
-                            <% } %>
-                        </select>
+                      
+                        <% for (let e of empleados) { %>
+                          <label>
+                            <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                          <% } %>
+                 
                       </div>
                   </div>
                 </div>

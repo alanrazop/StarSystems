@@ -127,17 +127,34 @@ exports.postEditAct = (request, response, next) => {
     console.log(request.body.id);
 
     const NuevoRegistro = new Actividades (
-                                             request.body.id,
-                                            request.body.descripcion,
-                                            request.body.id_proyecto,
-                                           request.body.input_horas,
-                                           request.body.select_colaborador,
-                                           request.body.fecha_act
-                                           );
-     NuevoRegistro.id = request.body.id;
+        request.body.id,
+        request.body.descripcion,
+        request.body.id_proyecto,
+        request.body.input_horas,
+        request.body.check_empleados,
+        request.body.fecha_act
+    );
+    
+    NuevoRegistro.id = request.body.id;
     console.log(NuevoRegistro)
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
+            for ( let e of request.body.check_empleados){
+                NuevoRegistro.colab = e;
+                console.log(NuevoRegistro);
+                console.log('id del colaborador: ' + NuevoRegistro.colab);
+                Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
+                        console.log('-------------\n');
+                        console.log(NuevoRegistro);
+                        console.log('-------------\n');
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })  
+            }  
+
             response.redirect('/home/tareas');
         })
         .catch(err => {
