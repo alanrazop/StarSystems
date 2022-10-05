@@ -49,9 +49,9 @@
       </tbody>
     </table>
   </article>
-  <section>
-    <canvas id="myChart"></canvas>
-  </section>
+  <div id = "graph-container">
+      <canvas id="myChart"></canvas>
+  </div>
 </div>
 
 <script>
@@ -101,7 +101,6 @@
   }
 
   async function refreshChart(chart_object) {
-    chart_object.destroy();
     let myChart = new Chart(ctx_live, {
       type: 'bar',
       data: {
@@ -133,10 +132,18 @@
     });
     return myChart;
   }
+
+  const resetCanvas = function(){
+  document.getElementById('myChart').remove(); 
+  document.getElementById('graph-container').innerHTML ='<canvas id="myChart"></canvas>';
+  canvas = document.querySelector('#myChart');
+  ctx = canvas.getContext('2d');
+};
   
   async function renderChart() {
-    await getVars().then(async (vars) => {
-      createChart(vars);})
+    resetCanvas();
+      getVars()
+      .then(async (vars) => {createChart(vars);})
       .catch(err => {console.log(err)})
-  }
+         }
 </script>
