@@ -22,10 +22,10 @@
                 <td><%= a.num_horas.toFixed(1) %></td>
                 <td>
                   <% for (let participante of a.participantes) { %>
-                  <p><%= participante.nombre %></p>
+                  <span><%= participante.nombre %>,</span>
                 <% }%>
                 </td>
-                <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
+                <td><%- array[2] + "/" + array[1] + "/" + array[3] %></td> 
                 <td>
                   <a class="button is-dark is-inverted js-modal-trigger" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
                   <!-- EDIT ACTIVITY MODAL BEGINS HERE -->

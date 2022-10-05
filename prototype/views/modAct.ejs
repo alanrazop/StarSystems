@@ -2,43 +2,15 @@
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
     <div style="text-align: center;">
-      <!-- <div class="title"> Modificar horas de actividad</div>
-      <form action="/home/edit" method="POST">
-      <fieldset>
-          <label class="label" for="equipo">Agregar personas: </label>
-          <div class="select is-rounded">
-            <select name="select_colaborador" id="select_colaborador" required>
-              <option disabled selected>Escoge un usuario</option>
-              <% for (let e of empleados) { %>
-                <option value="<%= e.id_empleado %>"><%= e.nombre %></option>
-                <% } %>
-            </select>
-          </div>
-          <a class="button is-link" id="AgregarEmpleado" onclick="agregarEmpleado()"><i class="fa-solid fa-user-plus"></i></a>
-          <div class="column is-half is-offset-one-quarter"id="Lista_Empleados"></div>
-          <br>
-          
-            <label class="label" for="equipo">Horas registradas:</label>
-            <div class="column is-half is-offset-one-quarter">
-            <input id="id" name="id" type="hidden" value="<%= actividades.id_actividad %>">
-            <input class="input is-two-thirds is-rounded is-warning has-background-warning" placeholder="" id="num_horas" name="num_horas" type="number" step="any" min="0" value="<%= actividades.num_horas %>" required>
-            </div>
-      </fieldset>
-      <br>
-      <input type="submit" id="save" class="button is-primary" value="Guardar cambios">
-      <button class="button" href="/home/tareas">Cancelar</button>
-
-
-      </form> -->
 
       <form action="/home/edit" method="POST"> 
 
 
 
         <div class="box">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Modificar tarea</p>
-          </header>
+          <div class="column is-centered">
+            <p class="title">Modificar tarea</p>
+          </div>
 
           <section class="modal-card-body">
             <!-- Content ... -->
@@ -59,12 +31,15 @@
 
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                  <label class="label"> Actividad del Proyecto </label>
+                  <label class="label">Proyecto: </label>
                 </div>
-                
-                  <p id="proyecto" name="id_proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
-                  <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.nombre_proyecto %>"> 
-                      
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                    <p id="proyecto" name="id_proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
+                    <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.nombre_proyecto %>"> 
+                    </div>
+                </div> 
               </div>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
