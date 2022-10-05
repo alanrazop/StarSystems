@@ -37,7 +37,7 @@
                   <div class="field">
                     <p class="control">
                     <p id="proyecto" name="id_proyecto"  class="input" disabled><%= actividades.nombre_proyecto %></p>
-                    <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.nombre_proyecto %>"> 
+                    <input id="proyecto" name="id_proyecto" type="hidden" value="<%= actividades.id_proyecto %>">  
                     </div>
                 </div> 
               </div>
@@ -55,30 +55,12 @@
               </div>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                  <label class="label">Colaboradores: </label>
-                </div>
-                <div class="field-body">
-                  <div class="table">
-                    <p class="control">
-                      <div class="select">
-                        <select name = "select_colaborador" required>
-                          <option value = "" selected>Select dropdown</option>
-                          <% for (let e of empleados) { %>
-                            <option value = "<%= e.id_empleado%>"><%= e.nombre %></option>
-                            <% } %>
-                        </select>
-                      </div>
-                  </div>
-                </div>
-              </div>
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
                   <label class="label">Fecha: </label>
                 </div>
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                    <input class="input" type="date" id="fecha_act" name="fecha_act" required>
+                    <input class="input" type="date" id="fecha_act" name="fecha_act" value="<%= actividades.fecha_act %>" required>
                     
                   </div>
                 </div>

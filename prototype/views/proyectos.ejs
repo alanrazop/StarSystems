@@ -18,13 +18,6 @@
     </div>
     <div class="block">
       <div class="level">
-        <div class="level-item has-text-centered">
-          <button href="#" class="button is-rounded is-medium is-vcentered js-modal-trigger" data-target="modal-js-example" style="background-color: #C2FF5E;">
-            <span class="icon is-small">
-              <i class="fa-solid fa-user-plus"></i></span>
-            <span>Agregar persona</span>
-            </button>
-        </div>
         <div class="level-item has-text-centered ">
           <button href="#" class="button is-rounded is-medium is-danger js-modal-trigger" data-target="modal-js-example2">
             <span class="icon is-small">
@@ -34,54 +27,6 @@
         </div>
       </div>
     </div>
-
-    <!-- --- MODAL PERSONA BEGIN --- -->
-    <div id="modal-js-example" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Agregar persona</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Proyecto: </label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <div class="select is-rounded">
-                    <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);">
-                      <option  value = "" selected >Select dropdown</option>
-                      <% for (let p of proyecto) { %>
-                      <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
-                      <% } %>
-                    </select>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Colaboradores: </label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  
-                  </div>
-                
-                </div>
-            </div> 
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success">Guardar</button>
-          <button class="button">Cancelar</button>
-        </footer>
-      </div>
-    </div>
-    <!-- --- MODAL PERSONA END --- -->
 
     <!-- --- MODAL PROYECTO BEGIN --- -->
     <form id="formProyectos" class="was-validated" action="/home/nuevo-proyecto" method="POST">
