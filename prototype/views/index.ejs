@@ -1,8 +1,132 @@
 <%- include('partials/head.ejs'); -%>
-<%- include('partials/navbar.ejs'); -%>
+<%- include('partials/navbar-top.ejs'); -%>
 <%- include('partials/sidebar.ejs'); -%>
     <!------------==                         TOP NAVBAR BEGINS                         ==------------>
+    <div class="content">
+        <div class="block">
+          <h1 class="is-size-1" style="text-align: center;">Bienvenido al portal de proyectos</h1>
+          <p class="is-size-6" style="text-align: center;">Desarrollado por Star Systems </p>
+        </div>
+        <% for (e of imagenes) { %>
+        <img src="<% if (e.archivo) { %>
+          <%= e.archivo %>
+          <% } else { %>
+            https://blogs.iadb.org/conocimiento-abierto/wp-content/uploads/sites/10/2019/12/banner-lecciones-aprendidas-proyectos-desarrollo-2019.jpg
+          <% } %>">
+        <% }%>
+        
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child notification is-success">
+                <p class="title">Recuerda registrar tus horas</p>
+                <p>Nadie quiere trabajar<strong> tiempo extra</strong>, por lo que cuando tengas oportunidad agrega tus horas en las areas correspondientes</p>
+              </article>
+              <article class="tile is-child notification is-light">
+                <p class="title">Cambia el fondo de pantalla</p>
+                <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
+                  <div id="file-js-example" class="file has-name is-info is-small">
+                    <label class="file-label">
+                      <input class="file-input" type="file" name="archivo" required>
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                          Cargar archivo
+                        </span>
+                      </span>
+                      <span class="file-name">
+                        Sin archivos seleccionados
+                      </span>
+                    </label>
+                  </div>
+                  <br>
+                  <input id="save" class="button is-small is-info is-outlined is-rounded" type="submit" name="enviar" value="Guardar imagen">
+                </form>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child notification has-background-primary-light">
+                <p class="title">Horas por proyecto</p>
+                <% for (let e of proyectosA) {%>
+                  <p class="title is-5"><%= e.nombre_proyecto %></p>
+                  <label><%= e.total_horas%> hrs</label>
+                  <progress class="progress is-info" value="<%= e.total_horas%>" max="100"></progress>
+                  <p></p>
+                  <% } %>
+                  
+              </article>
+            </div>
+          </div>
+          <div class="tile is-parent">
+            
+            <article class="tile is-child notification is-danger">
+              <p class="title"><em>¡Ojo! </em><i class="fa fa-eye"></i> </p>
+              <p class="is-size-5">Verifica que tus horas se vean actualizadas en los <strong>proyectos</strong> que estas involucrado</p>
+              <div class="content">
+                <!-- Content -->
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="message is-link">
+            <div class="message-header">
+              <p>¿Cuál es el propósito de este sistema?</p>
+              <button class="delete" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+            </div>
+          </article>
+        </div>
+      </div>
 
-    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </div>      
     <!------------==                         TOP NAVBAR ENDS                         ==------------>
+    <script>
+      const fileInput = document.querySelector('#file-js-example input[type=file]');
+      fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+          const fileName = document.querySelector('#file-js-example .file-name');
+          fileName.textContent = fileInput.files[0].name;
+        }
+      }
+      document.getElementById('save').addEventListener('click', function hola(){
+            Swal.fire('Fondo de pantalla agregado')
+      });
+      
+        var xValues = ['Adios'];
+        var yValues = [5];
+        var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+          "#e8c3b9",
+          "#1e7145"
+        ];
+
+
+
+
+
+      new Chart("myChart", {
+        type: "doughnut",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "World Wide Wine Production 2018"
+          }
+        }
+      });
+    </script>
     <%- include('partials/tail.ejs'); -%>

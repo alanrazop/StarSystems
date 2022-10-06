@@ -1,106 +1,28 @@
-<%- include('includes/head.ejs'); -%>
-    <!------------==                         TOP NAVBAR BEGINS                         ==------------>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
-                <img src="https://storage.googleapis.com/natgas/others/logos/natgas-logo-simple.png" height="40">
-            </a>
-
-            <a class="navbar-item" href="/">
-                Home
-            </a>
-
-            <a class="navbar-item" href="/proyectos.html">
-                Proyectos
-            </a>
-
-            <a class="navbar-item" href="/actividades.html">
-                Actividades
-            </a>
-
-            <a class="navbar-item" href="/colaboradores.html">
-                Colaboradores
-            </a>
-
-            <a class="navbar-item" href="/colaboradores.html">
-                Reportes
-            </a>
-
-        </div>
-
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-light is-medium">
-                        <span class="icon-text">
-                            <span class="icon">
-                                <ion-icon name="heart"></ion-icon>
-                            </span>
-                            <span>Logout</span>
-                        </span>
-                    </a>
-                </div>
+<%- include('partials/head.ejs'); -%>
+  <%- include('partials/navbar-top.ejs'); -%>
+    <%- include('partials/sidebar.ejs'); -%>
+    
+    <div class="columns">
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <h1>Reportes</h1>
             </div>
-        </div>
-        </div>
-    </nav>
-
-    <!------------==                         TOP NAVBAR ENDS                         ==------------>
-
-    <!------------==                         TILES VARIABLES BEGINS                    ==------------>
-    <div class="section">
-
-        <div class="tile is-ancestor">
-            <div class="tile is-vertical is-8">
-                <div class="tile">
-                    <div class="tile is-parent is-vertical">
-                        <article class="tile is-child notification is-primary">
-                            <p class="title">Variables</p>
-                            <p class="subtitle">Coeficiente efectividad<input type="text"></input></p>
-                            <p class="subtitle">Horas adicionales vacaciones<input type="text"></input></p>
-                        </article>
-                        <article class="tile is-child notification is-warning">
-                            <p class="title">...tiles</p>
-                            <p class="subtitle">Bottom tile</p>
-                        </article>
-                    </div>
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification is-info">
-                            <p class="title">Middle tile</p>
-                            <p class="subtitle">With an image</p>
-                            <figure class="image is-4by3">
-                                <img src="https://bulma.io/images/placeholders/640x480.png">
-                            </figure>
-                        </article>
-                    </div>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child notification is-danger">
-                        <p class="title">Wide tile</p>
-                        <p class="subtitle">Aligned with the right tile</p>
-                        <div class="content">
-                            <!-- Content -->
-                        </div>
-                    </article>
-                </div>
+            <p class="control has-icons-left">
+              <input class="input is-rounded has-background-light" type="text" placeholder="Buscar">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+          <div class="container">
+            <div class="tile is-ancestor">
+             <%- include('partials/active_proyects.ejs'); -%> 
+              <%- include('partials/er-table.ejs'); -%>
             </div>
-            <div class="tile is-parent">
-                <article class="tile is-child notification is-success">
-                    <div class="content">
-                        <p class="title">Reporte Mensual</p>
-                        <p class="subtitle">Datos del mes</p>
-                        <div class="box">
-                            <canvas id="myChart"></canvas>
-                            <!-- Content -->
-                        </div>
-                    </div>
-                </article>
-            </div>
+          </div>
         </div>
-    </div>
-    <!------------==                         TILES VARIABLES ENDS                      ==------------>
-
-    <script src="../models/reportes.js"></script>
-</body>
-
-</html>
+      </div>
+      </div>
+      </div>
+      <%- include('partials/tail.ejs'); -%>
