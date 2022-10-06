@@ -3,7 +3,8 @@
         <div class="tile">
           <div class="tile is-parent is-vertical">
             <article class="tile is-child">
-              <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+
+              <table id="horas_ajustades_vs_horas_registradas" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" oninput="checkAjuste()">
                 <thead>
                   <tr>
                     <th>Nombre del Proyecto</th>
@@ -20,7 +21,7 @@
                     <tr>
                       <td><%=  pa.nombre_proyecto%></td>
                       <td><%=  pa.total_horas%></td>
-                      <td><input id="<%- 'proy'+count %>" class="input"> </input></td>
+                      <td><input id="proy" class="input"> </input></td>
                     </tr>        
                     <% } %>
                 </tbody>
@@ -29,7 +30,7 @@
                   <tr>
                     <th>Total</th>
                     <td id="horas_totales_registradas"><%- total %> </td>
-                    <td id="horas_totales_ajustadas"> 0 </td>
+                    <td id="horas_totales_ajustadas"> 158 </td>
                   </tr>
                 </tfoot>
               </table>
@@ -37,5 +38,6 @@
           </div>
         </div>
       </div>
+      <script src="/js/tabla.js"></script>
 
  
