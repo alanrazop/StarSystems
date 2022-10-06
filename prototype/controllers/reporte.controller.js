@@ -2,11 +2,11 @@ const path = require('path');
 const Reporte = require('../models/reporte.model');
 const Proyectos_activos = require('../models/proyectos_activos.model');
 
-exports.getReportes = (request, response, next) => {
-    Proyectos_activos.fetchAll().then(([row, fieldData]) => {
-        Reporte.fetchAll().then(([rows, fieldData]) => {
+exports.getReportes =  (request, response, next) => {
+    Proyectos_activos.fetchRecent().then(([row, fieldData]) => {
+    Reporte.fetchAll().then(([rows, fieldData]) => {
             response.render(path.join('reportes.ejs'), {
-                proyectosA: row[0],
+                proyectos_diez: row,
                 horas_vacaciones: rows[0].horas_vacaciones,
                 horas_trabajadas: rows[0].horas_trabajadas,
                 horas_tiempo_completo: rows[0].horas_tiempo_completo,

@@ -13,7 +13,9 @@
                 <tbody>
                    
                   <% let total = 0 %>
-                  <% for (let pa of proyectosA) { %>
+                  <% console.log(proyectos_diez)%>
+                  <% for (pa of proyectos_diez) { %>
+                    <% console.log(pa)%>
                     <% total += pa.total_horas %>
                     <tr>
                       <td><%=  pa.nombre_proyecto%></td>
