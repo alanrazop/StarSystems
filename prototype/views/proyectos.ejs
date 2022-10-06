@@ -1,6 +1,6 @@
-<%- include('partials/head.ejs'); -%>
-  <%- include('partials/navbar-top.ejs'); -%>
-    <%- include('partials/sidebar.ejs'); -%>
+<%- include('includes/head.ejs'); -%>
+  <%- include('includes/navbar-top.ejs'); -%>
+    <%- include('includes/sidebar.ejs'); -%>
     
     <div class="box">
       <div class="content">
@@ -14,7 +14,7 @@
       </p>
     </div>
     <div class="block" id="lista_proyectos">
-      <%- include('partials/table-projects.ejs'); -%>
+      <%- include('includes/table-projects.ejs'); -%>
     </div>
     <div class="block">
       <div class="level">
@@ -285,4 +285,4 @@
             arrayColaboradores.push(colaboradorActual.value);
           }
     </script>
-        <%- include('partials/tail.ejs'); -%>
+        <%- include('includes/tail.ejs'); -%>
