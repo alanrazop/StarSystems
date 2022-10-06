@@ -1,19 +1,25 @@
 const path = require('path');
 const Reporte = require('../models/reporte.model');
+const Empleados = require('../models/empleados.model');
 const Proyectos_activos = require('../models/proyectos_activos.model');
 
 exports.getReportes =  (request, response, next) => {
-    Proyectos_activos.fetchRecent().then(([row, fieldData]) => {
-    Reporte.fetchAll().then(([rows, fieldData]) => {
-            response.render(path.join('reportes.ejs'), {
-                proyectos_diez: row,
-                horas_vacaciones: rows[0].horas_vacaciones,
-                horas_trabajadas: rows[0].horas_trabajadas,
-                horas_tiempo_completo: rows[0].horas_tiempo_completo,
-                horas_tiempo_medio: rows[0].horas_tiempo_medio,
-                coeficiente_efectividad: rows[0].coeficiente_efectividad
-            })})
-            .catch(err => console.log(err));
+    Empleados.fetchAll().then(([trabajadores,fieldData]) => {
+        Proyectos_activos.fetchRecent().then(([row, fieldData]) => {
+            Reporte.fetchAll().then(([rows, fieldData]) => {
+                response.render(path.join('reportes.ejs'), {
+                    empleados: trabajadores,
+                    proyectos_diez: row,
+                    horas_vacaciones: rows[0].horas_vacaciones,
+                    horas_trabajadas: rows[0].horas_trabajadas,
+                    horas_tiempo_completo: rows[0].horas_tiempo_completo,
+                    horas_tiempo_medio: rows[0].horas_tiempo_medio,
+                    coeficiente_efectividad: rows[0].coeficiente_efectividad
+                })})
+                .catch(err => console.log(err));
+            }).catch(error => {
+                console.log(error);
+            });
     })
         .catch(err => console.log(err));
 }

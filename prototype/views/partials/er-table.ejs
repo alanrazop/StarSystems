@@ -32,6 +32,7 @@
     <tbody>
       <tr>
         <th>Horas capacidad</th>
+        <th><%-console.log(empleados)%></th>
         <td><input class="input" name="horas_capacidad" type="text" readonly></td>
       </tr>
       <tr>
@@ -53,7 +54,9 @@
       <header class="card-header">
         <p class="card-header-title">Variables de usuario</p>
         <div class="card-content" id="graph-container">
+        <div id="graph-container">
           <canvas id="myChart"></canvas>
+        </div>
         </div>
         <footer class="card-footer">
           <a href="#" class="card-footer-item">Save</a>
@@ -110,40 +113,7 @@
     return myChart;
   }
 
-  async function refreshChart(chart_object) {
-    let myChart = new Chart(ctx_live, {
-      type: 'bar',
-      data: {
-        labels: ['Coeficiente', 'NG-tm', "ng_tc", "v_tm", "v_tc",],
-        datasets: [{
-          data: variables_ajuste,
-          borderWidth: 1,
-          borderColor: '#00c0ef',
-          label: 'Holi',
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Chart nuevo'
-          }
-        },
-        scales: {
-          x: {
-            display: true
-          },
-          y: {
-            display: true
-          }
-        }
-      }
-    });
-    return myChart;
-  }
-
-  const resetCanvas = function () {
+const resetCanvas = function () {
     document.getElementById('myChart').remove();
     document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
     canvas = document.querySelector('#myChart');
