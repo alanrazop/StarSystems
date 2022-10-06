@@ -49,12 +49,29 @@
               <br>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
+                  <label class="label">Participantes: </label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <div class="columns is-multiline">
+                        <div class="column is-one-quarter">
+                          <% for (r of registro) { %>
+                            <strong><em><%= r.nombre %></em>,</strong>
+                            <% } %>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
                   <label class="label">Colaboradores: </label>
                 </div>
                 <div class="field-body">
                   <div class="table">
                     <p class="control">
-                      <input id="id" name="id" type="hidden" value="<%= actividades.id_empleado %>">
+                      
                       <div class="columns is-multiline">
                         <% for (let e of empleados) { %>
                           

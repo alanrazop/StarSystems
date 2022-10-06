@@ -100,15 +100,21 @@ exports.postActividad = async (request, response, next) => {
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
-            Empleados.fetchAll()
+            Registra.fetchListaEmpleadosDisponibles(request.params.id)
             .then(([empleados,fieldData]) => {  
                 Proyectos.fetchAll()
-                .then(([proyectos,fieldData]) =>{                       
-                response.render(path.join('modAct.ejs'), {
-                    actividades: rows[0],
-                    empleados: empleados,
-                    proyecto: proyectos
-                })
+                .then(([proyectos,fieldData]) =>{  
+                    Registra.fetchOneRegister(request.params.id)
+                        .then(([registro, fieldData]) => {
+                            response.render(path.join('modAct.ejs'), {
+                                actividades: rows[0],
+                                empleados: empleados,
+                                proyecto: proyectos,
+                                registro: registro
+                            })
+                        })
+                        .catch(err => {console.log(err)});
+                
             })
             .catch(err => {
                 console.log(err);
@@ -139,7 +145,7 @@ exports.postEditAct = (request, response, next) => {
     console.log(NuevoRegistro)
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
-            for ( let e of request.body.check_empleados){
+            for (e of request.body.check_empleados){
                 NuevoRegistro.colab = e;
                 console.log(NuevoRegistro);
                 console.log('id del colaborador: ' + NuevoRegistro.colab);
