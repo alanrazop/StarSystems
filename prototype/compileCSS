@@ -1,0 +1,1 @@
+sass --watch --no-source-map mybulma/sass/mystyles.scss:public/css/mystyles.css

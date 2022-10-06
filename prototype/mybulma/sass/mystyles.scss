@@ -1,2 +1,47 @@
 @charset "utf-8";
-@import "../bulma-0.9.4/bulma/bulma.sass";
+
+//our vars
+$natgas-green: #54b347;
+$natgas-green-bright: #20c997;
+$natgas-blue: #467ab5;
+$natgas-blue-bright: #49b6e5;
+$natgas-blue-dark: #003057;
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url("https://storage.googleapis.com/natgas/fonts/Gilroy/Gilroy-Light.otf") format('opentype');
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url("https://storage.googleapis.com/natgas/fonts/Gilroy/Gilroy-ExtraBold.otf") format('opentype');
+}
+
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("https://fonts.googleapis.com/css?family=Tangerine") format('opentype');
+}
+
+
+
+body {
+    font-family: 'Gilroy', sans-serif;
+}
+
+
+// Update Bulma's global variables
+$primary: $natgas-blue-dark;
+$secondary: $natgas-blue;
+$warning: $natgas-blue-bright;
+$link: $natgas-blue-bright;
+
+
+@import "../bulma-0.9.4/bulma/sass/utilities/_all";
+@import "../bulma-0.9.4/bulma/sass/base/_all";
+@import "../bulma-0.9.4/bulma/sass/elements/_all";
+@import "../bulma-0.9.4/bulma/sass/form/_all";
+@import "../bulma-0.9.4/bulma/sass/components/_all";
+@import "../bulma-0.9.4/bulma/sass/grid/_all";
+@import "../bulma-0.9.4/bulma/sass/helpers/_all";
+@import "../bulma-0.9.4/bulma/sass/layout/_all";
