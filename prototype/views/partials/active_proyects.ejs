@@ -7,19 +7,20 @@
                 <thead>
                   <tr>
                     <th>Nombre del Proyecto</th>
-                    <th>Total de Horas</th>
+                    <th>Total Horas Registradas</th>
+                    <th>Total Horas Ajustadas</th>
                   </tr>
                 </thead>
                 <tbody>
-                   
                   <% let total = 0 %>
-                  <% console.log(proyectos_diez)%>
+                  <% let count = 0 %>
                   <% for (pa of proyectos_diez) { %>
-                    <% console.log(pa)%>
                     <% total += pa.total_horas %>
+                    <% count++ %>
                     <tr>
                       <td><%=  pa.nombre_proyecto%></td>
                       <td><%=  pa.total_horas%></td>
+                      <td><input id="<%- 'proy'+count %>" class="input"> </input></td>
                     </tr>        
                     <% } %>
                 </tbody>
@@ -27,7 +28,8 @@
                 <tfoot>
                   <tr>
                     <th>Total</th>
-                    <td><%- total %> </td>
+                    <td id="horas_totales_registradas"><%- total %> </td>
+                    <td id="horas_totales_ajustadas"> 0 </td>
                   </tr>
                 </tfoot>
               </table>
