@@ -1,163 +1,165 @@
-<nav class="level">
-  <table id="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
-    <tbody>
-      <tr>
-        <th>Coeficiente</th>
-        <td><input id="coeficiente" class="input" value=<%=coeficiente_efectividad.toFixed(2)%> type="text"
-          name="coeficiente" placeholder=".85"></td>
-      </tr>
-      <tr>
-        <th>Vacaciones TM</th>
-        <td><input id="v_tm" class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
-      </tr>
-      <tr>
-        <th>Vacaciones TC</th>
-        <td><input id="v_tc" class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc"
-          placeholder="5"></td>
-      </tr>
-      <tr>
-        <th>NGblock TM</th>
-        <td><input id="ng_tm" class="input" value="0" type="text" name="ngblock_tm" placeholder="0"></td>
-      </tr>
-      <tr>
-        <th>NGblock TC</th>
-        <td><input id="ng_tc" class="input" value="0" type="text" name="ngblock_tc" placeholder="0"></td>
-      </tr>
-      <tr>
-        <th>Horas semanales TC</th>
-        <td><input id="horas_tc" class="input" placeholder="35" oninput="capTotal()"></td>
-      </tr>
-      <tr>
-        <th>Horas semanales TM</th>
-        <td><input id="horas_tm" class="input" placeholder="17" oninput="capTotal()"></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-</nav>
-
-<% let tiempo_comp = 0 %>
-<% let tiempo_medio = 0 %>
-<% for (e in empleados) { %>
-  <% Object.entries(empleados[e]).forEach((entry) => { %>
-    <%   const [key, value] = entry;%>
-    <%   if (key == 'is_tiempo_completo' && value == 0) {tiempo_medio++;} %>
-    <%   if (key == 'is_tiempo_completo' && value == 1) {tiempo_comp++;} %>
-<% });%>
-<% }%>
-
-<nav class="level">
-  <table class="table is-bordered is-striped is-narrow">
-    <tbody>
-      <tr>
-        <th>Personal tiempo medio</th>
-        <td><input class="input" id="personal_tm" value="<%=tiempo_medio%>" readonly></td>
-      </tr>
-      <tr>
-        <th>Personal tiempo completo</th>
-        <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
-      </tr>
-      <tr>
-        <th>Horas ajustadas</th>
-        <td><input class="input" id="horas_ajustadas"  readonly></td>
-      </tr>
-      <tr>
-        <th>Efectividad</th>
-        <td><input class="input" id="efectividad" type="text" readonly></td>
-      </tr>
-      <tr>
-        <th>Capacidad total</th>
-        <td><input class="input" id="capacidad_total" type="text" readonly></td>
-      </tr>
-      <tr>
-        <th>Capacidad ajustada</th>
-        <td><input class="input" id="capacidad_ajustada" type="text" readonly></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="level-item">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Variables de usuario</p>
-        <div class="card-content" id="graph-container">
-        <div id="graph-container">
-          <canvas id="myChart"></canvas>
-        </div>
-        </div>
-        <footer class="card-footer">
-          <a href="#" class="card-footer-item">Save</a>
-          <a href="#" class="card-footer-item">Edit</a>
-          <a href="#" class="card-footer-item">Delete</a>
-        </footer>
+  <div class="card">
+    <div class="card-content">
+      <table id="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
+        <tbody>
+          <tr>
+            <th>Coeficiente</th>
+            <td><input id="coeficiente" class="input" value=<%=coeficiente_efectividad.toFixed(2)%> type="text"
+              name="coeficiente" placeholder=".85"></td>
+          </tr>
+          <tr>
+            <th>Vacaciones TM</th>
+            <td><input id="v_tm" class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
+          </tr>
+          <tr>
+            <th>Vacaciones TC</th>
+            <td><input id="v_tc" class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc"
+              placeholder="5"></td>
+          </tr>
+          <tr>
+            <th>NGblock TM</th>
+            <td><input id="ng_tm" class="input" value="0" type="text" name="ngblock_tm" placeholder="0"></td>
+          </tr>
+          <tr>
+            <th>NGblock TC</th>
+            <td><input id="ng_tc" class="input" value="0" type="text" name="ngblock_tc" placeholder="0"></td>
+          </tr>
+          <tr>
+            <th>Horas semanales TC</th>
+            <td><input id="horas_tc" class="input" placeholder="35" oninput="capTotal()"></td>
+          </tr>
+          <tr>
+            <th>Horas semanales TM</th>
+            <td><input id="horas_tm" class="input" placeholder="17" oninput="capTotal()"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</nav>
 
-<script>
-  async function getVars() {
-    let variables_ajuste = [
-      parseFloat(document.getElementById("coeficiente").value),
-      parseInt(document.getElementById("ng_tm").value),
-      parseInt(document.getElementById("ng_tc").value),
-      parseInt(document.getElementById("v_tm").value),
-      parseInt(document.getElementById("v_tc").value),
-      parseInt(document.getElementById("horas_tc").value),
-      parseInt(document.getElementById("horas_tm").value)
-    ]
-    return variables_ajuste;
-  }
 
-  async function capTotal() {
-document.getElementById("capacidad_total").value = 
-document.getElementById("personal_tm").value * document.getElementById("horas_tm").value +
-(document.getElementById("personal_tc").value * document.getElementById("horas_tc").value);
-  }
+<% let tiempo_comp=0 %>
+  <% let tiempo_medio=0 %>
+    <% for (e in empleados) { %>
+      <% Object.entries(empleados[e]).forEach((entry)=> { %>
+        <% const [key, value]=entry;%>
+          <% if (key=='is_tiempo_completo' && value==0) {tiempo_medio++;} %>
+            <% if (key=='is_tiempo_completo' && value==1) {tiempo_comp++;} %>
+              <% });%>
+                <% }%>
 
-  async function createChart(variables_ajuste) {
-    let ctx_live = document.getElementById("myChart");
-    let myChart = new Chart(ctx_live, {
-      type: 'bar',
-      data: {
-        labels: ['Coeficiente', 'NG-tm', "ng_tc", "v_tm", "v_tc",],
-        datasets: [{
-          data: variables_ajuste,
-          borderWidth: 1,
-          borderColor: '#00c0ef',
-          label: 'Holi',
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Chart nuevo'
-          }
-        },
-        scales: {
-          x: {
-            display: true
-          },
-          y: {
-            display: true
-          }
-        }
-      }
-    });
-    return myChart;
-  }
+                    <div class="card">
+                      <div class="card-content">
+                        <table class="table is-bordered is-striped is-narrow">
+                          <tbody>
+                            <tr>
+                              <th>Personal tiempo medio</th>
+                              <td><input class="input" id="personal_tm" value="<%=tiempo_medio%>" readonly></td>
+                            </tr>
+                            <tr>
+                              <th>Personal tiempo completo</th>
+                              <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
+                            </tr>
+                            <tr>
+                              <th>Horas ajustadas</th>
+                              <td><input class="input" id="horas_ajustadas" readonly></td>
+                            </tr>
+                            <tr>
+                              <th>Efectividad</th>
+                              <td><input class="input" id="efectividad" type="text" readonly></td>
+                            </tr>
+                            <tr>
+                              <th>Capacidad total</th>
+                              <td><input class="input" id="capacidad_total" type="text" readonly></td>
+                            </tr>
+                            <tr>
+                              <th>Capacidad ajustada</th>
+                              <td><input class="input" id="capacidad_ajustada" type="text" readonly></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </nav>
 
-const resetCanvas = function () {
-    document.getElementById('myChart').remove();
-    document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
-    canvas = document.querySelector('#myChart');
-    ctx = canvas.getContext('2d');
-  };
+                  <article class="message is-success">
+                    <div class="message-header">
+                      <p>Graph</p>
+                    </div>
+                    <div class="message-body">
+                      User graph
+                      <div id="graph-container">
+                        <canvas id="myChart"></canvas>
+                      </div>
+                    </div>
+                  </article>
 
-  async function renderChart() {
-    resetCanvas();
-    getVars()
-      .then(async (vars) => { createChart(vars); })
-      .catch(err => { console.log(err) })
-  }
-</script>
+
+                  <script>
+                    async function getVars() {
+                      let variables_ajuste = [
+                        parseFloat(document.getElementById("coeficiente").value),
+                        parseInt(document.getElementById("ng_tm").value),
+                        parseInt(document.getElementById("ng_tc").value),
+                        parseInt(document.getElementById("v_tm").value),
+                        parseInt(document.getElementById("v_tc").value),
+                        parseInt(document.getElementById("horas_tc").value),
+                        parseInt(document.getElementById("horas_tm").value)
+                      ]
+                      return variables_ajuste;
+                    }
+
+                    async function capTotal() {
+                      document.getElementById("capacidad_total").value =
+                        document.getElementById("personal_tm").value * document.getElementById("horas_tm").value +
+                        (document.getElementById("personal_tc").value * document.getElementById("horas_tc").value);
+                    }
+
+                    async function createChart(variables_ajuste) {
+                      let ctx_live = document.getElementById("myChart");
+                      let myChart = new Chart(ctx_live, {
+                        type: 'bar',
+                        data: {
+                          labels: ['Coeficiente', 'NG-tm', "ng_tc", "v_tm", "v_tc",],
+                          datasets: [{
+                            data: variables_ajuste,
+                            borderWidth: 1,
+                            borderColor: '#00c0ef',
+                            label: 'Holi',
+                          }]
+                        },
+                        options: {
+                          responsive: true,
+                          plugins: {
+                            title: {
+                              display: true,
+                              text: 'Chart nuevo'
+                            }
+                          },
+                          scales: {
+                            x: {
+                              display: true
+                            },
+                            y: {
+                              display: true
+                            }
+                          }
+                        }
+                      });
+                      return myChart;
+                    }
+
+                    const resetCanvas = function () {
+                      document.getElementById('myChart').remove();
+                      document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
+                      canvas = document.querySelector('#myChart');
+                      ctx = canvas.getContext('2d');
+                    };
+
+                    async function renderChart() {
+                      resetCanvas();
+                      getVars()
+                        .then(async (vars) => { createChart(vars); })
+                        .catch(err => { console.log(err) })
+                    }
+                  </script>
