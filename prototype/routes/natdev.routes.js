@@ -27,6 +27,8 @@ router.post('/edit', actController.postEditAct);
 
 router.post('/delete', actController.postDeleteAct);
 
+router.post('/delete/colaborador', actController.postDeleteColab);
+
 // ------------- PROYECTOS -------------
 
 router.get('/proyectos', projectsController.getProyecto);

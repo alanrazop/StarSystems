@@ -26,4 +26,8 @@ module.exports = class Registra {
     static fetchListaEmpleadosDisponibles(id){
         return db.execute('SELECT * FROM empleado WHERE id_empleado NOT IN (SELECT r.id_empleado FROM registra r, empleado e WHERE id_actividad = ? AND e.id_empleado = r.id_empleado)', [id]);
     }
+
+    static deleteColabReg(id){
+        return db.execute('DELETE FROM registra WHERE id_empleado = ? AND id_actividad = ?;', [id.id_actividad, id.id_empleado]);
+    }
 }

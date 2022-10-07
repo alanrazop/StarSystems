@@ -143,8 +143,8 @@ exports.postEditAct = (request, response, next) => {
     
     NuevoRegistro.id = request.body.id;
     console.log(NuevoRegistro)
-    if (request.body.check_empleados != ""){
-        console.log('If con colaboradores' + request.body.check_empleados);
+    if (request.body.check_empleados !== 'undefined'){
+        console.log('If con colaboradores ' + request.body.check_empleados);
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
             for (e of request.body.check_empleados){
@@ -196,3 +196,17 @@ exports.postDeleteAct = (request, response, next) => {
         })
         .catch(err => {console.log(err);});
 };
+
+exports.postDeleteColab = (request, response, next) => {
+    Actividades.fetchOne(request.body.id)
+        .then(([rows, fieldData]) => {
+            Registra.deleteColabReg(request.body.id)
+                .then(() => {
+                    response.redirect('/home/tareas');
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+        .catch(err => {console.log(err);});
+}

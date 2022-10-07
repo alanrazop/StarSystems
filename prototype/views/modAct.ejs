@@ -54,13 +54,12 @@
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                      <div class="columns is-multiline">
-                        <div class="column is-one-quarter">
-                          <% for (r of registro) { %>
-                            <strong><em><%= r.nombre %></em>,</strong>
-                            <% } %>
-                        </div>
-                      </div>
+                      <!-- <form action="/delete/colaborador" method="POST"> -->
+                        <% for (r of registro) { %>
+                          <!-- <input id="id" name="id" type="hidden" value="<%= r.id_empleado %>"> -->
+                          <strong><em><%= r.nombre %></em></strong><span>  </span><button id="deleteColabAct" class="button is-danger is-small" value="<%= r.id_empleado %>" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
+                          <% } %>
+                      <!-- </form> -->
                       </div>
                   </div>
                 </div>
