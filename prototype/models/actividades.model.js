@@ -24,7 +24,7 @@ module.exports = class Actividades {
     }
 
     static fetchAll() {
-        return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado and p.is_activo = 1 GROUP BY a.descripcion_actividad');
+        return db.execute('SELECT * FROM actividad a, registra r, proyecto p, empleado e WHERE a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and r.id_empleado = e.id_empleado and p.is_activo = 1 GROUP BY r.fecha DESC, a.descripcion_actividad ORDER BY a.id_actividad DESC' );
     }
 
     static fetchOne(id) {
