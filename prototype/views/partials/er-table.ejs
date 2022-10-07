@@ -109,11 +109,6 @@
                       return variables_ajuste;
                     }
 
-                    async function capTotal() {
-                      document.getElementById("capacidad_total").value =
-                        document.getElementById("personal_tm").value * document.getElementById("horas_tm").value +
-                        (document.getElementById("personal_tc").value * document.getElementById("horas_tc").value);
-                    }
 
                     async function createChart(variables_ajuste) {
                       let ctx_live = document.getElementById("myChart");
