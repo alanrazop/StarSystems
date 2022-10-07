@@ -100,15 +100,21 @@ exports.postActividad = async (request, response, next) => {
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
-            Empleados.NombreEmpleado()
+            Registra.fetchListaEmpleadosDisponibles(request.params.id)
             .then(([empleados,fieldData]) => {  
                 Proyectos.fetchAll()
-                .then(([proyectos,fieldData]) =>{                       
-                response.render(path.join('modAct.ejs'), {
-                    actividades: rows[0],
-                    empleados: empleados,
-                    proyecto: proyectos
-                })
+                .then(([proyectos,fieldData]) =>{  
+                    Registra.fetchOneRegister(request.params.id)
+                        .then(([registro, fieldData]) => {
+                            response.render(path.join('modAct.ejs'), {
+                                actividades: rows[0],
+                                empleados: empleados,
+                                proyecto: proyectos,
+                                registro: registro
+                            })
+                        })
+                        .catch(err => {console.log(err)});
+                
             })
             .catch(err => {
                 console.log(err);
@@ -122,21 +128,39 @@ exports.getEditAct = (request, response, next) => {
 }
 
 exports.postEditAct = (request, response, next) => {
+    // AKI
     console.log('Si paso por aqui');
     console.log(request.body.id);
 
     const NuevoRegistro = new Actividades (
-                                             request.body.id,
-                                            request.body.descripcion,
-                                            request.body.id_proyecto,
-                                           request.body.input_horas,
-                                           request.body.select_colaborador,
-                                           request.body.fecha_act
-                                           );
-     NuevoRegistro.id = request.body.id;
+        request.body.id,
+        request.body.descripcion,
+        request.body.id_proyecto,
+        request.body.input_horas,
+        request.body.check_empleados,
+        request.body.fecha_act
+    );
+    
+    NuevoRegistro.id = request.body.id;
     console.log(NuevoRegistro)
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
+            for (e of request.body.check_empleados){
+                NuevoRegistro.colab = e;
+                console.log(NuevoRegistro);
+                console.log('id del colaborador: ' + NuevoRegistro.colab);
+                Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
+                        console.log('-------------\n');
+                        console.log(NuevoRegistro);
+                        console.log('-------------\n');
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })  
+            }  
+
             response.redirect('/home/tareas');
         })
         .catch(err => {
