@@ -129,7 +129,7 @@ exports.getEditAct = (request, response, next) => {
 
 exports.postEditAct = (request, response, next) => {
     // AKI
-    console.log('Si paso por aqui');
+    console.log('Post edit act');
     console.log(request.body.id);
 
     const NuevoRegistro = new Actividades (
@@ -143,6 +143,8 @@ exports.postEditAct = (request, response, next) => {
     
     NuevoRegistro.id = request.body.id;
     console.log(NuevoRegistro)
+    if (request.body.check_empleados != ""){
+        console.log('If con colaboradores' + request.body.check_empleados);
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
             for (e of request.body.check_empleados){
@@ -166,6 +168,19 @@ exports.postEditAct = (request, response, next) => {
         .catch(err => {
             console.log(err);
         });
+    }
+
+    else {
+        console.log('ELSE');
+        Actividades.saveEdit(NuevoRegistro)
+        .then(() => {
+            response.redirect('/home/tareas');
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+        
 };
 
 exports.postDeleteAct = (request, response, next) => {
