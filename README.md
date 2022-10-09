@@ -3,7 +3,7 @@
 ## Integrantes
 
 - Alan Fernando Razo Peña         | A01703350
-- Leonardo Santiago Ramos Pérez   | A01703556
+- Leonardo Santiago Ramos Pérez   | A01707812
 - Félix Javier Rojas Gallardo     | A01201946
 - Monserrat Karime Moreno Casas   | A01276775
 
@@ -11,6 +11,7 @@
 
 - Félix Javier Rojas Gallardo |  A01201946@tec.mx
 - Monserrat Karime Moreno Casas  | A01276775@tec.mx
+- Leonardo Santiago Ramos Pérez   | A01707812@tec.mx
 
 ## Organizacion de la Branch
 
