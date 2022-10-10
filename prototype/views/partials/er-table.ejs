@@ -65,8 +65,8 @@
                               <td><input class="input" id="horas_ajustadas" readonly></td>
                             </tr>
                             <tr>
-                              <th>Efectividad</th>
-                              <td><input class="input" id="efectividad" type="text" readonly></td>
+                              <th>Proporción</th>
+                              <td><input class="input" id="proporcion" type="text" readonly></td>
                             </tr>
                             <tr>
                               <th>Capacidad total</th>
@@ -75,6 +75,10 @@
                             <tr>
                               <th>Capacidad ajustada</th>
                               <td><input class="input" id="capacidad_ajustada" type="text" readonly></td>
+                            </tr>
+                            <tr>
+                              <th>Porcentaje verdadero</th>
+                              <td><input class="input" id="porcentaje_verdadero" type="text" readonly></td>
                             </tr>
                           </tbody>
                         </table>
@@ -108,7 +112,6 @@
                       ]
                       return variables_ajuste;
                     }
-
 
                     async function createChart(variables_ajuste) {
                       let ctx_live = document.getElementById("myChart");

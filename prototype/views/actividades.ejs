@@ -71,7 +71,7 @@
                         <div class="select">
                           <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);" required>
                             <option  value = "" selected >Select dropdown</option>
-                            <% for (let p of proyectos) { %>
+                            w<% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
                           </select> 
