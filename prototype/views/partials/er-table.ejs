@@ -1,11 +1,10 @@
-  <div class="card">
-    <div class="card-content" oninput="checkAjuste()">
+<div class="column is-offset-1" oninput="checkAjuste()">
       <table id="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
         <tbody>
           <tr>
             <th>Coeficiente</th>
-            <td><input id="coeficiente" class="input" type="text"
-              name="coeficiente" placeholder=<%=coeficiente_efectividad.toFixed(2)%>></td>
+            <td><input id="coeficiente" class="input" type="text" name="coeficiente"
+                placeholder=<%=coeficiente_efectividad.toFixed(2)%>></td>
           </tr>
           <tr>
             <th>Vacaciones TM</th>
@@ -34,11 +33,10 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+</div>
 
-
-<% let tiempo_comp=0 %>
+    
+  <% let tiempo_comp=0 %>
   <% let tiempo_medio=0 %>
     <% for (e in empleados) { %>
       <% Object.entries(empleados[e]).forEach((entry)=> { %>
@@ -47,62 +45,82 @@
             <% if (key=='is_tiempo_completo' && value==1) {tiempo_comp++;} %>
               <% });%>
                 <% }%>
+  
 
-                <!-- TABLA 3 BEGIN -->
-                
-                <div class="card">
-                      <div class="card-content">
-                        <table class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
-                          <tbody>
-                            <tr>
-                              <th>Personal tiempo medio</th>
-                              <td><input class="input" id="personal_tm" value="<%=tiempo_medio%>" readonly></td>
-                            </tr>
-                            <tr>
-                              <th>Personal tiempo completo</th>
-                              <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
-                            </tr>
-                            <tr>
-                              <th>Horas esperadas</th>
-                              <td><input class="input" id="horas_esperadas" readonly></td>
-                            </tr>
-                            <tr>
-                              <th>Proporción</th>
-                              <td><input class="input" id="proporcion" type="text" readonly></td>
-                            </tr>
-                            <tr>
-                              <th>Capacidad total</th>
-                              <td><input class="input" id="capacidad_total" type="text" readonly></td>
-                            </tr>
-                            <tr>
-                              <th>Horas vacaciones</th>
-                              <td><input class="input" id="vacaciones_totales" type="text" readonly></td>
-                            </tr>
-                            <tr>
-                              <th>Porcentaje verdadero</th>
-                              <td><input class="input" id="porcentaje_verdadero" type="text" readonly></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </nav>
-                  
+                  <!-- TABLA 3 BEGIN -->
+
+                  <div class="column">
+                    <table class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
+                      <tbody>
+                        <tr>
+                          <th>Personal tiempo medio</th>
+                          <td><input class="input" id="personal_tm" value="<%=tiempo_medio%>" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Personal tiempo completo</th>
+                          <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Horas esperadas</th>
+                          <td><input class="input" id="horas_esperadas" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Proporción</th>
+                          <td><input class="input" id="proporcion" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Capacidad total</th>
+                          <td><input class="input" id="capacidad_total" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Horas vacaciones</th>
+                          <td><input class="input" id="vacaciones_totales" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Porcentaje verdadero</th>
+                          <td><input class="input" id="porcentaje_verdadero" type="text" readonly></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="column is-1"></div>
+                  </div>
+
                   <!-- TABLA 3 END -->
+                  <div class="columns">
+                    <div class="column is-1">
+                    </div>
+                    <div class="column is-one-third">
+                      <article class="message is-success">
+                        <div class="message-header">
+                          <p>Graph</p>
+                        </div>
+                        <div class="message-body">
+                          User graph
+                          <div id="graph-container">
+                            <canvas id="myChart"></canvas>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="column">
+                      <article class="message is-success">
+                        <div class="message-header">
+                          <p>Graph</p>
+                        </div>
+                        <div class="message-body">
+                          User graph
+                          <div id="graph-container">
+                            <canvas id="myChart"></canvas>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="column is-1">
+                    </div>
+                  </div>
 
-                  <article class="message is-success">
-                    <div class="message-header">
-                      <p>Graph</p>
-                    </div>
-                    <div class="message-body">
-                      User graph
-                      <div id="graph-container">
-                        <canvas id="myChart"></canvas>
-                      </div>
-                    </div>
-                  </article>
-                  
-                  
+
                   <script>
                     async function getVars() {
                       let variables_ajuste = [

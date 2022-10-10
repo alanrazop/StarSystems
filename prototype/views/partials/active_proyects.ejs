@@ -1,6 +1,6 @@
-  <div class="card">
-    <div class="card-content">
-      <table id="horas_ajustades_vs_horas_registradas" class="table is-bordered is-hoverable" oninput="checkAjuste()">
+<div class="columns">
+<div class="column is-offset-1">
+      <table id="horas_ajustades_vs_horas_registradas" class="table is-bordered is-hoverable is-narrow" oninput="checkAjuste()">
         <thead>
           <tr>
             <th>Nombre del Proyecto</th>
@@ -19,7 +19,7 @@
                   <td>
                     <%= pa.total_horas.toFixed(2)%>
                   </td>
-                  <td><input id="proy" class="input"> </input></td>
+                  <td><input id="proy" class="input is-narrow"> </input></td>
                 </tr>
                 <% } %>
         </tbody>
@@ -35,5 +35,4 @@
         </tfoot>
       </table>
       <script src="/js/tabla.js"></script>
-    </div>
   </div>
