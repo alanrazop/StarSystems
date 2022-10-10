@@ -142,9 +142,19 @@ exports.postEditAct = (request, response, next) => {
     );
     
     NuevoRegistro.id = request.body.id;
-    console.log(NuevoRegistro)
-    if (request.body.check_empleados !== 'undefined'){
-        console.log('If con colaboradores ' + request.body.check_empleados);
+    console.log(NuevoRegistro);
+
+    if (request.body.check_empleados == null) {
+        Actividades.saveEdit(NuevoRegistro)
+        .then(() => {
+            response.redirect('/home/tareas');
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    else{
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
             for (e of request.body.check_empleados){
@@ -170,16 +180,7 @@ exports.postEditAct = (request, response, next) => {
         });
     }
 
-    else {
-        console.log('ELSE');
-        Actividades.saveEdit(NuevoRegistro)
-        .then(() => {
-            response.redirect('/home/tareas');
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
+ 
         
 };
 
@@ -197,12 +198,13 @@ exports.postDeleteAct = (request, response, next) => {
         .catch(err => {console.log(err);});
 };
 
-exports.postDeleteColab = (request, response, next) => {
-    Actividades.fetchOne(request.body.id)
-        .then(([rows, fieldData]) => {
-            Registra.deleteColabReg(request.body.id)
+exports.postRegistraDelete = (request, response, next) => {
+
+    Registra.getActividad(request.params.id)
+        .then(([actividades, fieldData]) => {
+            Registra.delete(request.params.id)
                 .then(() => {
-                    response.redirect('/home/tareas');
+                    response.redirect('/home/edit/' + actividades[0].id_actividad);
                 })
                 .catch(err => {
                     console.log(err);

@@ -57,7 +57,7 @@
                       <!-- <form action="/delete/colaborador" method="POST"> -->
                         <% for (r of registro) { %>
                           <!-- <input id="id" name="id" type="hidden" value="<%= r.id_empleado %>"> -->
-                          <strong><em><%= r.nombre %></em></strong><span>  </span><button id="deleteColabAct" class="button is-danger is-small" value="<%= r.id_empleado %>" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
+                          <strong><em><%= r.nombre %></em></strong><span>  </span><a href="/home/registra/delete/<%= r.id %>" id="deleteColabAct" class="button is-danger is-small" value="<%= r.id %>" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
                           <% } %>
                       <!-- </form> -->
                       </div>

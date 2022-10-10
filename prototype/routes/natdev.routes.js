@@ -25,9 +25,11 @@ router.get('/edit/:id', actController.getEditAct);
 
 router.post('/edit', actController.postEditAct);
 
+router.get('/registra/delete/:id', actController.postRegistraDelete);
+
 router.post('/delete', actController.postDeleteAct);
 
-router.post('/delete/colaborador', actController.postDeleteColab);
+
 
 // ------------- PROYECTOS -------------
 
