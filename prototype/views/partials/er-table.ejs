@@ -1,42 +1,81 @@
+<div class="columns is-desktop" oninput="datosTablas()">
+  <div class="column is-2 is-offset-1">
+        <table id="table_1" class="table is-bordered is-hoverable is-narrow" oninput="checkAjuste()">
+          <thead>
+            <tr>
+              <th>Nombre del Proyecto</th>
+              <th>Total Horas Registradas</th>
+              <th>Total Horas Ajustadas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let total=0 %>
+              <% for (pa of proyectos_diez) { %>
+                <% total += pa.total_horas %>
+                  <tr>
+                    <td name="proyect_names">
+                      <%= pa.nombre_proyecto%>
+                    </td>
+                    <td>
+                      <%= pa.total_horas.toFixed(2)%>
+                    </td>
+                    <td><input id="proy" class="input is-narrow"> </input></td>
+                  </tr>
+                  <% } %>
+          </tbody>
+  
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <td id="horas_totales_registradas">
+                <%- total.toFixed(2) %>
+              </td>
+              <td id="horas_totales_ajustadas"> </td>
+            </tr>
+          </tfoot>
+        </table>
+        <script src="/js/tabla.js"></script>
+    </div>
+
 <div class="column is-offset-1" oninput="checkAjuste()">
-      <table id="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
-        <tbody>
-          <tr>
-            <th>Coeficiente</th>
-            <td><input id="coeficiente" class="input" type="text" name="coeficiente"
-                placeholder=<%=coeficiente_efectividad.toFixed(2)%>></td>
-          </tr>
-          <tr>
-            <th>Vacaciones TM</th>
-            <td><input id="v_tm" class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
-          </tr>
-          <tr>
-            <th>Vacaciones TC</th>
-            <td><input id="v_tc" class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc"
-              placeholder="5"></td>
-          </tr>
-          <tr>
-            <th>NGblock TM</th>
-            <td><input id="ng_tm" class="input" value="0" type="text" name="ngblock_tm" placeholder="0"></td>
-          </tr>
-          <tr>
-            <th>NGblock TC</th>
-            <td><input id="ng_tc" class="input" value="0" type="text" name="ngblock_tc" placeholder="0"></td>
-          </tr>
-          <tr>
-            <th>Horas semanales TC</th>
-            <td><input id="horas_tc" class="input" placeholder="35" oninput="capTotal()"></td>
-          </tr>
-          <tr>
-            <th>Horas semanales TM</th>
-            <td><input id="horas_tm" class="input" placeholder="17" oninput="capTotal()"></td>
-          </tr>
-        </tbody>
-      </table>
+  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
+    <tbody>
+      <tr>
+        <th>Coeficiente</th>
+        <td><input id="coeficiente" class="input" type="text" name="coeficiente"
+            placeholder=<%=coeficiente_efectividad.toFixed(2)%>></td>
+      </tr>
+      <tr>
+        <th>Vacaciones TM</th>
+        <td><input id="v_tm" class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
+      </tr>
+      <tr>
+        <th>Vacaciones TC</th>
+        <td><input id="v_tc" class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc"
+          placeholder="5"></td>
+      </tr>
+      <tr>
+        <th>NGblock TM</th>
+        <td><input id="ng_tm" class="input" value="0" type="text" name="ngblock_tm" placeholder="0"></td>
+      </tr>
+      <tr>
+        <th>NGblock TC</th>
+        <td><input id="ng_tc" class="input" value="0" type="text" name="ngblock_tc" placeholder="0"></td>
+      </tr>
+      <tr>
+        <th>Horas semanales TC</th>
+        <td><input id="horas_tc" class="input" placeholder="35" oninput="capTotal()"></td>
+      </tr>
+      <tr>
+        <th>Horas semanales TM</th>
+        <td><input id="horas_tm" class="input" placeholder="17" oninput="capTotal()"></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-    
-  <% let tiempo_comp=0 %>
+
+<% let tiempo_comp=0 %>
   <% let tiempo_medio=0 %>
     <% for (e in empleados) { %>
       <% Object.entries(empleados[e]).forEach((entry)=> { %>
@@ -45,12 +84,12 @@
             <% if (key=='is_tiempo_completo' && value==1) {tiempo_comp++;} %>
               <% });%>
                 <% }%>
-  
+
 
                   <!-- TABLA 3 BEGIN -->
 
                   <div class="column">
-                    <table class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
+                    <table id="table_3" class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
                       <tbody>
                         <tr>
                           <th>Personal tiempo medio</th>
@@ -122,6 +161,34 @@
 
 
                   <script>
+                    async function datosTablas() {
+                      const tabla1 = document.getElementById("table_1").getElementsByClassName('input');
+                      const tabla2 = document.getElementById("table_2").getElementsByClassName('input');
+                      const tabla3 = document.getElementById("table_3").getElementsByClassName('input');
+                      
+                      let datos_tabla = {
+                        labels: [],
+                        data: []
+                      }
+
+                      document.getElementsByName('proyect_names')
+                      .forEach(function (element) {
+                        datos_tabla.labels.push(element.outerText);
+                      });
+
+                      for (inputs of tabla1) {
+                      datos_tabla.data.push(inputs.value);
+                      }
+                      for (inputs of tabla2) {
+                        datos_tabla.labels.push(inputs.id);
+                        datos_tabla.data.push(inputs.value);
+                      }
+                      for (inputs of tabla3) {
+                        datos_tabla.labels.push(inputs.id);
+                        datos_tabla.data.push(inputs.value);
+                      }
+                      return datos_tabla;
+                    }
                     async function getVars() {
                       let variables_ajuste = [
                         parseFloat(document.getElementById("coeficiente").value),
@@ -182,4 +249,5 @@
                         .then(async (vars) => { createChart(vars); })
                         .catch(err => { console.log(err) })
                     }
+                    
                   </script>
