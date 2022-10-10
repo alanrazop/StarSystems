@@ -96,45 +96,92 @@ exports.postActividad = async (request, response, next) => {
     
 
 
+
 exports.getEditAct = (request, response, next) => {
     Actividades.fetchOne(request.params.id)
         .then(([rows, fieldData]) => {
-            Empleados.NombreEmpleado()
-            .then(([empleados,fieldData]) => {
-                console.log(empleados);
-                response.render(path.join('modAct.ejs'), {
-                    actividades: rows[0],
-                    empleados: empleados,
-                });
+            Registra.fetchListaEmpleadosDisponibles(request.params.id)
+            .then(([empleados,fieldData]) => {  
+                Proyectos.fetchAll()
+                .then(([proyectos,fieldData]) =>{  
+                    Registra.fetchOneRegister(request.params.id)
+                        .then(([registro, fieldData]) => {
+                            response.render(path.join('modAct.ejs'), {
+                                actividades: rows[0],
+                                empleados: empleados,
+                                proyecto: proyectos,
+                                registro: registro
+                            })
+                        })
+                        .catch(err => {console.log(err)});
+                
             })
             .catch(err => {
                 console.log(err);
             })
+        })        .catch(err => {
+            console.log(err);
+        }) 
+}).catch(err => {
+    console.log(err);
+}) ;
+}
+
+exports.postEditAct = (request, response, next) => {
+    // AKI
+    console.log('Post edit act');
+    console.log(request.body.id);
+
+    const NuevoRegistro = new Actividades (
+        request.body.id,
+        request.body.descripcion,
+        request.body.id_proyecto,
+        request.body.input_horas,
+        request.body.check_empleados,
+        request.body.fecha_act
+    );
+    
+    NuevoRegistro.id = request.body.id;
+    console.log(NuevoRegistro);
+
+    if (request.body.check_empleados == null) {
+        Actividades.saveEdit(NuevoRegistro)
+        .then(() => {
+            response.redirect('/home/tareas');
         })
         .catch(err => {
             console.log(err);
-        }) 
-};
+        })
+    }
 
-exports.postEditAct = (request, response, next) => {
-    
-    Actividades.fetchOne(request.body.id)
-    .then(([rows, fieldData]) => {
-        let horas = request.body.num_horas;
-        console.log(horas);
-        rows[0].num_horas = horas;
-        console.log(rows[0]);
-        Actividades.saveEdit(rows[0])
-            .then(() => {
-                response.redirect('/home/tareas');
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    })
-    .catch(err => {
-    console.log(err);
-});
+    else{
+        Actividades.saveEdit(NuevoRegistro)
+        .then(() => {
+            for (e of request.body.check_empleados){
+                NuevoRegistro.colab = e;
+                console.log(NuevoRegistro);
+                console.log('id del colaborador: ' + NuevoRegistro.colab);
+                Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
+                        console.log('-------------\n');
+                        console.log(NuevoRegistro);
+                        console.log('-------------\n');
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })  
+            }  
+
+            response.redirect('/home/tareas');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+ 
+        
 };
 
 exports.postDeleteAct = (request, response, next) => {
@@ -150,3 +197,18 @@ exports.postDeleteAct = (request, response, next) => {
         })
         .catch(err => {console.log(err);});
 };
+
+exports.postRegistraDelete = (request, response, next) => {
+
+    Registra.getActividad(request.params.id)
+        .then(([actividades, fieldData]) => {
+            Registra.delete(request.params.id)
+                .then(() => {
+                    response.redirect('/home/edit/' + actividades[0].id_actividad);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+        .catch(err => {console.log(err);});
+}

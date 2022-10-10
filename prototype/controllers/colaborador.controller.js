@@ -5,10 +5,17 @@ const Empleados = require('../models/empleados.model');
 exports.getEmpleado = (request, response, next) => {
         Empleados.fetchAll()
         .then(([rows,fieldData]) => {
-            response.render(path.join('colaboradores.ejs'), {
-                empleados: rows,
+            // Empleados.fetchProyectoEmpleado()
+            // .then(([proyectos, fieldData]) => {
+                response.render(path.join('colaboradores.ejs'), {
+                    empleados: rows,
+                })
             })
-        }).catch(error => {
+            // .catch(err => {
+            //     console.log(err);
+            // })
+
+        .catch(error => {
             console.log(error);
         });
 };

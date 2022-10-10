@@ -7,6 +7,10 @@ module.exports = class Empleados {
         return db.execute('SELECT * FROM empleado e, rol r WHERE e.id_rol = r.id_rol');
     }
 
+    // static fetchProyectoEmpleado() {
+    //     return db.execute('SELECT e.nombre, p.nombre_proyecto FROM empleado e, proyecto p, actividad a, registra reg WHERE e.id_empleado = ? GROUP BY e.nombre, p.nombre_proyecto;');
+    // }
+
     static NombreEmpleado(){
         return db.execute('SELECT  * FROM empleado e, rol r WHERE e.id_rol = r.id_rol');
     }
