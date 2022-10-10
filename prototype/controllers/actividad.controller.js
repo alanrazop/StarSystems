@@ -160,6 +160,7 @@ exports.postEditAct = (request, response, next) => {
             for (e of request.body.check_empleados){
                 NuevoRegistro.colab = e;
                 console.log(NuevoRegistro);
+                console.log(e)
                 console.log('id del colaborador: ' + NuevoRegistro.colab);
                 Registra.saveRegistra(NuevoRegistro)
                     .then(async() => {  
