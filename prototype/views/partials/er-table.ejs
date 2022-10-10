@@ -1,5 +1,5 @@
   <div class="card">
-    <div class="card-content">
+    <div class="card-content" oninput="checkAjuste()">
       <table id="user_table" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
         <tbody>
           <tr>
@@ -48,9 +48,11 @@
               <% });%>
                 <% }%>
 
-                    <div class="card">
+                <!-- TABLA 3 BEGIN -->
+                
+                <div class="card">
                       <div class="card-content">
-                        <table class="table is-bordered is-striped is-narrow">
+                        <table class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
                           <tbody>
                             <tr>
                               <th>Personal tiempo medio</th>
@@ -61,8 +63,8 @@
                               <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
                             </tr>
                             <tr>
-                              <th>Horas ajustadas</th>
-                              <td><input class="input" id="horas_ajustadas" readonly></td>
+                              <th>Horas esperadas</th>
+                              <td><input class="input" id="horas_esperadas" readonly></td>
                             </tr>
                             <tr>
                               <th>Proporción</th>
@@ -73,8 +75,8 @@
                               <td><input class="input" id="capacidad_total" type="text" readonly></td>
                             </tr>
                             <tr>
-                              <th>Capacidad ajustada</th>
-                              <td><input class="input" id="capacidad_ajustada" type="text" readonly></td>
+                              <th>Horas vacaciones</th>
+                              <td><input class="input" id="vacaciones_totales" type="text" readonly></td>
                             </tr>
                             <tr>
                               <th>Porcentaje verdadero</th>
@@ -85,6 +87,8 @@
                       </div>
                     </div>
                   </nav>
+                  
+                  <!-- TABLA 3 END -->
 
                   <article class="message is-success">
                     <div class="message-header">
@@ -97,8 +101,8 @@
                       </div>
                     </div>
                   </article>
-
-
+                  
+                  
                   <script>
                     async function getVars() {
                       let variables_ajuste = [

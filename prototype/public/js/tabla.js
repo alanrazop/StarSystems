@@ -11,12 +11,12 @@ async function checkAjuste() {
     // Borislav Hadzhiev @ https://bobbyhadz.com/blog/javascript-check-if-value-is-float
     if (typeof(total) === 'number' && Number.isInteger(total)) {
         document.getElementById("horas_totales_ajustadas").childNodes[0].data = total;
-        document.getElementById("proporcion").value = await capAjustada()/total;
-        document.getElementById("porcentaje_verdadero").value = await capAjustada()/total * document.getElementById("coeficiente").value; 
+        document.getElementById("proporcion").value = await horasAjustadas()/total;
+        document.getElementById("porcentaje_verdadero").value = document.getElementById("proporcion").value / document.getElementById("coeficiente").value; 
     } else {
         document.getElementById("horas_totales_ajustadas").childNodes[0].data = total.toFixed(3);
-        document.getElementById("proporcion").value = await capAjustada()/total;
-        document.getElementById("porcentaje_verdadero").value = await capAjustada()/total * document.getElementById("coeficiente").value;
+        document.getElementById("proporcion").value = await horasAjustadas()/total;
+        document.getElementById("porcentaje_verdadero").value = document.getElementById("proporcion").value / document.getElementById("coeficiente").value;
     }
 }
 
@@ -30,14 +30,15 @@ async function capTotal() {
     }
   }
 
-async function capAjustada() {
-    const capTotal = (document.getElementById("personal_tm").value * document.getElementById("horas_tm").value) +
+async function horasAjustadas() {
+    let vac_tm = document.getElementById("v_tm").value / 7;
+    let vac_tc = document.getElementById("v_tc").value / 7;
+    let ng_tc  = document.getElementById("ng_tc").value * (document.getElementById("horas_tc").value / 7) ;
+    let ng_tm  = document.getElementById("ng_tm").value * (document.getElementById("horas_tm").value / 7) ;
+    let capTotal = (document.getElementById("personal_tm").value * document.getElementById("horas_tm").value) +
     (document.getElementById("personal_tc").value * document.getElementById("horas_tc").value);
-    const vac_tm = document.getElementById("v_tm").value / 7;
-    const vac_tc = document.getElementById("v_tc").value / 7;
-    const ng_tc  = document.getElementById("ng_tc").value * document.getElementById("horas_tc").value / 7 ;
-    const ng_tm  = document.getElementById("ng_tm").value * document.getElementById("horas_tm").value / 7 ;
-    const capAjuste = capTotal - (vac_tm + vac_tc + ng_tc + ng_tm);
-    document.getElementById("capacidad_ajustada").value = capAjuste.toFixed(3);
+    let capAjuste = capTotal - (vac_tm + vac_tc + ng_tc + ng_tm);
+    document.getElementById("horas_esperadas").value = capAjuste;
+    document.getElementById("vacaciones_totales").value = (vac_tm + vac_tc + ng_tc + ng_tm);
     return capAjuste;
 }
