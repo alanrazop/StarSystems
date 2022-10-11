@@ -1,4 +1,3 @@
-
       <!-- TABLE BEGINS HERE -->
       <div class="card">
         <div class="card-content ">
@@ -14,13 +13,17 @@
               </tr>
             </thead>
             <tbody>
-              <% for (var a of actividades) { %>
+              <% for (let a of actividades) { %>
               <% let array = String(a.fecha).split(" ")%>  
               <tr>
                 <td><%= a.nombre_proyecto %></td>
                 <td><%= a.descripcion_actividad %></td>
                 <td><%= a.num_horas.toFixed(1) %></td>
-                <td><%= a.nombre %></td>
+                <td>
+                  <% for (let participante of a.participantes) { %>
+                  <span><%= participante.nombre %>, </span>
+                <% }%>
+                </td>
                 <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
                 <td>
                   <a class="button is-dark is-inverted js-modal-trigger" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
@@ -103,7 +106,7 @@
           </table>
         </div>
       </div>
- 
+
       <!-- TABLE ENDS HERE -->
 
       <!-- EDIT ACTIVITY MODAL SCRIPT BEGINS HERE --> 

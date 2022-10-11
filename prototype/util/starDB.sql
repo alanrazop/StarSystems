@@ -27,7 +27,7 @@ CREATE TABLE `empleado` (
 -- Tabla Registra
 CREATE TABLE `registra` (
     `num_horas` float NOT NULL,
-    `id_actividad` int(11),
+    `id_actividad` int(11) on INSERT ()LAST_INSERT_ID();
     `id_empleado` int(11),
     `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `sub_auth0` varchar(60) NOT NULL,

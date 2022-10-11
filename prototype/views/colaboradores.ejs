@@ -21,6 +21,7 @@
         <div class="columns is-multiline">
           <% for (let e of empleados) { %>
           <div class="column is-half">
+            
             <div class="card has-background-white-ter">
               <div class="card-content">
                 <div class="media">
@@ -30,13 +31,13 @@
                     </figure>
                   </div>
                   <div class="media-content">
-                    <p class="title is-4"><%= e.nombre %></p>
+                    <p class="title is-4" ><%= e.nombre %></p>
                     <% e.is_tiempo_completo ? e.is_tiempo_completo = 'Tiempo completo' : e.is_tiempo_completo = 'Medio tiempo' %>
                     <p class="subtitle is-6"><%= e.descripcion  %> | <%= e.is_tiempo_completo %></p>
                   </div>
                 </div>
                 <div class="content">
-                  Proyectos: Oasis
+
                 </div>
               </div>
             </div>
