@@ -1,50 +1,253 @@
-              <div class="tile is-parent is-vertical">
-                <article class="tile is-child">
-                  <table class="table is-bordered is-striped is-narrow is-hoverable">
-                    <tbody>
-                      <tr>
-                        <th>Coeficiente</th>
-                        <td><input class="input" value=<%=coeficiente_efectividad.toFixed(2)%> type="text" name="coeficiente" placeholder=".85"></td>
-                      </tr>
-                      <tr>
-                        <th>Vacaciones TM</th>
-                        <td><input class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
-                      </tr>
-                      <tr>
-                        <th>Vacaciones TC</th>
-                        <td><input class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc" placeholder="5"></td>
-                      </tr>
-                      <tr>
-                        <th>NGblock TM</th>
-                        <td><input class="input" value="0" type="text" name="ngblock_tm" placeholder="8"></td>
-                      </tr>
-                      <tr>
-                        <th>NGblock TC</th>
-                        <td><input class="input" value="0" type="text" name="ngblock_tc" placeholder="5"></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </article>
-                <article class="tile is-child">
-                  <table class="table is-bordered is-striped is-narrow">
-                    <tbody>
-                      <tr>
-                        <th>Horas capacidad</th>
-                        <td><input class="input" name="horas_capacidad" type="text" readonly></td>
-                      </tr>
-                      <tr>
-                        <th>Horas ajustadas</th>
-                        <td><input class="input" name="horas_ajustadas" value=<%=horas_trabajadas%> type="text" readonly></td>
-                      </tr>
-                      <tr>
-                        <th>Efectividad</th>
-                        <td><input class="input" name="efectividad" type="text" readonly></td>
-                      </tr>
-                      <tr>
-                        <th>Capacidad ajustada</th>
-                        <td><input class="input" name="capacidad_ajustada" type="text" readonly></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </article>
-              </div>
+<div class="columns is-desktop" oninput="datosTablas()">
+  <div class="column is-2 is-offset-1">
+        <table id="table_1" class="table is-bordered is-hoverable is-narrow" oninput="checkAjuste()">
+          <thead>
+            <tr>
+              <th>Nombre del Proyecto</th>
+              <th>Total Horas Registradas</th>
+              <th>Total Horas Ajustadas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let total=0 %>
+              <% for (pa of proyectos_diez) { %>
+                <% total += pa.total_horas %>
+                  <tr>
+                    <td name="proyect_names">
+                      <%= pa.nombre_proyecto%>
+                    </td>
+                    <td>
+                      <%= pa.total_horas.toFixed(2)%>
+                    </td>
+                    <td><input id="proy" class="input is-narrow"> </input></td>
+                  </tr>
+                  <% } %>
+          </tbody>
+  
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <td id="horas_totales_registradas">
+                <%- total.toFixed(2) %>
+              </td>
+              <td id="horas_totales_ajustadas"> </td>
+            </tr>
+          </tfoot>
+        </table>
+        <script src="/js/tabla.js"></script>
+    </div>
+
+<div class="column is-offset-1" oninput="checkAjuste()">
+  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
+    <tbody>
+      <tr>
+        <th>Coeficiente</th>
+        <td><input id="coeficiente" class="input" type="text" name="coeficiente"
+            placeholder=<%=coeficiente_efectividad.toFixed(2)%>></td>
+      </tr>
+      <tr>
+        <th>Vacaciones TM</th>
+        <td><input id="v_tm" class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
+      </tr>
+      <tr>
+        <th>Vacaciones TC</th>
+        <td><input id="v_tc" class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc"
+          placeholder="5"></td>
+      </tr>
+      <tr>
+        <th>NGblock TM</th>
+        <td><input id="ng_tm" class="input" value="0" type="text" name="ngblock_tm" placeholder="0"></td>
+      </tr>
+      <tr>
+        <th>NGblock TC</th>
+        <td><input id="ng_tc" class="input" value="0" type="text" name="ngblock_tc" placeholder="0"></td>
+      </tr>
+      <tr>
+        <th>Horas semanales TC</th>
+        <td><input id="horas_tc" class="input" placeholder="35" oninput="capTotal()"></td>
+      </tr>
+      <tr>
+        <th>Horas semanales TM</th>
+        <td><input id="horas_tm" class="input" placeholder="17" oninput="capTotal()"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<% let tiempo_comp=0 %>
+  <% let tiempo_medio=0 %>
+    <% for (e in empleados) { %>
+      <% Object.entries(empleados[e]).forEach((entry)=> { %>
+        <% const [key, value]=entry;%>
+          <% if (key=='is_tiempo_completo' && value==0) {tiempo_medio++;} %>
+            <% if (key=='is_tiempo_completo' && value==1) {tiempo_comp++;} %>
+              <% });%>
+                <% }%>
+
+
+                  <!-- TABLA 3 BEGIN -->
+
+                  <div class="column">
+                    <table id="table_3" class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
+                      <tbody>
+                        <tr>
+                          <th>Personal tiempo medio</th>
+                          <td><input class="input" id="personal_tm" value="<%=tiempo_medio%>" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Personal tiempo completo</th>
+                          <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Horas esperadas</th>
+                          <td><input class="input" id="horas_esperadas" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Proporción</th>
+                          <td><input class="input" id="proporcion" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Capacidad total</th>
+                          <td><input class="input" id="capacidad_total" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Horas vacaciones</th>
+                          <td><input class="input" id="vacaciones_totales" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Porcentaje verdadero</th>
+                          <td><input class="input" id="porcentaje_verdadero" type="text" readonly></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="column is-1"></div>
+                  </div>
+
+                  <!-- TABLA 3 END -->
+                  <div class="columns">
+                    <div class="column is-1">
+                    </div>
+                    <div class="column is-one-third">
+                      <article class="message is-success">
+                        <div class="message-header">
+                          <p>Graph</p>
+                        </div>
+                        <div class="message-body">
+                          User graph
+                          <div id="graph-container">
+                            <canvas id="myChart"></canvas>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="column">
+                      <article class="message is-success">
+                        <div class="message-header">
+                          <p>Graph</p>
+                        </div>
+                        <div class="message-body">
+                          User graph
+                          <div id="graph-container">
+                            <canvas id="myChart"></canvas>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="column is-1">
+                    </div>
+                  </div>
+
+
+                  <script>
+                    async function datosTablas() {
+                      const tabla1 = document.getElementById("table_1").getElementsByClassName('input');
+                      const tabla2 = document.getElementById("table_2").getElementsByClassName('input');
+                      const tabla3 = document.getElementById("table_3").getElementsByClassName('input');
+                      
+                      let datos_tabla = {
+                        labels: [],
+                        data: []
+                      }
+
+                      document.getElementsByName('proyect_names')
+                      .forEach(function (element) {
+                        datos_tabla.labels.push(element.outerText);
+                      });
+
+                      for (inputs of tabla1) {
+                      datos_tabla.data.push(inputs.value);
+                      }
+                      for (inputs of tabla2) {
+                        datos_tabla.labels.push(inputs.id);
+                        datos_tabla.data.push(inputs.value);
+                      }
+                      for (inputs of tabla3) {
+                        datos_tabla.labels.push(inputs.id);
+                        datos_tabla.data.push(inputs.value);
+                      }
+                      return datos_tabla;
+                    }
+                    async function getVars() {
+                      let variables_ajuste = [
+                        parseFloat(document.getElementById("coeficiente").value),
+                        parseInt(document.getElementById("ng_tm").value),
+                        parseInt(document.getElementById("ng_tc").value),
+                        parseInt(document.getElementById("v_tm").value),
+                        parseInt(document.getElementById("v_tc").value),
+                        parseInt(document.getElementById("horas_tc").value),
+                        parseInt(document.getElementById("horas_tm").value)
+                      ]
+                      return variables_ajuste;
+                    }
+
+                    async function createChart(variables_ajuste) {
+                      let ctx_live = document.getElementById("myChart");
+                      let myChart = new Chart(ctx_live, {
+                        type: 'bar',
+                        data: {
+                          labels: ['Coeficiente', 'NG-tm', "ng_tc", "v_tm", "v_tc",],
+                          datasets: [{
+                            data: variables_ajuste,
+                            borderWidth: 1,
+                            borderColor: '#00c0ef',
+                            label: 'Variables Usuario',
+                          }]
+                        },
+                        options: {
+                          responsive: true,
+                          plugins: {
+                            title: {
+                              display: true,
+                              text: 'Chart nuevo'
+                            }
+                          },
+                          scales: {
+                            x: {
+                              display: true
+                            },
+                            y: {
+                              display: true
+                            }
+                          }
+                        }
+                      });
+                      return myChart;
+                    }
+
+                    const resetCanvas = function () {
+                      document.getElementById('myChart').remove();
+                      document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
+                      canvas = document.querySelector('#myChart');
+                      ctx = canvas.getContext('2d');
+                    };
+
+                    async function renderChart() {
+                      resetCanvas();
+                      getVars()
+                        .then(async (vars) => { createChart(vars); })
+                        .catch(err => { console.log(err) })
+                    }
+                    
+                  </script>
