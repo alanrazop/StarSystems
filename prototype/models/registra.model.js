@@ -20,10 +20,18 @@ module.exports = class Registra {
     }
 
     static fetchOneRegister(id){
-        return db.execute('SELECT e.nombre FROM registra r, empleado e WHERE id_actividad = ? AND e.id_empleado = r.id_empleado', [id]);
+        return db.execute('SELECT r.id, e.nombre FROM registra r, empleado e WHERE id_actividad = ? AND e.id_empleado = r.id_empleado', [id]);
     }
 
     static fetchListaEmpleadosDisponibles(id){
         return db.execute('SELECT * FROM empleado WHERE id_empleado NOT IN (SELECT r.id_empleado FROM registra r, empleado e WHERE id_actividad = ? AND e.id_empleado = r.id_empleado)', [id]);
+    }
+
+    static getActividad(id){
+        return db.execute('SELECT id_actividad FROM registra r WHERE id = ?', [id]);
+    }
+
+    static delete(id){
+        return db.execute('DELETE FROM registra WHERE id = ?', [id]);
     }
 }

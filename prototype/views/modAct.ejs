@@ -54,13 +54,14 @@
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                      <div class="columns is-multiline">
-                        <div class="column is-one-quarter">
-                          <% for (r of registro) { %>
-                            <strong><em><%= r.nombre %></em>,</strong>
-                            <% } %>
-                        </div>
-                      </div>
+                          <div class="columns is-multiline">
+                              <% for (r of registro) { %>
+                                <div class="column is-one-fifth"> 
+                                <strong><em><%= r.nombre %></em></strong><span>  </span><a href="/home/registra/delete/<%= r.id %>" id="deleteColabAct" class="button is-danger is-rounded is-small" value="<%= r.id %>" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                                </div>
+                                <br>
+                                <% } %>
+                            </div>
                       </div>
                   </div>
                 </div>
@@ -92,11 +93,14 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                      <input class="input" type="date" id="fecha_act" name="fecha_act" required>
+                        
+                      <input class="input" type="date" id="fecha_act" name="fecha_act"required>
                       
                     </div>
                   </div>
                 </div>
+                <% let array = String(actividades.fecha).split(" ")%> 
+                    <p>Última fecha registrada: <strong><em><%- array[2] + "-" + array[1] + "-" + array[3] %></em></strong></p>
               </section>
               <section id = "modAct" class="buttons is-right">
                 <input type="submit" id="save" class="button is-primary" value="Guardar cambios">

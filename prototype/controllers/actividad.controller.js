@@ -129,7 +129,7 @@ exports.getEditAct = (request, response, next) => {
 
 exports.postEditAct = (request, response, next) => {
     // AKI
-    console.log('Si paso por aqui');
+    console.log('Post edit act');
     console.log(request.body.id);
 
     const NuevoRegistro = new Actividades (
@@ -142,12 +142,25 @@ exports.postEditAct = (request, response, next) => {
     );
     
     NuevoRegistro.id = request.body.id;
-    console.log(NuevoRegistro)
+    console.log(NuevoRegistro);
+
+    if (request.body.check_empleados == null) {
+        Actividades.saveEdit(NuevoRegistro)
+        .then(() => {
+            response.redirect('/home/tareas');
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    else{
         Actividades.saveEdit(NuevoRegistro)
         .then(() => {
             for (e of request.body.check_empleados){
                 NuevoRegistro.colab = e;
                 console.log(NuevoRegistro);
+                console.log(e)
                 console.log('id del colaborador: ' + NuevoRegistro.colab);
                 Registra.saveRegistra(NuevoRegistro)
                     .then(async() => {  
@@ -166,6 +179,10 @@ exports.postEditAct = (request, response, next) => {
         .catch(err => {
             console.log(err);
         });
+    }
+
+ 
+        
 };
 
 exports.postDeleteAct = (request, response, next) => {
@@ -181,3 +198,18 @@ exports.postDeleteAct = (request, response, next) => {
         })
         .catch(err => {console.log(err);});
 };
+
+exports.postRegistraDelete = (request, response, next) => {
+
+    Registra.getActividad(request.params.id)
+        .then(([actividades, fieldData]) => {
+            Registra.delete(request.params.id)
+                .then(() => {
+                    response.redirect('/home/edit/' + actividades[0].id_actividad);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+        .catch(err => {console.log(err);});
+}
