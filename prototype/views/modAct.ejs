@@ -57,7 +57,10 @@
                           <div class="columns is-multiline">
                               <% for (r of registro) { %>
                                 <div class="column is-one-fifth"> 
-                                <strong><em><%= r.nombre %></em></strong><span>  </span><a href="/home/registra/delete/<%= r.id %>" id="deleteColabAct" class="button is-danger is-rounded is-small" value="<%= r.id %>" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                                  <strong><em><%= r.nombre %></em></strong><span> 
+                                  <% if(  registro.length > 1) { %>
+                                </span><a href="/home/registra/delete/<%= r.id %>" id="deleteColabAct" class="button is-danger is-rounded is-small" value="<%= r.id %>" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                                <% } %>
                                 </div>
                                 <br>
                                 <% } %>
