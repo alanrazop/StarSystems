@@ -48,15 +48,9 @@
               </article>
             </div>
             <div class="tile is-parent">
-              <article class="tile is-child notification has-background-primary-light">
-                <p class="title">Horas por proyecto</p>
-                <% for (let e of proyectosA) {%>
-                  <p class="title is-5"><%= e.nombre_proyecto %></p>
-                  <label><%= e.total_horas%> hrs</label>
-                  <progress class="progress is-info" value="<%= e.total_horas%>" max="100"></progress>
-                  <p></p>
-                  <% } %>
-                  
+              <article class="tile is-child notification has-background-grey">
+                <p class="title has-text-white">Horas por proyecto</p>
+                  <canvas id="myChart2" ></canvas>
               </article>
             </div>
           </div>
@@ -96,36 +90,64 @@
       document.getElementById('save').addEventListener('click', function hola(){
             Swal.fire('Fondo de pantalla agregado')
       });
-      
-        var xValues = ['Adios'];
-        var yValues = [5];
-        var barColors = [
-          "#b91d47",
-          "#00aba9",
-          "#2b5797",
-          "#e8c3b9",
-          "#1e7145"
-        ];
 
+        
+      fetch('/home/grafica-proyectos', {
+        method: 'GET'
+      })
+      .then(result => {
+        return result.json();
+      })
+      .then(data => {
+        console.log(data);
+        var color;
+        var ctx = document.getElementById("myChart2").getContext('2d');
+        var proyectos = [];
+        var horas = [];
+        var barColors = [];
 
+        for (let pa of data){
 
+          proyectos.push(pa.nombre_proyecto);
+          horas.push(pa.total_horas);
+          barColors.push(generarNuevoColor());
 
-
-      new Chart("myChart", {
-        type: "doughnut",
-        data: {
-          labels: xValues,
-          datasets: [{
-            backgroundColor: barColors,
-            data: yValues
-          }]
-        },
-        options: {
-          title: {
-            display: true,
-            text: "World Wide Wine Production 2018"
-          }
         }
-      });
+
+        function generarNuevoColor(){
+	        var simbolos, color;
+          simbolos = "0123456789ABCDEF";
+          color = "#";
+
+          for (var i = 0; i < 6; i++) {
+            color = color + simbolos[Math.floor(Math.random() * 16)];
+          }
+          return color;
+
+        }
+
+        Chart.defaults.color = 'white';
+
+        new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: proyectos,
+            datasets: [{
+              backgroundColor: barColors,
+              data: horas
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+            }
+          }
+        });
+        }).catch(err => {
+          console.log(err);
+        });   
+        
+        Chart.defaults.global.defaultFontColor = "white";
+       
     </script>
     <%- include('partials/tail.ejs'); -%>

@@ -17,88 +17,24 @@
               <% let array = String(a.fecha).split(" ")%>  
               <tr>
                 <td><%= a.nombre_proyecto %></td>
-                <td><%= a.descripcion_actividad %></td>
-                <td><%= a.num_horas.toFixed(1) %></td>
                 <td>
-                  <% for (let participante of a.participantes) { %>
-                  <span><%= participante.nombre %>, </span>
-                <% }%>
+                  <p><%= a.descripcion_actividad %></p>
                 </td>
-                <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
+                <td><%= a.num_horas.toFixed(1) %></td>
+                <td> 
+                  <p>
+                    <% for (let participante of a.participantes) { %>
+                      - <%= participante.nombre + '\n' %> 
+                    <% }%>
+                  </p>
+                </td>
+                <td><%- array[2] + "/" + array[1] + "/" + array[3] %></td> 
                 <td>
-                  <a class="button is-dark is-inverted js-modal-trigger" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <!-- EDIT ACTIVITY MODAL BEGINS HERE -->
-                  
-                  <div id="runEditModal<%= a.id_actividad %>" class="modal">
-                    <div class="modal-background"></div>
-                
-                    <div class="modal-card">
-                      <header class="modal-card-head">
-                        <p class="modal-card-title">Modificar horas y colaboradores</p>
-                        <button class="delete" aria-label="close"></button>
-                      </header>
-                      <section class="modal-card-body">
-                        <!-- Content ... -->
-                        <div class="field is-horizontal">
-                          <div class="field-label is-normal">
-                            <label class="label">Personas: </label>
-                          </div>
-                          <div class="field-body">
-                            <div class="field">
-                              <%= a.nombre %>
-                              <p class="control">
-                                <div class="control has-icons-left">
-                                  <div class="select is-link">
-                                    <select>
-                                      <option disabled selected>Agregar</option>
-                                      <% for (let e of empleados) { %>
-                                        <option><%= e.nombre %></option>
-                                        <% } %>
-                                    </select>
-                                  </div>
-                                  <div class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                  </div>
-                                </div>
-                                
-                            </div>
-                          </div>
-                        </div>
-                        <form action="/home/tareas/edit" method="POST">
-                        <div class="field is-horizontal">
-                          <div class="field-label is-normal">
-                            <label class="label">Horas: </label>
-                          </div>
-                          <div class="field-body">
-                            <div class="field">
-                              <p class="control">
-                                
-                                  <input id="id" name="id" type="hidden">
-                                  <input class="input is-dark has-background-warning" type="number" placeholder="<%= a.num_horas %>">
-                              
-                            </div>
-                          </div>
-                        </div>
-                        <div class="field is-horizontal">
-                          <div class="field-label is-normal">
-                            <label class="label">Eliminar:</label>
-                          </div>
-                          <div class="field-body">
-                            <div class="field">
-                              <p class="control">
-                                <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                            </div>
-                          </div>
-                        </div>
-                        </section>
-                        <footer class="modal-card-foot">
-                          <input type="submit" class="button is-success" value="Guardar cambios">
-                          <button class="button">Cancelar</button>
-                        </footer>
-                      </div>
-                      <button class="modal-close is-large" aria-label="close"></button>
-                    </div> 
-                    <!-- EDIT ACTIVITY MODAL ENDS HERE --> 
+                  <form action="/home/delete" method="POST">
+                    <a class="button is-black is-light" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                    <input id="id" name="id" type="hidden" value="<%= a.id_actividad %>"> &nbsp;
+                    <button id="delete" class="button is-danger is-light" type="submit"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></button>
+                  </form>
                 </td>
               </tr>        
               <% } %>

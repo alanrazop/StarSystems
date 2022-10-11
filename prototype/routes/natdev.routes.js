@@ -11,9 +11,11 @@ const router = express.Router();
 // Route handling
 
 // ------------- INDEX -------------
-router.get('/', indexController.getImage);
+router.get('/', indexController.getIndex);
 
-router.post('/image', indexController.postImage);
+router.post('/image', indexController.postIndex);
+
+router.get('/grafica-proyectos', indexController.getDatosGrafica);
 
 // ------------- ACTIVIDAD -------------
 
@@ -46,10 +48,10 @@ router.post('/proyectos/delete', projectsController.postDeleteProject);
 
 router.get('/colaboradores', colabController.getEmpleado);
 
+router.get('/colaboradores/buscar/:valor', colabController.getBuscarColab);
+
 // ------------- REPORTES -------------
 
 router.get('/reportes', reporteController.getReportes);
-
-router.get('/colaboradores/buscar/:valor', colabController.getBuscarColab);
 
 module.exports = router;
