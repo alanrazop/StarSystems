@@ -127,6 +127,7 @@
         }
 
         Chart.defaults.color = 'white';
+        Chart.defaults.font.size = 16;
 
         new Chart(ctx, {
           type: "doughnut",
@@ -146,8 +147,6 @@
         }).catch(err => {
           console.log(err);
         });   
-        
-        Chart.defaults.global.defaultFontColor = "white";
        
     </script>
     <%- include('partials/tail.ejs'); -%>
