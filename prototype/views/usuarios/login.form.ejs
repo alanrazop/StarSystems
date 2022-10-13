@@ -1,17 +1,24 @@
 <%- include('../partials/head.ejs'); -%>
     <%- include('../partials/navbar-top.ejs'); -%>
-<div class="title">Acceder</div>
-<form action="login" method="POST">
-<input type="hidden" name="_csrf" value="<%= csrfToken %>" >
-<fieldset>
-    <legend class="is-size-3">Ingresa tus datos</legend>
-    <label for="username"> Usuario:</label>
-    <input class="input" id="username" name="username" type="text" required>
-    <label for="password"> Password:</label>
-    <input class="input" id="password" name="password" type="password">
-</fieldset>
-<br>
-<div class="block"><a href="/user/new">Crear un nuevo usario</a></div>
-<input type="submit" class="button is-link" value="Entrar">
-</form>
+    <div class="content has-text-centered">
+        <h1>Bienvenido a Nat Efficiency</h1>
+      </div>
+        <div class="level">
+            <div class="level-item">
+                <form action="login" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+                    <fieldset>
+                        <legend>Para ingresar sesión ingresa usuario y contraseña</legend>
+                        <br>
+                        <label for="username"> Usuario:</label>
+                        <input class="input" id="username" name="username" type="text"  placeholder="Hugo Sanchez" required>
+                        <label for="password"> Contraseña:</label>
+                        <input class="input" id="password" name="password" type="password" placeholder="*******">
+                    </fieldset>
+                    <br>
+                    <div class="block"><a href="/user/new">Crear un nuevo usuario</a></div>
+                    <input type="submit" class="button is-link" value="Iniciar sesión">
+                    </form>
+            </div>
+        </div>
 <%- include('../partials/tail.ejs'); -%>

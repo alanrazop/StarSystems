@@ -9,6 +9,7 @@ exports.getEmpleado = (request, response, next) => {
             // .then(([proyectos, fieldData]) => {
                 response.render(path.join('colaboradores.ejs'), {
                     empleados: rows,
+                    user: request.session.user ? request.session.user : '',
                 })
             })
             // .catch(err => {

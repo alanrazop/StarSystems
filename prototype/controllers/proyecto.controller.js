@@ -19,6 +19,7 @@ exports.getProyecto = async (request, response, next) => {
         console.log(proyectos);
     response.render(path.join('proyectos.ejs'), {
         proyecto: proyectos,
+        user: request.session.user ? request.session.user : '',
     });     
 };
 

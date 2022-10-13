@@ -8,6 +8,7 @@ exports.getReportes =  (request, response, next) => {
         Proyectos_activos.fetchRecent().then(([row, fieldData]) => {
             Reporte.fetchAll().then(([rows, fieldData]) => {
                 response.render(path.join('reportes.ejs'), {
+                    user: request.session.user ? request.session.user : '',
                     empleados: trabajadores,
                     proyectos_diez: row,
                     horas_vacaciones: rows[0].horas_vacaciones,

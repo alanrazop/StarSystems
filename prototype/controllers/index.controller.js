@@ -15,10 +15,8 @@ exports.getIndex = (request, response, next) => {
                         
                         isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : isLoggedIn,
                         imagenes: rows,
-                        proyectosA: projects[0]
-                        
-                        
-                        
+                        proyectosA: projects[0],
+                        user: request.session.user ? request.session.user : '',   
                     });
                 })
                 .catch(err => {

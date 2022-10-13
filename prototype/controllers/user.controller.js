@@ -3,7 +3,9 @@ const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario.model')
 
 exports.getNuevo = (request, response, next) => {
-    response.render(path.join('usuarios', 'usuario.form.ejs'));
+    response.render(path.join('usuarios', 'usuario.form.ejs'), {
+        user: request.session.user ? request.session.user : '',
+    });
 };
 
 exports.postNuevo = (request, response, next) => {
@@ -18,15 +20,16 @@ exports.postNuevo = (request, response, next) => {
             console.log(err);
             response.render('error', {
                 isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
-                csrfToken: request.csrfToken()
             });
         });
     
 };
 
 exports.getLogin = (request, response, next) => {
+    const usuario = request.session.user ? request.session.user : '';
     response.render(path.join('usuarios', 'login.form.ejs'), {
         isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+        user: usuario
     });
 };
 
@@ -50,6 +53,7 @@ exports.postLogin = (request, response, next) => {
                 }
             })
             .catch(err => {
+                console.log(err);
                 return response.render('error.ejs', {
                     isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
                 });

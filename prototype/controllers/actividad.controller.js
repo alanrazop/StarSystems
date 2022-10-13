@@ -24,7 +24,8 @@ exports.getActividad = async (request, response, next) => {
                 response.render(path.join('actividades.ejs'), {
                     actividades: actividades,
                     empleados:empleados,
-                    proyectos: proyectos
+                    proyectos: proyectos,
+                    user: request.session.user ? request.session.user : '',
                 })
             }).catch(error => {
                 console.log(error);
@@ -110,7 +111,8 @@ exports.getEditAct = (request, response, next) => {
                                 actividades: rows[0],
                                 empleados: empleados,
                                 proyecto: proyectos,
-                                registro: registro
+                                registro: registro,
+                                user: request.session.user ? request.session.user : '',
                             })
                         })
                         .catch(err => {console.log(err)});
