@@ -132,10 +132,10 @@
                     <div class="column is-one-third">
                       <article class="message is-success">
                         <div class="message-header">
-                          <p>Graph</p>
+                          <p>Vacaciones de la semana</p>
                         </div>
                         <div class="message-body">
-                          User graph
+                          Horas de Vacaciones
                           <div id="graph-container">
                             <canvas id="myChart"></canvas>
                           </div>
@@ -150,7 +150,7 @@
                         <div class="message-body">
                           User graph
                           <div id="graph-container">
-                            <canvas id="myChart"></canvas>
+                            <canvas id="myChart2"></canvas>
                           </div>
                         </div>
                       </article>
@@ -212,15 +212,14 @@
                             data: variables_ajuste,
                             borderWidth: 1,
                             borderColor: '#00c0ef',
-                            label: 'Variables Usuario',
+                            label: 'Horas',
                           }]
                         },
                         options: {
                           responsive: true,
                           plugins: {
                             title: {
-                              display: true,
-                              text: 'Chart nuevo'
+                              display: false,
                             }
                           },
                           scales: {
@@ -236,17 +235,67 @@
                       return myChart;
                     }
 
-                    const resetCanvas = function () {
+
+                    async function createPrueba(variables, ctx_live) {
+                      let myChart = new Chart(ctx_live, {
+                        type: 'bar',
+                        data: {
+                          labels: variables.labels,
+                          datasets: [{
+                            data: variables.data,
+                            borderWidth: 1,
+                            borderColor: '#00c0ef',
+                            label: 'horas',
+                          }]
+                        },
+                        options: {
+                          responsive: true,
+                          plugins: {
+                            title: {
+                              display: false,
+                            }
+                          },
+                          scales: {
+                            x: {
+                              display: true
+                            },
+                            y: {
+                              display: true
+                            }
+                          }
+                        }
+                      });
+                      return myChart;
+                    }
+
+                    const resetAllCanvas = function () {
                       document.getElementById('myChart').remove();
                       document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
                       canvas = document.querySelector('#myChart');
                       ctx = canvas.getContext('2d');
                     };
 
+                    
+                    const resetCanvas = function (context) {
+                      context.remove();
+                      document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
+                      canvas = document.querySelector('#myChart');
+                      ctx = canvas.getContext('2d');
+                    };
+
                     async function renderChart() {
-                      resetCanvas();
+                      resetAllCanvas();
                       getVars()
-                        .then(async (vars) => { createChart(vars); })
+                      .then(async (vars) => { createChart(vars); })
+                      .catch(err => { console.log(err) })
+                    }
+                    
+                    async function pruebaChart() {
+                      let context = document.getElementById("myChart2")
+                      resetAllCanvas();
+                      datosTablas()
+                        .then(async (vars) => { 
+                          createPrueba(vars,context); })
                         .catch(err => { console.log(err) })
                     }
                     
