@@ -26,6 +26,7 @@
               <article class="tile is-child notification is-light">
                 <p class="title">Cambia el fondo de pantalla</p>
                 <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                   <div id="file-js-example" class="file has-name is-info is-small">
                     <label class="file-label">
                       <input class="file-input" type="file" name="archivo" required>

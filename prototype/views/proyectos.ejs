@@ -35,6 +35,7 @@
 
     <!-- --- MODAL PROYECTO BEGIN --- -->
     <form id="formProyectos" class="was-validated" action="/home/nuevo-proyecto" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
     <div id="modal-js-example2" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">

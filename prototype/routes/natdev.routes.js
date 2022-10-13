@@ -5,13 +5,16 @@ const projectsController = require('../controllers/proyecto.controller');
 const colabController = require('../controllers/colaborador.controller');
 const reporteController = require('../controllers/reporte.controller');
 const indexController = require('../controllers/index.controller');
-
+const isAuth = require('../util/is-auth');
 const router = express.Router();
 
 // Route handling
 
+//-----------  AUTENTIFICAR ------
+
+
 // ------------- INDEX -------------
-router.get('/', indexController.getIndex);
+router.get('/',  indexController.getIndex);
 
 router.post('/image', indexController.postIndex);
 

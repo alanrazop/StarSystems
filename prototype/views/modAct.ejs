@@ -2,7 +2,8 @@
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
     <div style="text-align: center;">
-      <form action="/home/edit" method="POST"> 
+      <form action="/home/edit" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
         <div class="box">
           <div class="column is-centered ">
             <p class="title ">Modificar tarea</p>

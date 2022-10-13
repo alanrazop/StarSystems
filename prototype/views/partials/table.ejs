@@ -38,6 +38,7 @@
                   <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
                 <td>
                     <form action="/home/delete" method="POST">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                       <a class="button is-black is-light" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
                       <input id="id" name="id" type="hidden" value="<%= a.id_actividad %>"> &nbsp;
                       <a class="button is-danger is-light js-modal-trigger" data-target="delete<%= a.id_actividad %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>

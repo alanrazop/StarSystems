@@ -8,6 +8,11 @@ const multer = require('multer');
 const express = require("express");
 const app = express();
 
+const csrf = require('csurf');
+const csrfProtection = csrf();
+
+const session = require('express-session');
+
 
 
 
@@ -49,9 +54,26 @@ app.use(bodyParser.json());
 
 
 
+app.use(session({
+    secret: 'lknaeañco3pom4ñi3jrcñlawjomxñi3iq3mc4rsejf0438cnf83h4cknh43ui', 
+    resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
+    saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
+}));
+
+
+app.use(csrfProtection); 
+app.use((request, response, next) => {
+    response.locals.csrfToken = request.csrfToken();
+    next();
+});
+
+
 const rutas_natdev = require("./routes/natdev.routes");
+const  rutas_usuario = require("./routes/user.routes");
+
 
 app.use('/home', rutas_natdev);
+app.use('/user', rutas_usuario);
 
 app.use((request, response, next) => {
     response.status(404).send('¡Error 404! El recurso solicitado no existe'); //Manda la respuesta

@@ -4,7 +4,6 @@
     
       <div class="columns is-desktop">
         <div class="column">
-          <form>
           <div class="box">
             <div class="content">
               <div class="level">
@@ -27,7 +26,6 @@
               </span>
             </p>
           </div>
-        </form>
         </div>
       </div>
     <div class="block">
@@ -39,6 +37,7 @@
        <!-- --- Modal de agregar tarea --- -->
 
       <form id="formTareas" class="was-validated" action="/home/tareas" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
         <div id="modal-js-example" class="modal">
           <div class="modal-background"></div>
         

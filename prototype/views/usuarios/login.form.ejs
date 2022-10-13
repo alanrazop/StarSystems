@@ -1,0 +1,17 @@
+<%- include('../partials/head.ejs'); -%>
+    <%- include('../partials/navbar-top.ejs'); -%>
+<div class="title">Acceder</div>
+<form action="login" method="POST">
+<input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+<fieldset>
+    <legend class="is-size-3">Ingresa tus datos</legend>
+    <label for="username"> Usuario:</label>
+    <input class="input" id="username" name="username" type="text" required>
+    <label for="password"> Password:</label>
+    <input class="input" id="password" name="password" type="password">
+</fieldset>
+<br>
+<div class="block"><a href="/user/new">Crear un nuevo usario</a></div>
+<input type="submit" class="button is-link" value="Entrar">
+</form>
+<%- include('../partials/tail.ejs'); -%>
