@@ -1,5 +1,5 @@
 <div class="columns is-desktop" oninput="datosTablas()">
-  <div class="column is-2 is-offset-1">
+  <div class="column is-2 is-offset-1" oninput="renderChart()">
         <table id="table_1" class="table is-bordered is-hoverable is-narrow" oninput="checkAjuste()">
           <thead>
             <tr>
@@ -38,7 +38,7 @@
     </div>
 
 <div class="column is-offset-1" oninput="checkAjuste()">
-  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
+  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart2()">
     <tbody>
       <tr>
         <th>Coeficiente</th>
@@ -149,7 +149,7 @@
                         </div>
                         <div class="message-body">
                           User graph
-                          <div id="graph-container">
+                          <div id="graph-container-2">
                             <canvas id="myChart2"></canvas>
                           </div>
                         </div>
@@ -161,80 +161,44 @@
 
 
                   <script>
-                    async function datosTablas() {
+                    function datosTablas() {
                       const tabla1 = document.getElementById("table_1").getElementsByClassName('input');
                       const tabla2 = document.getElementById("table_2").getElementsByClassName('input');
                       const tabla3 = document.getElementById("table_3").getElementsByClassName('input');
                       
-                      let datos_tabla = {
+                      let tabla_proyectos = {
+                        labels: [],
+                        data: []
+                      }
+
+                      let datos_tabla2 = {
+                        labels: [],
+                        data: []
+                      }
+
+                      let datos_tabla3 = {
                         labels: [],
                         data: []
                       }
 
                       document.getElementsByName('proyect_names')
                       .forEach(function (element) {
-                        datos_tabla.labels.push(element.outerText);
+                        tabla_proyectos.labels.push(element.outerText);
                       });
 
                       for (inputs of tabla1) {
-                      datos_tabla.data.push(inputs.value);
+                      tabla_proyectos.data.push(inputs.value);
                       }
                       for (inputs of tabla2) {
-                        datos_tabla.labels.push(inputs.id);
-                        datos_tabla.data.push(inputs.value);
+                        datos_tabla2.labels.push(inputs.id);
+                        datos_tabla2.data.push(inputs.value);
                       }
                       for (inputs of tabla3) {
-                        datos_tabla.labels.push(inputs.id);
-                        datos_tabla.data.push(inputs.value);
+                        datos_tabla3.labels.push(inputs.id);
+                        datos_tabla3.data.push(inputs.value);
                       }
-                      return datos_tabla;
+                      return [tabla_proyectos,datos_tabla2,datos_tabla3];
                     }
-                    async function getVars() {
-                      let variables_ajuste = [
-                        parseFloat(document.getElementById("coeficiente").value),
-                        parseInt(document.getElementById("ng_tm").value),
-                        parseInt(document.getElementById("ng_tc").value),
-                        parseInt(document.getElementById("v_tm").value),
-                        parseInt(document.getElementById("v_tc").value),
-                        parseInt(document.getElementById("horas_tc").value),
-                        parseInt(document.getElementById("horas_tm").value)
-                      ]
-                      return variables_ajuste;
-                    }
-
-                    async function createChart(variables_ajuste) {
-                      let ctx_live = document.getElementById("myChart");
-                      let myChart = new Chart(ctx_live, {
-                        type: 'bar',
-                        data: {
-                          labels: ['Coeficiente', 'NG-tm', "ng_tc", "v_tm", "v_tc",],
-                          datasets: [{
-                            data: variables_ajuste,
-                            borderWidth: 1,
-                            borderColor: '#00c0ef',
-                            label: 'Horas',
-                          }]
-                        },
-                        options: {
-                          responsive: true,
-                          plugins: {
-                            title: {
-                              display: false,
-                            }
-                          },
-                          scales: {
-                            x: {
-                              display: true
-                            },
-                            y: {
-                              display: true
-                            }
-                          }
-                        }
-                      });
-                      return myChart;
-                    }
-
 
                     async function createPrueba(variables, ctx_live) {
                       let myChart = new Chart(ctx_live, {
@@ -267,36 +231,21 @@
                       });
                       return myChart;
                     }
-
-                    const resetAllCanvas = function () {
+                    
+                    function renderChart() {
                       document.getElementById('myChart').remove();
                       document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
-                      canvas = document.querySelector('#myChart');
-                      ctx = canvas.getContext('2d');
-                    };
-
-                    
-                    const resetCanvas = function (context) {
-                      context.remove();
-                      document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
-                      canvas = document.querySelector('#myChart');
-                      ctx = canvas.getContext('2d');
-                    };
-
-                    async function renderChart() {
-                      resetAllCanvas();
-                      getVars()
-                      .then(async (vars) => { createChart(vars); })
-                      .catch(err => { console.log(err) })
+                      let ctx_live = document.getElementById("myChart");
+                      let datos = datosTablas();
+                      createPrueba(datos[0],ctx_live); 
                     }
                     
-                    async function pruebaChart() {
-                      let context = document.getElementById("myChart2")
-                      resetAllCanvas();
-                      datosTablas()
-                        .then(async (vars) => { 
-                          createPrueba(vars,context); })
-                        .catch(err => { console.log(err) })
+                    function renderChart2() {
+                      document.getElementById('myChart2').remove();
+                      document.getElementById('graph-container-2').innerHTML = '<canvas id="myChart2"></canvas>';
+                      let ctx_live = document.getElementById("myChart2");
+                      let datos = datosTablas();
+                      createPrueba(datos[1],ctx_live); 
                     }
                     
                   </script>
