@@ -22,13 +22,20 @@
                   </td>
                 <td><%= a.num_horas.toFixed(1) %></td>
                 <td>
-                    <p>
-                  <% for (let participante of a.participantes) { %>
-                        - <%= participante.nombre + '\n' %> 
-                <% }%>
-                    </p>
+                  <div class="columns is-multiline is-gapless">
+                    <% for (let participante of a.participantes) { %>
+                    <div class="column is-one-quarter mx-0">
+                      <span class="icon-text">
+                        <span class="icon">
+                          <i class="fa-solid fa-circle-user"></i>
+                        </span>
+                        <span><%= participante.nombre %></span>
+                      </span>
+                    </div>
+                    <% }%>
+                  </div>
                 </td>
-                  <td><%- array[2] + "/" + array[1] + "/" + array[3] %></td> 
+                  <td><%- array[2] + "-" + array[1] + "-" + array[3] %></td> 
                 <td>
                     <form action="/home/delete" method="POST">
                       <a class="button is-black is-light" href="/home/edit/<%= a.id_actividad %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
@@ -39,8 +46,8 @@
                 
                         <div class="modal-content">
                           <div class="box">
-                            <p class="title">¿Desea eliminar el proyecto?</p>
-                            <input type="submit" class="button is-danger" value="Eliminar proyecto">
+                            <p class="title">¿Desea eliminar la tarea?</p>
+                            <input type="submit" class="button is-danger" value="Eliminar tarea">
                                   </div>
                                   </div>
                                 </div>

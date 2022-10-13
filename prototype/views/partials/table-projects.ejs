@@ -19,9 +19,21 @@
                     <td> <%= p.descripcion_proyecto %> </td> 
                     <td> sample </td> 
                     <td>
-                      <% for (let participante of p.participantes) { %>
-                        <span><%= participante.nombre %></span>
-                      <% }%>
+                      <div class="columns is-multiline is-gapless">
+                        <% for (let participante of p.participantes) { %>
+                        <div class="column is-one-quarter">
+                          <span class="icon-text">
+                            <span class="icon">
+                              <i class="fa-solid fa-circle-user"></i>
+                            </span>
+                            <span><%= participante.nombre %></span>
+                          </span>
+                        </div>
+                        <% }%>
+                      </div>
+                      
+                        
+                      
                     </td>
                     <td> 
                       <% if (p.is_activo == 0){ %>
@@ -129,35 +141,6 @@
                     </td>
                 </tr>
               <% } %>
-
-                <!-- <td>Oasis</td>
-                <td>Generar un proyecto de...</td>
-                <td>Juan Topo</td>
-                <td>Miguel Telles, Ana Sarmiento</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Oasis</td>
-                <td>Generar un proyecto de...</td>
-                <td>Juan Topo</td>
-                <td>Miguel Telles, Ana Sarmiento</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Oasis</td>
-                <td>Generar un proyecto de...</td>
-                <td>Juan Topo</td>
-                <td>Miguel Telles, Ana Sarmiento</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td> -->
             </tbody>
           </table>
         </div>
