@@ -11,7 +11,7 @@ exports.getNuevo = (request, response, next) => {
 exports.postNuevo = (request, response, next) => {
     let user = request.body.username
     user.trim();
-    const usuario = new Usuario(user, request.body.password, request.body.nombre);
+    const usuario = new Usuario(user, request.body.password, request.body.nombre, 1 , 3);
     usuario.save()
         .then(() => {
             response.status(303).redirect('/user/login');
@@ -35,7 +35,7 @@ exports.getLogin = (request, response, next) => {
 
 exports.postLogin = (request, response, next) => {
     // Recuperar el usuario si es que existe
-    return Usuario.fetchOne(request.body.username)
+    return Usuario.fetchOne(request.body.correo)
     .then(([rows, fieldData]) => {
         if (rows.length == 1){
             bcrypt.compare(request.body.password, rows[0].password)

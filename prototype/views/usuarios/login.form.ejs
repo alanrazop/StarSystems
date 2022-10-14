@@ -1,5 +1,38 @@
-<%- include('../partials/head.ejs'); -%>
-    <%- include('../partials/navbar-top.ejs'); -%>
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link
+      rel="icon"
+      href="https://storage.googleapis.com/natgas/others/logos/natgas-logo-simple.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Load icons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/84d1cdccbc.js" crossorigin="anonymous"></script>
+    <!-- Chart JS -->
+    
+    
+</head>
+
+<body>
+    <nav class="navbar is-success"  role="navigation" aria-label="main navigation" style="background-color: #43B02A;">
+        <div class="navbar-brand">
+          </div>
+          <div class="navbar-end">
+                  <span class="navbar-item" href="">
+                      <img src="https://storage.googleapis.com/natgas/others/logos/natgas-logo-simple.png" style="max-height: 50px;">
+                  </span>
+              </div>
+          </div>
+      </nav>
     <div class="content has-text-centered">
         <h1>Bienvenido a Nat Efficiency</h1>
       </div>
@@ -8,10 +41,10 @@
                 <form action="login" method="POST">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                     <fieldset>
-                        <legend>Para ingresar sesión ingresa usuario y contraseña</legend>
+                        <legend>Para iniciar sesión ingresa un usuario y contraseña</legend>
                         <br>
-                        <label for="username"> Usuario:</label>
-                        <input class="input" id="username" name="username" type="text"  placeholder="Hugo Sanchez" required>
+                        <label for="username"> Correo:</label>
+                        <input class="input" id="correo" name="correo" type="email"  placeholder="Hugo Sanchez" required>
                         <label for="password"> Contraseña:</label>
                         <input class="input" id="password" name="password" type="password" placeholder="*******">
                     </fieldset>
