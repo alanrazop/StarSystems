@@ -44,8 +44,36 @@ exports.postLogin = (request, response, next) => {
                     request.session.isLoggedIn = true;
                     request.session.user = rows[0].nombre;
                     return request.session.save(err => {
-                        response.redirect('/home');
-                    });
+                        //Obtener los permisos del usuario
+                        Usuario.getPrivilegios(rows[0].id_empleado)
+                        .then(([consulta_privilegios, fielData]) => {
+                            //Guardar los permisos en una variable de sesión
+                            request.session.privilegios = [];
+                            for(let privilegio of consulta_privilegios) {
+                                request.session.privilegios.push(privilegio.descripcion);
+                            }
+                            Usuario.getRol(rows[0].id_empleado)
+                                .then(([rows, fielData]) => {  
+                                    request.session.roles = []; 
+                                    
+                                    request.session.roles.push(rows[0].descripcion);                                                                 
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    response.render('error.ejs', {
+                                        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                                    });
+                                });
+                                    response.redirect('/home');
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    response.render('error.ejs', {
+                                        isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : false,
+                                    });
+                                });
+                         })
+                                    
                 }
                 else {
                     console.log("El usuario o contraseña no existe");

@@ -33,4 +33,16 @@ module.exports = class Usuario {
         return db.execute('SELECT * FROM empleado WHERE correo = ?', [un_correo]);
         
     }
+    static fetchRol() {
+        return db.execute('SELECT descripcion FROM rol');
+    }
+
+    static getPrivilegios(un_empleado) {
+        return db.execute('SELECT pri.desc_privilegio FROM posee p, rol r, privilegios pri WHERE p.id_rol = r.id_rol AND pri.id_privilegio = p.id_privilegio AND r.id_rol = (SELECT t.id_rol FROM tiene t WHERE t.id_empleado = ?)', [un_empleado]) ;
+        
+    }
+
+    static getRol(un_rol) {
+        return db.execute('SELECT descripcion FROM rol r, tiene t WHERE r.id_rol = t.id_rol AND t.id_empleado = ?', [un_rol]);
+    }
 }
