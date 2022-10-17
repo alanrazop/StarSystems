@@ -20,11 +20,11 @@ exports.getProyecto = async (request, response, next) => {
     response.render(path.join('proyectos.ejs'), {
         proyecto: proyectos,
         user: request.session.user ? request.session.user : '',
+        user_permit: request.session.roles,
     });     
 };
 
 exports.postProyecto = (request, response, next) => {
-    if (request.session.roles === 1 || 2){
     console.log('POST');
     console.log(request.body.nombre);
     console.log(request.body.descripcion);
@@ -40,9 +40,6 @@ exports.postProyecto = (request, response, next) => {
         .catch(err => {
             console.log(err);
         });
-    } else {
-        response.redirect('/home/proyectos');
-    } 
 };
 
 

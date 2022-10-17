@@ -9,7 +9,9 @@
                 <th>Colaboradores</th>
                 <th>Estatus</th>
                 <th>Tipo</th>
-                <th>Acciones</th>
+                <% if (user_permit!==3) { %>
+                  <th>Acciones</th>
+                  <% } %>
               </tr>
             </thead>
             <tbody>
@@ -45,8 +47,9 @@
                           <span>Tareas</span>
                           <% } %>
                     </td> 
-                    <td>
-                      <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
+                    <% if (user_permit!==3) { %>
+                      <td>
+                        <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
 
                       <form action="/home/proyectos/edit" method="POST">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
@@ -115,23 +118,24 @@
                                         </div>
                                       </div>
                                     </div> 
-                                </section>
-                                <footer class="modal-card-foot is-pulled-right">
-                                  <div class="buttons">
-                                    <button type="submit" class="button is-success">Guardar cambios</button>
-                                    <button class="button" type="button" aria-label="close">Cancelar</button>
-                                  </div>
-                                </footer>
-                              </div>
-                            </div> 
-                      </form>
-                        <!-- EDIT ACTIVITY MODAL ENDS HERE -->
-                        <!-- EDIT ACTIVITY MODAL ENDS HERE -->
-                            </div>
+                                  </section>
+                                  <footer class="modal-card-foot is-pulled-right">
+                                    <div class="buttons">
+                                      <button type="submit" class="button is-success">Guardar cambios</button>
+                                      <button class="button" type="button" aria-label="close">Cancelar</button>
+                                    </div>
+                                  </footer>
+                                </div>
+                              </div> 
+                            </form>
+                            <!-- EDIT ACTIVITY MODAL ENDS HERE -->
+                            <!-- EDIT ACTIVITY MODAL ENDS HERE -->
                           </div>
                         </div>
+                      </div>
                     </td>
-                </tr>
+                    <% } %>
+                  </tr>
               <% } %>
             </tbody>
           </table>
