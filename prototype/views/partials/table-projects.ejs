@@ -6,9 +6,9 @@
               <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Líder</th>
                 <th>Colaboradores</th>
                 <th>Estatus</th>
+                <th>Es proyecto</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -17,7 +17,6 @@
                 <tr>
                     <td> <%= p.nombre_proyecto %> </td> 
                     <td> <%= p.descripcion_proyecto %> </td> 
-                    <td> sample </td> 
                     <td>
                       <div class="columns is-multiline is-gapless">
                         <% for (let participante of p.participantes) { %>
@@ -30,10 +29,7 @@
                           </span>
                         </div>
                         <% }%>
-                      </div>
-                      
-                        
-                      
+                      </div> 
                     </td>
                     <td> 
                       <% if (p.is_activo == 0){ %>
@@ -42,6 +38,13 @@
                           <span class="tag is-success is-light">Activo</span>
                           <% } %>
                     </td>
+                    <td> 
+                       <% if (p.tarea_proyecto == 0) {%>
+                          <span>Si</span>
+                        <% } else { %>
+                          <span>No</span>
+                          <% } %>
+                    </td> 
                     <td>
                       <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a> &nbsp;
                       <a class="button is-danger is-light js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
