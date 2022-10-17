@@ -76,7 +76,7 @@ app.use('/home', rutas_natdev);
 app.use('/user', rutas_usuario);
 
 app.use((request, response, next) => {
-    response.status(404).render('¡Error 404! El recurso solicitado no existe'); //Manda la respuesta
+    response.status(404).render('error.ejs'); //Manda la respuesta
 });
 
 app.listen(4000, () => console.log("http://localhost:4000/"));
