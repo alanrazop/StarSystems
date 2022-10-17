@@ -48,6 +48,7 @@ exports.postLogin = (request, response, next) => {
                         Usuario.getPrivilegios(rows[0].id_empleado)
                         .then(([consulta_privilegios, fielData]) => {
                             //Guardar los permisos en una variable de sesión
+                            request.session.roles = rows[0].id_rol;
                             request.session.privilegios = [];
                             for(let privilegio of consulta_privilegios) {
                                 request.session.privilegios.push(privilegio.descripcion);

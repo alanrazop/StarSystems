@@ -7,6 +7,7 @@ exports.getReportes =  (request, response, next) => {
     Empleados.fetchAll().then(([trabajadores,fieldData]) => {
         Proyectos_activos.fetchRecent().then(([row, fieldData]) => {
             Reporte.fetchAll().then(([rows, fieldData]) => {
+                console.log(request.session)
                 response.render(path.join('reportes.ejs'), {
                     user: request.session.user ? request.session.user : '',
                     empleados: trabajadores,
