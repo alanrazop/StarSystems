@@ -169,6 +169,7 @@ exports.postEditAct = (request, response, next) => {
     );
     
     NuevoRegistro.id = request.body.id;
+    const check_empleados = request.body.check_empleados;
     console.log(NuevoRegistro);
 
     if (request.body.check_empleados == null) {
@@ -182,7 +183,29 @@ exports.postEditAct = (request, response, next) => {
     }
 
     else{
-        Actividades.saveEdit(NuevoRegistro)
+        if (Array.isArray(check_empleados) == false && check_empleados.length > 1) {
+            parseInt(check_empleados);
+            NuevoRegistro.colab = check_empleados;
+            Actividades.saveEdit(NuevoRegistro)
+                .then(() => {
+                    Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
+                        console.log('-------------\n');
+                        console.log(NuevoRegistro);
+                        console.log('-------------\n');
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })   
+                        response.redirect('/home/tareas');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+
+        } else {
+            Actividades.saveEdit(NuevoRegistro)
         .then(() => {
             for (e of request.body.check_empleados){
                 NuevoRegistro.colab = e;
@@ -206,6 +229,8 @@ exports.postEditAct = (request, response, next) => {
         .catch(err => {
             console.log(err);
         });
+        }
+        
     }
 
  
