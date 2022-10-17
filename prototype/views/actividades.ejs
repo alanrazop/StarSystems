@@ -71,7 +71,7 @@
                       <p class="control">
                         <div class="select">
                           <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);" required>
-                            <option  value = "" selected >Select dropdown</option>
+                            <option  value = "" selected >Selecciona un proyecto</option>
                             w<% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
@@ -114,7 +114,7 @@
 
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
-                    <label class="label">Fecha: </label>
+                    <label class="label">Fecha de registro: </label>
                   </div>
                   <div class="field-body">
                     <div class="field">
