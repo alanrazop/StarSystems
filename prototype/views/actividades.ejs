@@ -71,7 +71,7 @@
                       <p class="control">
                         <div class="select">
                           <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);" required>
-                            <option  value = "" selected >Select dropdown</option>
+                            <option  value = "" selected >Selecciona un proyecto</option>
                             w<% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
@@ -87,7 +87,7 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <input class="input" id = "input_horas" name = "input_horas" type="number" placeholder="" required>
+                        <input class="input" id = "input_horas" name = "input_horas" type="number" placeholder="" min="0" required>
                       </p>
                     </div>
                   </div>
@@ -103,7 +103,7 @@
                         <div>
                           <% for (let e of empleados) { %>
                             <label>
-                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado %>"> <%= e.nombre %> </label> <br> 
                             <% } %>
                                
                         </div>
@@ -114,7 +114,7 @@
 
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
-                    <label class="label">Fecha: </label>
+                    <label class="label">Fecha de registro: </label>
                   </div>
                   <div class="field-body">
                     <div class="field">
