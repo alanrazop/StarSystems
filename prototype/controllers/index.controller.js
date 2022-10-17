@@ -12,11 +12,12 @@ exports.getIndex = (request, response, next) => {
                 .then(([projects, fieldData]) => {
                     
                     response.render(path.join('index.ejs'), {
-                        
                         isLoggedIn: request.session.isLoggedIn ? request.session.isLoggedIn : isLoggedIn,
                         imagenes: rows,
                         proyectosA: projects[0],
-                        user: request.session.user ? request.session.user : '',   
+                        user: request.session.user ? request.session.user : '',
+                        user: request.session.user ? request.session.user : '',
+                        user_permit: request.session.roles,
                     });
                 })
                 .catch(err => {

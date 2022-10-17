@@ -6,6 +6,8 @@ const colabController = require('../controllers/colaborador.controller');
 const reporteController = require('../controllers/reporte.controller');
 const indexController = require('../controllers/index.controller');
 const isAuth = require('../util/is-auth');
+const isntColab = require('../util/is-colab');
+const isAdmin = require('../util/is-admin');
 const router = express.Router();
 
 // Route handling
@@ -41,11 +43,11 @@ router.post('/delete', isAuth, actController.postDeleteAct);
 router.get('/proyectos', isAuth, projectsController.getProyecto);
 //router.get('tareas/buscar/:valor', projectsController.getBuscar);
 
-router.post('/nuevo-proyecto', isAuth, projectsController.postProyecto);
+router.post('/nuevo-proyecto', isAuth, isntColab, projectsController.postProyecto);
 
-router.post('/proyectos/edit', isAuth, projectsController.postEditProject);
+router.post('/proyectos/edit', isAuth, isntColab, projectsController.postEditProject);
 
-router.post('/proyectos/delete', isAuth, projectsController.postDeleteProject);
+router.post('/proyectos/delete', isAuth, isntColab, projectsController.postDeleteProject);
 
 // ------------- COLABORADORES -------------
 
@@ -55,6 +57,6 @@ router.get('/colaboradores/buscar/:valor', isAuth, colabController.getBuscarCola
 
 // ------------- REPORTES -------------
 
-router.get('/reportes', isAuth, reporteController.getReportes);
+router.get('/reportes', isAuth, isntColab, isAdmin, reporteController.getReportes);
 
 module.exports = router;
