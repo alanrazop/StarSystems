@@ -8,7 +8,7 @@
                 <th>Descripción</th>
                 <th>Colaboradores</th>
                 <th>Estatus</th>
-                <th>Es proyecto</th>
+                <th>Tipo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -40,16 +40,16 @@
                     </td>
                     <td> 
                        <% if (p.tarea_proyecto == 0) {%>
-                          <span>Si</span>
+                          <span>Proyecto</span>
                         <% } else { %>
-                          <span>No</span>
+                          <span>Tareas</span>
                           <% } %>
                     </td> 
                     <td>
-                      <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a> &nbsp;
-                      <a class="button is-danger is-light js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                      <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
 
                       <form action="/home/proyectos/edit" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                         <input id="id" name="id" type="hidden" value="<%= p.id_proyecto %>">
                           <div id="edit<%= p.id_proyecto %>" class="modal">
                             <div class="modal-background"></div>
@@ -127,20 +127,9 @@
                       </form>
                         <!-- EDIT ACTIVITY MODAL ENDS HERE -->
                         <!-- EDIT ACTIVITY MODAL ENDS HERE -->
-                        <form action="/home/proyectos/delete" method="POST">
-                          <input id="id" name="id" type="hidden" value="<%= p.id_proyecto %>">
-                        <div id="delete<%= p.id_proyecto %>" class="modal">
-                          <div class="modal-background"></div>
-                        
-                          <div class="modal-content">
-                            <div class="box">
-                              <p class="title">¿Desea eliminar el proyecto?</p>
-                              <input type="submit" class="button is-danger" value="Eliminar proyecto">
-                            </form>
                             </div>
                           </div>
                         </div>
-                      
                     </td>
                 </tr>
               <% } %>
