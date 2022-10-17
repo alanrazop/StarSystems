@@ -7,7 +7,7 @@ const { response } = require('express');
 exports.getProyecto = async (request, response, next) => {
     let proyectos;
     await Proyectos.fetchAll()
-        .then( async ([rows, fieldData]) => {
+        .then( async ([rows, fieldData]) => {  
             for (let proyecto of rows) {
                 [colaboradores, fieldData] = await Proyectos.fetchColaboradores(proyecto.id_proyecto); 
                 proyecto.participantes = colaboradores; 
@@ -24,6 +24,7 @@ exports.getProyecto = async (request, response, next) => {
 };
 
 exports.postProyecto = (request, response, next) => {
+    if (request.session.roles === 1 || 2){
     console.log('POST');
     console.log(request.body.nombre);
     console.log(request.body.descripcion);
@@ -39,6 +40,9 @@ exports.postProyecto = (request, response, next) => {
         .catch(err => {
             console.log(err);
         });
+    } else {
+        response.redirect('/home/proyectos');
+    } 
 };
 
 
