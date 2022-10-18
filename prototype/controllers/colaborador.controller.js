@@ -10,6 +10,7 @@ exports.getEmpleado = (request, response, next) => {
                 response.render(path.join('colaboradores.ejs'), {
                     empleados: rows,
                     user: request.session.user ? request.session.user : '',
+                    user_permit: request.session.roles,
                 })
             })
             // .catch(err => {
