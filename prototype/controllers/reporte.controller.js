@@ -12,6 +12,7 @@ exports.getReportes =  (request, response, next) => {
                 if (request.session.roles === 1){
                     response.render(path.join('reportes.ejs'), {
                         user: request.session.user ? request.session.user : '',
+                        user_permit: request.session.roles,
                         empleados: trabajadores,
                         proyectos_diez: row,
                         horas_vacaciones: rows[0].horas_vacaciones,

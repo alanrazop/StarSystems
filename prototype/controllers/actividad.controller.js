@@ -26,6 +26,7 @@ exports.getActividad = async (request, response, next) => {
                     empleados:empleados,
                     proyectos: proyectos,
                     user: request.session.user ? request.session.user : '',
+                    user_permit: request.session.roles,
                 })
             }).catch(error => {
                 console.log(error);
@@ -138,6 +139,7 @@ exports.getEditAct = (request, response, next) => {
                                 proyecto: proyectos,
                                 registro: registro,
                                 user: request.session.user ? request.session.user : '',
+                                user_permit: request.session.roles,
                             })
                         })
                         .catch(err => {console.log(err)});
