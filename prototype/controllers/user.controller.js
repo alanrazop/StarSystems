@@ -33,7 +33,7 @@ exports.getLogin = (request, response, next) => {
     });
 };
 
-exports.postLogin = (request, response, next) => {
+exports.postLogin = async (request, response, next) => {
     // Recuperar el usuario si es que existe
     return Usuario.fetchOne(request.body.correo)
     .then(([rows, fieldData]) => {
@@ -50,15 +50,15 @@ exports.postLogin = (request, response, next) => {
                             //Guardar los permisos en una variable de sesión
                             const rol = rows[0].id_rol;
                             request.session.roles = rol;
-                            request.session.privilegios = [];
-                            for(let privilegio of consulta_privilegios) {
-                                request.session.privilegios.push(privilegio.descripcion);
-                            }
+                            // request.session.privilegios = [];
+                            // for(let privilegio of consulta_privilegios) {
+                            //     request.session.privilegios.push(privilegio.desc_privilegio);
+                            // }
                             Usuario.getRol(rows[0].id_empleado)
                                 .then(([rows, fielData]) => {  
                                     request.session.roles = []; 
                                     
-                                    request.session.roles.push(rows[0].descripcion);                                                                 
+                                    request.session.roles.push(rows[0]);                                                                 
                                 })
                                 .catch(err => {
                                     console.log(err);
