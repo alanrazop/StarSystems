@@ -265,3 +265,14 @@ exports.postRegistraDelete = (request, response, next) => {
         })
         .catch(err => {console.log(err);});
 }
+
+
+exports.getBuscarAct = (request, response, next) => {
+    Actividades.find(request.params.valor)
+        .then(([rows, fieldData]) => {
+            response.status(200).json({actividades: rows});
+        }).catch(err => {
+            console.log(err);
+            response.status(500).json({message: "ERROR"});
+        })
+}
