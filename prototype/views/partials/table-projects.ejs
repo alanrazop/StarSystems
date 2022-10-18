@@ -9,7 +9,7 @@
                 <th>Colaboradores</th>
                 <th>Estatus</th>
                 <th>Tipo</th>
-                <% if (user_permit!==3) { %>
+                <% if (user_permit===1) { %>
                   <th>Acciones</th>
                   <% } %>
               </tr>
@@ -47,7 +47,7 @@
                           <span>Tareas</span>
                           <% } %>
                     </td> 
-                    <% if (user_permit!==3) { %>
+                    <% if (user_permit===1) { %>
                       <td>
                         <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
 
