@@ -75,8 +75,19 @@ const  rutas_usuario = require("./routes/user.routes");
 app.use('/home', rutas_natdev);
 app.use('/user', rutas_usuario);
 
-app.use((request, response, next) => {
-    response.status(404).render('error.ejs'); //Manda la respuesta
+
+app.use('/', (request, response) => {
+    response.redirect('/home');
 });
 
-app.listen(4000, () => console.log("http://localhost:4000/"));
+app.all('*', (request, response) => {
+    response.status(404).render('error.ejs');
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(
+    `Hello from Cloud Run! The container started successfully and is listening for HTTP requests on ${PORT}`
+  );
+});
+
