@@ -14,12 +14,12 @@
                 <% total += pa.total_horas %>
                   <tr>
                     <td name="proyect_names">
-                      <%= pa.nombre_proyecto%>
+                      <%= pa.nombre_proyecto %>
                     </td>
-                    <td>
+                    <td id="registered_hours">
                       <%= pa.total_horas.toFixed(2)%>
                     </td>
-                    <td><input id="proy" class="input is-narrow"> </input></td>
+                    <td><input id="proy" class="input is-narrow" value=<%=pa.total_horas.toFixed(2)%> > </input></td>
                   </tr>
                   <% } %>
           </tbody>
@@ -200,7 +200,7 @@
                       return [tabla_proyectos,datos_tabla2,datos_tabla3];
                     }
 
-                    async function createPrueba(variables, ctx_live) {
+                    function createPrueba(variables, ctx_live) {
                       let myChart = new Chart(ctx_live, {
                         type: 'bar',
                         data: {
