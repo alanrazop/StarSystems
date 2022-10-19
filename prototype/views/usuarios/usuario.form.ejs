@@ -1,0 +1,27 @@
+<%- include('../partials/head.ejs'); -%>
+    <%- include('../partials/navbar-top.ejs'); -%>
+    <div class="content has-text-centered">
+        <h1>Registar un nuevo usuario</h1>
+      </div>
+    <div class="level">
+        <div class="level-item">
+            <form action="new" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+            <fieldset>
+                <legend class="is-size-3">Datos de usuario</legend>
+                <label for="username">Correo electrónico:</label>
+                <input class="input" id="username" name="username" type="text" required>
+                <label for="password"> Contraseña:</label>
+                <input class="input" id="password" name="password" type="password">
+                <label for="nombre">Nombre:</label>
+                <input class="input" id="nombre" name="nombre" type="text" required>
+            </fieldset>
+            <br>
+            <input type="submit" class="button is-link" value="Registrar">
+            </form>
+        </div>
+    </div>
+
+
+
+<%- include('../partials/tail.ejs'); -%>

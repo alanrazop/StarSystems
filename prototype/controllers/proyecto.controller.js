@@ -7,7 +7,7 @@ const { response } = require('express');
 exports.getProyecto = async (request, response, next) => {
     let proyectos;
     await Proyectos.fetchAll()
-        .then( async ([rows, fieldData]) => {
+        .then( async ([rows, fieldData]) => {  
             for (let proyecto of rows) {
                 [colaboradores, fieldData] = await Proyectos.fetchColaboradores(proyecto.id_proyecto); 
                 proyecto.participantes = colaboradores; 
@@ -19,6 +19,8 @@ exports.getProyecto = async (request, response, next) => {
         console.log(proyectos);
     response.render(path.join('proyectos.ejs'), {
         proyecto: proyectos,
+        user: request.session.user ? request.session.user : '',
+        user_permit: request.session.roles,
     });     
 };
 

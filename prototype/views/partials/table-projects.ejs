@@ -6,10 +6,12 @@
               <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Líder</th>
                 <th>Colaboradores</th>
                 <th>Estatus</th>
-                <th>Acciones</th>
+                <th>Tipo</th>
+                <% if (user_permit===1) { %>
+                  <th>Acciones</th>
+                  <% } %>
               </tr>
             </thead>
             <tbody>
@@ -17,11 +19,19 @@
                 <tr>
                     <td> <%= p.nombre_proyecto %> </td> 
                     <td> <%= p.descripcion_proyecto %> </td> 
-                    <td> sample </td> 
                     <td>
-                      <% for (let participante of p.participantes) { %>
-                        <span><%= participante.nombre %></span>
-                      <% }%>
+                      <div class="columns is-multiline is-gapless">
+                        <% for (let participante of p.participantes) { %>
+                        <div class="column is-one-quarter">
+                          <span class="icon-text">
+                            <span class="icon">
+                              <i class="fa-solid fa-circle-user"></i>
+                            </span>
+                            <span><%= participante.nombre %></span>
+                          </span>
+                        </div>
+                        <% }%>
+                      </div> 
                     </td>
                     <td> 
                       <% if (p.is_activo == 0){ %>
@@ -30,11 +40,19 @@
                           <span class="tag is-success is-light">Activo</span>
                           <% } %>
                     </td>
-                    <td>
-                      <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a> &nbsp;
-                      <a class="button is-danger is-light js-modal-trigger" data-target="delete<%= p.id_proyecto %>"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
+                    <td> 
+                       <% if (p.tarea_proyecto == 0) {%>
+                          <span>Proyecto</span>
+                        <% } else { %>
+                          <span>Tareas</span>
+                          <% } %>
+                    </td> 
+                    <% if (user_permit===1) { %>
+                      <td>
+                        <a class="button is-black is-light js-modal-trigger" data-target="edit<%= p.id_proyecto %>"><span class="icon"><i class="fas fa-edit"></i></span></a>
 
                       <form action="/home/proyectos/edit" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                         <input id="id" name="id" type="hidden" value="<%= p.id_proyecto %>">
                           <div id="edit<%= p.id_proyecto %>" class="modal">
                             <div class="modal-background"></div>
@@ -100,64 +118,25 @@
                                         </div>
                                       </div>
                                     </div> 
-                                </section>
-                                <footer class="modal-card-foot is-pulled-right">
-                                  <div class="buttons">
-                                    <button type="submit" class="button is-success">Guardar cambios</button>
-                                    <button class="button" type="button" aria-label="close">Cancelar</button>
-                                  </div>
-                                </footer>
-                              </div>
-                            </div> 
-                      </form>
-                        <!-- EDIT ACTIVITY MODAL ENDS HERE -->
-                        <!-- EDIT ACTIVITY MODAL ENDS HERE -->
-                        <form action="/home/proyectos/delete" method="POST">
-                          <input id="id" name="id" type="hidden" value="<%= p.id_proyecto %>">
-                        <div id="delete<%= p.id_proyecto %>" class="modal">
-                          <div class="modal-background"></div>
-                        
-                          <div class="modal-content">
-                            <div class="box">
-                              <p class="title">¿Desea eliminar el proyecto?</p>
-                              <input type="submit" class="button is-danger" value="Eliminar proyecto">
+                                  </section>
+                                  <footer class="modal-card-foot is-pulled-right">
+                                    <div class="buttons">
+                                      <button type="submit" class="button is-success">Guardar cambios</button>
+                                      <button class="button" type="button" aria-label="close">Cancelar</button>
+                                    </div>
+                                  </footer>
+                                </div>
+                              </div> 
                             </form>
-                            </div>
+                            <!-- EDIT ACTIVITY MODAL ENDS HERE -->
+                            <!-- EDIT ACTIVITY MODAL ENDS HERE -->
                           </div>
                         </div>
-                      
+                      </div>
                     </td>
-                </tr>
+                    <% } %>
+                  </tr>
               <% } %>
-
-                <!-- <td>Oasis</td>
-                <td>Generar un proyecto de...</td>
-                <td>Juan Topo</td>
-                <td>Miguel Telles, Ana Sarmiento</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Oasis</td>
-                <td>Generar un proyecto de...</td>
-                <td>Juan Topo</td>
-                <td>Miguel Telles, Ana Sarmiento</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Oasis</td>
-                <td>Generar un proyecto de...</td>
-                <td>Juan Topo</td>
-                <td>Miguel Telles, Ana Sarmiento</td>
-                <td>
-                  <a class="button is-primary"><span class="icon"><i class="fas fa-edit"></i></span></a>
-                  <a class="button is-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>
-                </td> -->
             </tbody>
           </table>
         </div>

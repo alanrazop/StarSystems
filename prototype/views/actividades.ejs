@@ -2,37 +2,30 @@
   <%- include('partials/navbar-top.ejs'); -%>
     <%- include('partials/sidebar.ejs'); -%>
     
-      <div class="columns">
+      <div class="columns is-desktop">
         <div class="column">
-          <form>
           <div class="box">
             <div class="content">
               <div class="level">
                 <h1>Tareas recientes</h1>
               <div class="field is-pulled-right">
-                <a href="#" class="button is-rounded is-medium is-primary is-pulled-right js-modal-trigger"
+                <a href="#" class="button is-rounded is-medium is-link is-pulled-right js-modal-trigger"
                 data-target="modal-js-example">
                   <span class="icon is-small">
                     <i class="fa-solid fa-file-circle-plus"></i></span>
                   <span>Agregar tarea</span>
                 </a>
               </div>
-              
               </div>
-              
             </div>
-            
-              
-            
-            
+   
             <p class="control has-icons-left">
-              <input class="input is-rounded has-background-light" type="text" placeholder="Buscar">
+              <input class="input is-rounded has-background-light" type="text" placeholder="Buscar tarea">
               <span class="icon is-small is-left">
                 <i class="fas fa-search"></i>
               </span>
             </p>
           </div>
-        </form>
         </div>
       </div>
     <div class="block">
@@ -44,6 +37,7 @@
        <!-- --- Modal de agregar tarea --- -->
 
       <form id="formTareas" class="was-validated" action="/home/tareas" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
         <div id="modal-js-example" class="modal">
           <div class="modal-background"></div>
         
@@ -77,7 +71,7 @@
                       <p class="control">
                         <div class="select">
                           <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);" required>
-                            <option  value = "" selected >Select dropdown</option>
+                            <option  value = "" selected >Selecciona un proyecto</option>
                             w<% for (let p of proyectos) { %>
                             <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
                             <% } %>
@@ -93,7 +87,7 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <input class="input" id = "input_horas" name = "input_horas" type="number" placeholder="" required>
+                        <input class="input" id = "input_horas" name = "input_horas" type="number" placeholder="" min="0" required>
                       </p>
                     </div>
                   </div>
@@ -109,7 +103,7 @@
                         <div>
                           <% for (let e of empleados) { %>
                             <label>
-                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado%>"> <%= e.nombre %> </label> <br> 
+                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado %>"> <%= e.nombre %> </label> <br> 
                             <% } %>
                                
                         </div>
@@ -120,7 +114,7 @@
 
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
-                    <label class="label">Fecha: </label>
+                    <label class="label">Fecha de registro: </label>
                   </div>
                   <div class="field-body">
                     <div class="field">
@@ -191,7 +185,6 @@
             title: 'Tarea registrada con éxito'
           })
         });
-
 
       </script> 
         <%- include('partials/tail.ejs'); -%>

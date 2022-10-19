@@ -24,7 +24,9 @@ exports.getActividad = async (request, response, next) => {
                 response.render(path.join('actividades.ejs'), {
                     actividades: actividades,
                     empleados:empleados,
-                    proyectos: proyectos
+                    proyectos: proyectos,
+                    user: request.session.user ? request.session.user : '',
+                    user_permit: request.session.roles,
                 })
             }).catch(error => {
                 console.log(error);
@@ -37,55 +39,80 @@ exports.getActividad = async (request, response, next) => {
 exports.postActividad = async (request, response, next) => {
 
     console.log('----------POST---------');
-    console.log('request.body.descripcion : ' + request.body.descripcion);
-    console.log('request.body.proyecto: ' + request.body.select_proyecto);
-    console.log('request.body.horas : ' + request.body.input_horas);
+    //console.log('request.body.descripcion : ' + request.body.descripcion);
+    //console.log('request.body.proyecto: ' + request.body.select_proyecto);
+    //console.log('request.body.horas : ' + request.body.input_horas);
     console.log('request.body.empleados: ' + request.body.check_empleados);
-    console.log('request.body.fecha : ' + request.body.fecha_act);
+    //console.log('request.body.fecha : ' + request.body.fecha_act);
 
     console.log('--- FIN DE LOS REQUEST ---- \n');
 
     let empleado_relleno = '';
     const check_empleados = request.body.check_empleados;
-    const NuevoRegistro = new Registra (request.body.input_horas, 0,  empleado_relleno, request.body.fecha_act);
-    const NuevaActividad = new Actividades (0,request.body.descripcion,request.body.select_proyecto, request.body.input_horas, empleado_relleno, request.body.fecha_act);
-    console.log(NuevaActividad);
 
+
+    const NuevoRegistro = new Registra (request.body.input_horas, 0, empleado_relleno , request.body.fecha_act);
+    const NuevaActividad = new Actividades (0,request.body.descripcion,request.body.select_proyecto, request.body.input_horas, empleado_relleno, request.body.fecha_act);
+    //console.log(NuevaActividad);
+
+    
     await Actividades.save(NuevaActividad)
-    .then(async () => {
+        .then(async () => {
+            })
+            .catch(err => {
+                console.log(err);
         })
-        .catch(err => {
-            console.log(err);
-    })
 
     if (request.body.descripcion == "" ||  request.body.select_proyecto == "" || request.body.input_horas == ""  || request.body.fecha_act == "" ){
         console.log(request.body.descripcion);
         response.redirect('/home/tareas');
     }  
-
-
-    console.log(check_empleados);
-
+ 
     await Actividades.LastId()
         .then(async ([rows, fieldData]) => {
             NuevoRegistro.id_actividad = rows[0].id_actividad;
             console.log ('Nuevo id act: ' +  NuevoRegistro.id_actividad);
-            
-            for ( let e of check_empleados ){
+
+            console.log('------Check empleados------------');
+            console.log(check_empleados);
+            console.log(check_empleados.length);
+            console.log(Array.isArray(check_empleados));
+
+            if (Array.isArray(check_empleados) == false && check_empleados.length > 1) {
+                parseInt(check_empleados);
+                NuevoRegistro.colab = check_empleados;
+
+                Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
+                        //console.log('-------------\n');
+                        //console.log(NuevoRegistro);
+                        //console.log('-------------\n');
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+
+            }
+
+            else {
+                for ( let e of check_empleados ){
                 NuevoRegistro.colab = e;
-                console.log(NuevoRegistro);
-                console.log('id del colaborador: ' + NuevoRegistro.colab);
+                console.log(e);
+
+                //console.log('id del colaborador: ' + NuevoRegistro.colab);
                 await Registra.saveRegistra(NuevoRegistro)
                     .then(async() => {  
-                        console.log('-------------\n');
-                        console.log(NuevoRegistro);
-                        console.log('-------------\n');
+                        //console.log('-------------\n');
+                        //console.log(NuevoRegistro);
+                        //console.log('-------------\n');
                         
                     })
                     .catch(err => {
                         console.log(err);
                     })  
             }  
+        }
     })
         .catch(err => {
             console.log(err);
@@ -110,7 +137,9 @@ exports.getEditAct = (request, response, next) => {
                                 actividades: rows[0],
                                 empleados: empleados,
                                 proyecto: proyectos,
-                                registro: registro
+                                registro: registro,
+                                user: request.session.user ? request.session.user : '',
+                                user_permit: request.session.roles,
                             })
                         })
                         .catch(err => {console.log(err)});
@@ -142,6 +171,7 @@ exports.postEditAct = (request, response, next) => {
     );
     
     NuevoRegistro.id = request.body.id;
+    const check_empleados = request.body.check_empleados;
     console.log(NuevoRegistro);
 
     if (request.body.check_empleados == null) {
@@ -155,7 +185,29 @@ exports.postEditAct = (request, response, next) => {
     }
 
     else{
-        Actividades.saveEdit(NuevoRegistro)
+        if (Array.isArray(check_empleados) == false && check_empleados.length > 1) {
+            parseInt(check_empleados);
+            NuevoRegistro.colab = check_empleados;
+            Actividades.saveEdit(NuevoRegistro)
+                .then(() => {
+                    Registra.saveRegistra(NuevoRegistro)
+                    .then(async() => {  
+                        console.log('-------------\n');
+                        console.log(NuevoRegistro);
+                        console.log('-------------\n');
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })   
+                        response.redirect('/home/tareas');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+
+        } else {
+            Actividades.saveEdit(NuevoRegistro)
         .then(() => {
             for (e of request.body.check_empleados){
                 NuevoRegistro.colab = e;
@@ -179,6 +231,8 @@ exports.postEditAct = (request, response, next) => {
         .catch(err => {
             console.log(err);
         });
+        }
+        
     }
 
  

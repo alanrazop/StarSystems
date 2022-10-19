@@ -1,0 +1,58 @@
+-- DROP FUNCTION IF EXISTS cuenta_activos;
+
+-- DELIMITER //
+-- CREATE FUNCTION lista_activos() 
+-- RETURNS varchar
+
+-- BEGIN
+
+-- SELECT COUNT(*) INTO @count_proyectos
+-- FROM `proyecto` p, `registra` r, `actividad` a 
+-- WHERE r.id_actividad = a.id_actividad
+-- AND p.id_proyecto = a.id_proyecto
+-- AND p.is_activo = 1
+-- AND r.fecha BETWEEN subdate(current_date, 8) AND current_date;
+
+--   SET @x := 1;
+--   SET @string_append := '';
+
+--   WHILE @x <= @count_proyectos DO
+--     SET @string_append = CONCAT(str,x,',');
+--     SET @x = x + 1;
+--   END WHILE;
+
+-- RETURN @string_append;
+
+-- END//
+
+-- DELIMITER ;
+
+CREATE TABLE reporte (
+horas_vacaciones         float,
+horas_trabajadas         float,
+horas_tiempo_completo    float,
+horas_tiempo_medio       float,
+coeficiente_efectividad  float,
+fecha                    datetime DEFAULT CURRENT_TIMESTAMP,
+horas_registradas        int,
+horas_ajustadas          int,
+group_id                 binary(16),
+group_uuid               binary(16) PRIMARY KEY,
+PRIMARY KEY (group_uuid)
+)
+
+CREATE TRIGGER genera_uuid
+AFTER INSERT ON reporte
+FOR EACH ROW
+BEGIN
+NEW.group_uuid = UUID_TO_BIN(UUID(CURRENT_TIMESTAMP))
+END
+
+
+INSERT INTO reporte ()
+SELECT COUNT(*) as count_horas, p.id_proyecto,
+FROM `proyecto` p, `registra` r, `actividad` a 
+WHERE r.id_actividad = a.id_actividad
+AND p.id_proyecto = a.id_proyecto
+AND p.is_activo = 1
+AND r.fecha BETWEEN subdate(current_date, 8) AND current_date;
