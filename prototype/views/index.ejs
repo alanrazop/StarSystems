@@ -20,11 +20,11 @@
           <div class="tile">
             <div class="tile is-parent is-vertical">
               <article class="tile is-child notification is-success">
-                <p class="title">Recuerda registrar tus horas</p>
+                <p class="title"><i class="fa-regular fa-clock"></i> Recuerda registrar tus horas</p>
                 <p>Nadie quiere trabajar<strong> tiempo extra</strong>, por lo que cuando tengas oportunidad agrega tus horas en las areas correspondientes</p>
               </article>
               <article class="tile is-child notification is-light">
-                <p class="title">Cambia el fondo de pantalla</p>
+                <p class="title"><i class="fa-regular fa-image"></i> Cambia el fondo de pantalla</p>
                 <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
                   <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                   <div id="file-js-example" class="file has-name is-info is-small">
@@ -58,7 +58,7 @@
           <div class="tile is-parent">
             
             <article class="tile is-child notification is-danger">
-              <p class="title"><em>¡Ojo! </em><i class="fa fa-eye"></i> </p>
+              <p class="title"><i class="fa fa-eye"></i> <em>¡Ojo! </em></p>
               <p class="is-size-5">Verifica que tus horas se vean actualizadas en los <strong>proyectos</strong> que estas involucrado</p>
               <div class="content">
                 <!-- Content -->
@@ -88,6 +88,12 @@
                 <i class="fa-sharp fa-solid fa-memo-circle-info"></i>
               </span>
               <p><i class="fa-solid fa-circle-question"></i>  Si requieres el <strong>manual de usuario</strong> aquí lo puedes consultar: </p>
+              <a href="https://youtube.com/playlist?list=PLR-v9W1H8jYv-rrnvn4uJ2mfnXDAJ_DjP" target="_blank" class="button is-rounded is-info is-medium">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-book"></i>
+                </span>
+                <span>Manual de usuario</span>
+              </a>
             </div>
           </article>
         </div>
