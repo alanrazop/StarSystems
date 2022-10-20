@@ -16,13 +16,13 @@
         </div>
       </div>
       <p class="control has-icons-left">
-        <input class="input is-rounded has-background-light" type="text" placeholder="Buscar proyecto">
+        <input id="buscar_proyecto" class="input is-rounded has-background-light" type="text" placeholder="Buscar proyecto">
         <span class="icon is-small is-left">
           <i class="fas fa-search"></i>
         </span>
       </p>
     </div>
-    <div class="block" id="lista_proyectos">
+    <div id="lista_proyectos" class="block">
       <%- include('partials/table-projects.ejs'); -%>
     </div>
     <div class="block">
@@ -138,35 +138,49 @@
             console.log(data);
             let html = '';
 
-            if (data.proyecto.length > 0) {
-              html += '<div class="columns is-multiline">'
-              for (e of data.proyecto) {
-                html += '<div class="column is-half">';
-                html += '<div class="card has-background-white-ter">'
+            if (data.proyectos.length > 0) {
+              
+              html += '<div class="card">';
                 html += '<div class="card-content">';
-                html += '<div class="media">';
-                html += '<div class="media-left">';
-                html += '<figure class="image is-48x48">';
-                html += '<img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg" alt="Placeholder image">';
-                html += '</figure>';
+                html += '<table class="table is-fullwidth is-centered" >';
+                html += '<thead>';
+                html += '<tr>';
+                html += '<th>Nombre</th>';
+                html += '<th>Descripción</th>';
+                html += '<th>Estatus</th>';
+                html += '<th>Tipo</th>';
+                html += '</tr>';
+                html += '</thead>';
+                html += '<tbody>';
+              for (e of data.proyectos) {
+                html += '<tr>';
+                html += '<td>'+ e.nombre_proyecto +'</td>'; 
+                html += '<td>'+ e.descripcion_proyecto +'</td>'; 
+                html += '<td>'
+                html +=  '<% if (e.is_activo == 0){ %>';
+                  html += '<span class="tag is-danger is-light">Inactivo</span>';
+                  html += '<% } else { %>';
+                    html += '<span class="tag is-success is-light">Activo</span>';
+                    html += '<% } %>';
+                html += '</td>';
+                html += '<td>';
+                if (e.tarea_proyecto == 0) {
+                  html +=  '<span>Proyecto</span>';
+                } else { 
+                  html += '<span>Tareas</span>';
+                } 
+                html += '</td>'; 
+                html += '</tr>';                     
+                }
+                html += '</tbody>';
+                html += '</table>';
                 html += '</div>';
-                html += '<div class="media-content">';
-                html += '<p class="title is-4">' + e.nombre + '</p>';
-                e.is_tiempo_completo ? e.is_tiempo_completo = "Tiempo completo" : e.is_tiempo_completo = "Medio tiempo" ;
-                html += '<p class="subtitle is-6">' +  e.descripcion + ' | ' + e.is_tiempo_completo + '</p>';
                 html += '</div>';
-                html += '</div>';
-                html += '<div class="content">';
-                html += 'Proyectos: Oasis';
-                html +=' </div>';
-                html += '</div>';
-                html += '</div>';
-                html += '</div>';
-              }
-            }
-            else {
-              html = '<h2>No hay proyectos registrados que coincidan con la búsqueda</h2>';
-            }
+                html += '<br><a href="/home/proyectos" class="button is-primary is-pulled-right is-rounded">Regresar a la vista general</a>';
+                } 
+                else {
+                  html = '<h2>No hay proyectos registrados que coincidan con la búsqueda</h2>';
+                }
             document.getElementById('lista_proyectos').innerHTML = html;
             
         }).catch(err => {
