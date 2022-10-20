@@ -1,5 +1,5 @@
 <div class="columns is-desktop" oninput="datosTablas()">
-  <div class="column is-2 is-offset-1">
+  <div class="column is-2 is-offset-1" oninput="renderChart()">
         <table id="table_1" class="table is-bordered is-hoverable is-narrow" oninput="checkAjuste()">
           <thead>
             <tr>
@@ -14,12 +14,12 @@
                 <% total += pa.total_horas %>
                   <tr>
                     <td name="proyect_names">
-                      <%= pa.nombre_proyecto%>
+                      <%= pa.nombre_proyecto %>
                     </td>
-                    <td>
+                    <td id="registered_hours">
                       <%= pa.total_horas.toFixed(2)%>
                     </td>
-                    <td><input id="proy" class="input is-narrow"> </input></td>
+                    <td><input id="proy" class="input is-narrow" value=<%=pa.total_horas.toFixed(2)%> > </input></td>
                   </tr>
                   <% } %>
           </tbody>
@@ -38,7 +38,7 @@
     </div>
 
 <div class="column is-offset-1" oninput="checkAjuste()">
-  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart()">
+  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart2()">
     <tbody>
       <tr>
         <th>Coeficiente</th>
@@ -132,10 +132,10 @@
                     <div class="column is-one-third">
                       <article class="message is-success">
                         <div class="message-header">
-                          <p>Graph</p>
+                          <p>Horas trabajadas en Proyectos</p>
                         </div>
                         <div class="message-body">
-                          User graph
+                          Horas Ajustadas
                           <div id="graph-container">
                             <canvas id="myChart"></canvas>
                           </div>
@@ -145,12 +145,12 @@
                     <div class="column">
                       <article class="message is-success">
                         <div class="message-header">
-                          <p>Graph</p>
+                          <p>Vacaciones</p>
                         </div>
                         <div class="message-body">
-                          User graph
-                          <div id="graph-container">
-                            <canvas id="myChart"></canvas>
+                          Horas de Vacaciones
+                          <div id="graph-container-2">
+                            <canvas id="myChart2"></canvas>
                           </div>
                         </div>
                       </article>
@@ -161,66 +161,62 @@
 
 
                   <script>
-                    async function datosTablas() {
+                    function datosTablas() {
                       const tabla1 = document.getElementById("table_1").getElementsByClassName('input');
                       const tabla2 = document.getElementById("table_2").getElementsByClassName('input');
                       const tabla3 = document.getElementById("table_3").getElementsByClassName('input');
                       
-                      let datos_tabla = {
+                      let tabla_proyectos = {
+                        labels: [],
+                        data: []
+                      }
+
+                      let datos_tabla2 = {
+                        labels: [],
+                        data: []
+                      }
+
+                      let datos_tabla3 = {
                         labels: [],
                         data: []
                       }
 
                       document.getElementsByName('proyect_names')
                       .forEach(function (element) {
-                        datos_tabla.labels.push(element.outerText);
+                        tabla_proyectos.labels.push(element.outerText);
                       });
 
                       for (inputs of tabla1) {
-                      datos_tabla.data.push(inputs.value);
+                      tabla_proyectos.data.push(inputs.value);
                       }
                       for (inputs of tabla2) {
-                        datos_tabla.labels.push(inputs.id);
-                        datos_tabla.data.push(inputs.value);
+                        datos_tabla2.labels.push(inputs.id);
+                        datos_tabla2.data.push(inputs.value);
                       }
                       for (inputs of tabla3) {
-                        datos_tabla.labels.push(inputs.id);
-                        datos_tabla.data.push(inputs.value);
+                        datos_tabla3.labels.push(inputs.id);
+                        datos_tabla3.data.push(inputs.value);
                       }
-                      return datos_tabla;
-                    }
-                    async function getVars() {
-                      let variables_ajuste = [
-                        parseFloat(document.getElementById("coeficiente").value),
-                        parseInt(document.getElementById("ng_tm").value),
-                        parseInt(document.getElementById("ng_tc").value),
-                        parseInt(document.getElementById("v_tm").value),
-                        parseInt(document.getElementById("v_tc").value),
-                        parseInt(document.getElementById("horas_tc").value),
-                        parseInt(document.getElementById("horas_tm").value)
-                      ]
-                      return variables_ajuste;
+                      return [tabla_proyectos,datos_tabla2,datos_tabla3];
                     }
 
-                    async function createChart(variables_ajuste) {
-                      let ctx_live = document.getElementById("myChart");
+                    function createPrueba(variables, ctx_live) {
                       let myChart = new Chart(ctx_live, {
                         type: 'bar',
                         data: {
-                          labels: ['Coeficiente', 'NG-tm', "ng_tc", "v_tm", "v_tc",],
+                          labels: variables.labels,
                           datasets: [{
-                            data: variables_ajuste,
+                            data: variables.data,
                             borderWidth: 1,
                             borderColor: '#00c0ef',
-                            label: 'Variables Usuario',
+                            label: 'horas',
                           }]
                         },
                         options: {
                           responsive: true,
                           plugins: {
                             title: {
-                              display: true,
-                              text: 'Chart nuevo'
+                              display: false,
                             }
                           },
                           scales: {
@@ -235,19 +231,21 @@
                       });
                       return myChart;
                     }
-
-                    const resetCanvas = function () {
+                    
+                    function renderChart() {
                       document.getElementById('myChart').remove();
                       document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
-                      canvas = document.querySelector('#myChart');
-                      ctx = canvas.getContext('2d');
-                    };
-
-                    async function renderChart() {
-                      resetCanvas();
-                      getVars()
-                        .then(async (vars) => { createChart(vars); })
-                        .catch(err => { console.log(err) })
+                      let ctx_live = document.getElementById("myChart");
+                      let datos = datosTablas();
+                      createPrueba(datos[0],ctx_live); 
+                    }
+                    
+                    function renderChart2() {
+                      document.getElementById('myChart2').remove();
+                      document.getElementById('graph-container-2').innerHTML = '<canvas id="myChart2"></canvas>';
+                      let ctx_live = document.getElementById("myChart2");
+                      let datos = datosTablas();
+                      createPrueba(datos[1],ctx_live); 
                     }
                     
                   </script>
