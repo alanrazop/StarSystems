@@ -41,7 +41,8 @@ router.post('/delete', isAuth, actController.postDeleteAct);
 // ------------- PROYECTOS -------------
 
 router.get('/proyectos', isAuth, projectsController.getProyecto);
-//router.get('tareas/buscar/:valor', projectsController.getBuscar);
+
+router.get('/proyectos/buscar/:valor', isAuth, projectsController.getBuscarProyecto);
 
 router.post('/nuevo-proyecto', isAuth, isntColab, projectsController.postProyecto);
 

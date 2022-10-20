@@ -79,3 +79,13 @@ exports.postDeleteProject = (request, response, next) => {
             console.log(err);
         });
 };
+
+exports.getBuscarProyecto = (request, response, next) => {
+    Proyectos.buscar(request.params.valor)
+        .then(([rows, fieldData]) => {
+            response.status(200).json({proyectos: rows});
+        }).catch(err => {
+            console.log(err);
+            response.status(500).json({message: "ERROR"});
+        })
+}
