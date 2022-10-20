@@ -1,0 +1,183 @@
+<%- include('partials/head.ejs'); -%>
+  <%- include('partials/navbar-top.ejs'); -%>
+    <%- include('partials/sidebar.ejs'); -%>
+    
+      <div class="columns is-desktop">
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <div class="level">
+                <h1>Tareas recientes</h1>
+              <div class="field is-pulled-right">
+                <a href="#" class="button is-rounded is-medium is-link is-pulled-right js-modal-trigger"
+                data-target="modal-js-example">
+                  <span class="icon is-small">
+                    <i class="fa-solid fa-file-circle-plus"></i></span>
+                  <span>Agregar tarea</span>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="block" id="lista_actividades">
+      <%- include('partials/table.ejs'); -%>
+    </div>
+        
+        
+
+       <!-- --- Modal de agregar tarea --- -->
+
+      <form id="formTareas" class="was-validated" action="/home/tareas" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+        <div id="modal-js-example" class="modal">
+          <div class="modal-background"></div>
+        
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Agregar tarea</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+
+            <section class="modal-card-body">
+              <!-- Content ... -->
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Descripción: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <textarea name="descripcion" class="textarea" placeholder="Describe la actividad que realizaste" required></textarea>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Proyecto: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <div class="select">
+                          <select  class="form-select" name = "select_proyecto" id = "select_proyecto"  onchange="getValue(this);" required>
+                            <option  value = "" selected >Selecciona un proyecto</option>
+                            w<% for (let p of proyectos) { %>
+                            <option value = "<%= p.id_proyecto %>"> <%= p.nombre_proyecto %></option>
+                            <% } %>
+                          </select> 
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Horas: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <input class="input" id = "input_horas" name = "input_horas" type="number" placeholder="" min="0" required>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Colaboradores: </label>
+                  </div>
+
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <div>
+                          <% for (let e of empleados) { %>
+                            <label>
+                              <input type="checkbox" name = "check_empleados" id="check_empleados" value="<%= e.id_empleado %>"> <%= e.nombre %> </label> <br> 
+                            <% } %>
+                               
+                        </div>
+    
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Fecha de registro: </label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                      <input class="input" type="date" id="fecha_act" name="fecha_act" required>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-success" type="submit" id="buttonRegistrar" required > Guardar tarea </button>
+              <button class="button" onclick="alertaCancelado();">Cancelar</button>
+          </div>         
+          </div>
+          <button class="modal-close is-large" aria-label="close" ></button>
+        </div>
+      </footer> 
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+          $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+          (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+            closeModal($modal);
+          });
+        }
+
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
+      });
+     
+        document.getElementById('buttonRegistrar').addEventListener('click', () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Tarea registrada con éxito'
+          })
+        });
+
+      </script> 
+        <%- include('partials/tail.ejs'); -%>

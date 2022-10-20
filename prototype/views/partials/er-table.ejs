@@ -1,0 +1,251 @@
+<div class="columns is-desktop" oninput="datosTablas()">
+  <div class="column is-2 is-offset-1" oninput="renderChart()">
+        <table id="table_1" class="table is-bordered is-hoverable is-narrow" oninput="checkAjuste()">
+          <thead>
+            <tr>
+              <th>Nombre del Proyecto</th>
+              <th>Total Horas Registradas</th>
+              <th>Total Horas Ajustadas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let total=0 %>
+              <% for (pa of proyectos_diez) { %>
+                <% total += pa.total_horas %>
+                  <tr>
+                    <td name="proyect_names">
+                      <%= pa.nombre_proyecto %>
+                    </td>
+                    <td id="registered_hours">
+                      <%= pa.total_horas.toFixed(2)%>
+                    </td>
+                    <td><input id="proy" class="input is-narrow" value=<%=pa.total_horas.toFixed(2)%> > </input></td>
+                  </tr>
+                  <% } %>
+          </tbody>
+  
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <td id="horas_totales_registradas">
+                <%- total.toFixed(2) %>
+              </td>
+              <td id="horas_totales_ajustadas"> </td>
+            </tr>
+          </tfoot>
+        </table>
+        <script src="/js/tabla.js"></script>
+    </div>
+
+<div class="column is-offset-1" oninput="checkAjuste()">
+  <table id="table_2" class="table is-bordered is-striped is-narrow is-hoverable" oninput="renderChart2()">
+    <tbody>
+      <tr>
+        <th>Coeficiente</th>
+        <td><input id="coeficiente" class="input" type="text" name="coeficiente"
+            placeholder=<%=coeficiente_efectividad.toFixed(2)%>></td>
+      </tr>
+      <tr>
+        <th>Vacaciones TM</th>
+        <td><input id="v_tm" class="input" type="text" name="vacaciones_tm" placeholder="12"></td>
+      </tr>
+      <tr>
+        <th>Vacaciones TC</th>
+        <td><input id="v_tc" class="input" value=<%=horas_vacaciones%> type="text" name="vacaciones_tc"
+          placeholder="5"></td>
+      </tr>
+      <tr>
+        <th>NGblock TM</th>
+        <td><input id="ng_tm" class="input" value="0" type="text" name="ngblock_tm" placeholder="0"></td>
+      </tr>
+      <tr>
+        <th>NGblock TC</th>
+        <td><input id="ng_tc" class="input" value="0" type="text" name="ngblock_tc" placeholder="0"></td>
+      </tr>
+      <tr>
+        <th>Horas semanales TC</th>
+        <td><input id="horas_tc" class="input" placeholder="35" oninput="capTotal()"></td>
+      </tr>
+      <tr>
+        <th>Horas semanales TM</th>
+        <td><input id="horas_tm" class="input" placeholder="17" oninput="capTotal()"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<% let tiempo_comp=0 %>
+  <% let tiempo_medio=0 %>
+    <% for (e in empleados) { %>
+      <% Object.entries(empleados[e]).forEach((entry)=> { %>
+        <% const [key, value]=entry;%>
+          <% if (key=='is_tiempo_completo' && value==0) {tiempo_medio++;} %>
+            <% if (key=='is_tiempo_completo' && value==1) {tiempo_comp++;} %>
+              <% });%>
+                <% }%>
+
+
+                  <!-- TABLA 3 BEGIN -->
+
+                  <div class="column">
+                    <table id="table_3" class="table is-bordered is-striped is-narrow" oninput="vacaciones()">
+                      <tbody>
+                        <tr>
+                          <th>Personal tiempo medio</th>
+                          <td><input class="input" id="personal_tm" value="<%=tiempo_medio%>" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Personal tiempo completo</th>
+                          <td><input class="input" id="personal_tc" value="<%=tiempo_comp%>" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Horas esperadas</th>
+                          <td><input class="input" id="horas_esperadas" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Proporción</th>
+                          <td><input class="input" id="proporcion" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Capacidad total</th>
+                          <td><input class="input" id="capacidad_total" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Horas vacaciones</th>
+                          <td><input class="input" id="vacaciones_totales" type="text" readonly></td>
+                        </tr>
+                        <tr>
+                          <th>Porcentaje verdadero</th>
+                          <td><input class="input" id="porcentaje_verdadero" type="text" readonly></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="column is-1"></div>
+                  </div>
+
+                  <!-- TABLA 3 END -->
+                  <div class="columns">
+                    <div class="column is-1">
+                    </div>
+                    <div class="column is-one-third">
+                      <article class="message is-success">
+                        <div class="message-header">
+                          <p>Horas trabajadas en Proyectos</p>
+                        </div>
+                        <div class="message-body">
+                          Horas Ajustadas
+                          <div id="graph-container">
+                            <canvas id="myChart"></canvas>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="column">
+                      <article class="message is-success">
+                        <div class="message-header">
+                          <p>Vacaciones</p>
+                        </div>
+                        <div class="message-body">
+                          Horas de Vacaciones
+                          <div id="graph-container-2">
+                            <canvas id="myChart2"></canvas>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="column is-1">
+                    </div>
+                  </div>
+
+
+                  <script>
+                    function datosTablas() {
+                      const tabla1 = document.getElementById("table_1").getElementsByClassName('input');
+                      const tabla2 = document.getElementById("table_2").getElementsByClassName('input');
+                      const tabla3 = document.getElementById("table_3").getElementsByClassName('input');
+                      
+                      let tabla_proyectos = {
+                        labels: [],
+                        data: []
+                      }
+
+                      let datos_tabla2 = {
+                        labels: [],
+                        data: []
+                      }
+
+                      let datos_tabla3 = {
+                        labels: [],
+                        data: []
+                      }
+
+                      document.getElementsByName('proyect_names')
+                      .forEach(function (element) {
+                        tabla_proyectos.labels.push(element.outerText);
+                      });
+
+                      for (inputs of tabla1) {
+                      tabla_proyectos.data.push(inputs.value);
+                      }
+                      for (inputs of tabla2) {
+                        datos_tabla2.labels.push(inputs.id);
+                        datos_tabla2.data.push(inputs.value);
+                      }
+                      for (inputs of tabla3) {
+                        datos_tabla3.labels.push(inputs.id);
+                        datos_tabla3.data.push(inputs.value);
+                      }
+                      return [tabla_proyectos,datos_tabla2,datos_tabla3];
+                    }
+
+                    function createPrueba(variables, ctx_live) {
+                      let myChart = new Chart(ctx_live, {
+                        type: 'bar',
+                        data: {
+                          labels: variables.labels,
+                          datasets: [{
+                            data: variables.data,
+                            borderWidth: 1,
+                            borderColor: '#00c0ef',
+                            label: 'horas',
+                          }]
+                        },
+                        options: {
+                          responsive: true,
+                          plugins: {
+                            title: {
+                              display: false,
+                            }
+                          },
+                          scales: {
+                            x: {
+                              display: true
+                            },
+                            y: {
+                              display: true
+                            }
+                          }
+                        }
+                      });
+                      return myChart;
+                    }
+                    
+                    function renderChart() {
+                      document.getElementById('myChart').remove();
+                      document.getElementById('graph-container').innerHTML = '<canvas id="myChart"></canvas>';
+                      let ctx_live = document.getElementById("myChart");
+                      let datos = datosTablas();
+                      createPrueba(datos[0],ctx_live); 
+                    }
+                    
+                    function renderChart2() {
+                      document.getElementById('myChart2').remove();
+                      document.getElementById('graph-container-2').innerHTML = '<canvas id="myChart2"></canvas>';
+                      let ctx_live = document.getElementById("myChart2");
+                      let datos = datosTablas();
+                      createPrueba(datos[1],ctx_live); 
+                    }
+                    
+                  </script>

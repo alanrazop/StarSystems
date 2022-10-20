@@ -1,0 +1,174 @@
+<%- include('partials/head.ejs'); -%>
+<%- include('partials/navbar-top.ejs'); -%>
+<%- include('partials/sidebar.ejs'); -%>
+    <!------------==                         TOP NAVBAR BEGINS                         ==------------>
+    <div class="content">
+        <div class="block">
+          <h1 class="is-size-1" style="text-align: center;">Bienvenido al portal de proyectos</h1>
+          <p class="is-size-6" style="text-align: center;">Desarrollado por Star Systems </p>
+        </div>
+        <% for (e of imagenes) { %>
+        <img src="<% if (e.archivo) { %>
+          <%= e.archivo %>
+          <% } else { %>
+            https://blogs.iadb.org/conocimiento-abierto/wp-content/uploads/sites/10/2019/12/banner-lecciones-aprendidas-proyectos-desarrollo-2019.jpg
+          <% } %>">
+        <% }%>
+        
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child notification is-success">
+                <p class="title"><i class="fa-regular fa-clock"></i> Recuerda registrar tus horas</p>
+                <p>Nadie quiere trabajar<strong> tiempo extra</strong>, por lo que cuando tengas oportunidad agrega tus horas en las areas correspondientes</p>
+              </article>
+              <article class="tile is-child notification is-light">
+                <p class="title"><i class="fa-regular fa-image"></i> Cambia el fondo de pantalla</p>
+                <form action="/home/image" method="POST"  enctype="multipart/form-data"> 
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+                  <div id="file-js-example" class="file has-name is-info is-small">
+                    <label class="file-label">
+                      <input class="file-input" type="file" name="archivo" required>
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                          Cargar archivo
+                        </span>
+                      </span>
+                      <span class="file-name">
+                        Sin archivos seleccionados
+                      </span>
+                    </label>
+                  </div>
+                  <br>
+                  <input id="save" class="button is-small is-info is-outlined is-rounded" type="submit" name="enviar" value="Guardar imagen">
+                </form>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child notification has-background-grey">
+                <p class="title has-text-white">Horas por proyecto</p>
+                  <canvas id="myChart2" ></canvas>
+              </article>
+            </div>
+          </div>
+          <div class="tile is-parent">
+            
+            <article class="tile is-child notification is-danger">
+              <p class="title"><i class="fa fa-eye"></i> <em>¡Ojo! </em></p>
+              <p class="is-size-5">Verifica que tus horas se vean actualizadas en los <strong>proyectos</strong> que estas involucrado</p>
+              <div class="content">
+                <!-- Content -->
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="message is-info">
+            <div class="message-header">
+              <p><i class="fa-solid fa-circle-info"></i> Información importante</p>
+            </div>
+            <div class="message-body">
+              <p>Ten en cuenta esta información para utilizar de manera correcta el sistema:</p>
+              <ol>
+                <li><strong>Tareas:</strong> regista las actividades que realizaste durante tu proyecto. Debes asignar
+                  la fecha y las horas correspondientes. 
+                </li>
+                <li><strong>Proyectos:</strong> revisa los proyectos actualmente disponibles y quienes estan 
+                  colaborando en el.
+                </li>
+                <li>
+                  <strong>Colaboradores:</strong> consulta a las y los empleados del departamento asi como su tipo de turno y su rol.
+                </li>
+              </ol>
+              <span class="icon">
+                <i class="fa-sharp fa-solid fa-memo-circle-info"></i>
+              </span>
+              <p><i class="fa-solid fa-circle-question"></i>  Si requieres el <strong>manual de usuario</strong> aquí lo puedes consultar: </p>
+              <a href="https://youtube.com/playlist?list=PLR-v9W1H8jYv-rrnvn4uJ2mfnXDAJ_DjP" target="_blank" class="button is-rounded is-info is-medium">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-book"></i>
+                </span>
+                <span>Manual de usuario</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+    </div>      
+    <!------------==                         TOP NAVBAR ENDS                         ==------------>
+    <script>
+      const fileInput = document.querySelector('#file-js-example input[type=file]');
+      fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+          const fileName = document.querySelector('#file-js-example .file-name');
+          fileName.textContent = fileInput.files[0].name;
+        }
+      }
+      document.getElementById('save').addEventListener('click', function hola(){
+            Swal.fire('Fondo de pantalla agregado')
+      });
+
+        
+      fetch('/home/grafica-proyectos', {
+        method: 'GET'
+      })
+      .then(result => {
+        return result.json();
+      })
+      .then(data => {
+        console.log(data);
+        var color;
+        var ctx = document.getElementById("myChart2").getContext('2d');
+        var proyectos = [];
+        var horas = [];
+        var barColors = [];
+
+        for (let pa of data){
+
+          proyectos.push(pa.nombre_proyecto);
+          horas.push(pa.total_horas);
+          barColors.push(generarNuevoColor());
+
+        }
+
+        function generarNuevoColor(){
+	        var simbolos, color;
+          simbolos = "0123456789ABCDEF";
+          color = "#";
+
+          for (var i = 0; i < 6; i++) {
+            color = color + simbolos[Math.floor(Math.random() * 16)];
+          }
+          return color;
+
+        }
+
+        Chart.defaults.color = 'white';
+        Chart.defaults.font.size = 16;
+
+        new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: proyectos,
+            datasets: [{
+              backgroundColor: barColors,
+              data: horas
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+            }
+          }
+        });
+        }).catch(err => {
+          console.log(err);
+        });   
+       
+    </script>
+    <%- include('partials/tail.ejs'); -%>

@@ -1,0 +1,98 @@
+<%- include('partials/head.ejs'); -%>
+  <%- include('partials/navbar-top.ejs'); -%>
+    <%- include('partials/sidebar.ejs'); -%>
+    
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <h1>Colaboradores</h1>
+            </div>
+            <p class="control has-icons-left">
+              <input id="buscar_empleado" class="input is-rounded has-background-light" type="text" placeholder="Buscar empleado">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="lista_empleados">
+        <div class="columns is-multiline">
+          <% for (let e of empleados) { %>
+          <div class="column is-half">
+            
+            <div class="card has-background-white-ter">
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-4" ><%= e.nombre %></p>
+                    <% e.is_tiempo_completo ? e.is_tiempo_completo = 'Tiempo completo' : e.is_tiempo_completo = 'Medio tiempo' %>
+                    <p class="subtitle is-6"><%= e.descripcion  %> | <%= e.is_tiempo_completo %></p>
+                  </div>
+                </div>
+                <div class="content">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+      <script>
+        const accion_asincrona = () => {
+          const valor = document.getElementById('buscar_empleado').value;
+
+          //función que manda la petición asíncrona
+          fetch('/home/colaboradores/buscar/' + valor, {
+              method: 'GET'
+          }).then(result => {
+              return result.json(); //Regresa otra promesa
+          }).then(data => {
+              //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+              console.log(data);
+              let html = '';
+
+              if (data.empleados.length > 0) {
+                html += '<div class="columns is-multiline">'
+                for ( e of data.empleados) {
+                  html += '<div class="column is-half">';
+                  html += '<div class="card has-background-white-ter">'
+                  html += '<div class="card-content">';
+                  html += '<div class="media">';
+                  html += '<div class="media-left">';
+                  html += '<figure class="image is-48x48">';
+                  html += '<img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg" alt="Placeholder image">';
+                  html += '</figure>';
+                  html += '</div>';
+                  html += '<div class="media-content">';
+                  html += '<p class="title is-4">' + e.nombre + '</p>';
+                  e.is_tiempo_completo ? e.is_tiempo_completo = "Tiempo completo" : e.is_tiempo_completo = "Medio tiempo" ;
+                  html += '<p class="subtitle is-6">' +  e.descripcion + ' | ' + e.is_tiempo_completo + '</p>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</div>';
+                }
+              }
+              else {
+                html = '<h2>No hay empleados registrados que coincidan con la búsqueda</h2>';
+              }
+              document.getElementById('lista_empleados').innerHTML = html;
+              
+          }).catch(err => {
+              console.log(err);
+          });
+        };
+        document.getElementById('buscar_empleado').onkeyup = accion_asincrona;
+      </script>
+
+        <%- include('partials/tail.ejs'); -%>

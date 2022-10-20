@@ -1,0 +1,31 @@
+<div class="tabs is-centered is-fullwidth">
+    <ul>
+        <li>
+            <a class="button is-link is-medium" href="/home/tareas">
+                <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
+                <span>Tareas</span>
+            </a>
+        </li>
+        <li>
+            <a class="button is-primary is-medium" href="/home/proyectos">
+                <span class="icon">
+                    <i class="fa-solid fa-diagram-project"></i></span>
+                <span>Proyectos</span>
+            </a>
+        </li>
+        <li>
+            <a class="button is-info is-medium" href="/home/colaboradores">
+                <span class="icon is-small"><i class="fa-solid fa-people-group"></i></span>
+                <span>Colaboradores</span>
+            </a>
+        </li>
+        <% if (user_permit < 2) { %>
+        <li>
+            <a class="button is-danger is-medium" href="/home/reportes">
+                <span class="icon is-small"><i class="fa-solid fa-chart-column"></i></span>
+                <span>Reportes</span>
+            </a>
+        </li>
+        <% } %>
+    </ul>
+</div>

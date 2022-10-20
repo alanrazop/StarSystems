@@ -1,0 +1,27 @@
+<%- include('partials/head.ejs'); -%>
+  <%- include('partials/navbar-top.ejs'); -%>
+    <%- include('partials/sidebar.ejs'); -%>
+        <div class="content has-text-centered">
+          <h1>Reporte semanal</h1>
+        </div>
+
+        <%- include('partials/er-table.ejs'); -%>
+        <div class="level">
+          <div class="level-item">
+            <a id="pdf" href="#" class="button is-rounded is-medium is-warning js-modal-trigger"
+        data-target="modal-js-example">
+          <span class="icon is-small">
+            <i class="fa-solid fa-file-pdf"></i> </span>
+            <span>Descargar reporte</span>
+          </a>
+          </div>
+        </div>
+          <%- include('partials/tail.ejs'); -%>
+
+<script>
+pdf.onclick = function(){
+  window.print();
+}
+
+
+</script>
