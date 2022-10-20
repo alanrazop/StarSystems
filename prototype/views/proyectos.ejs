@@ -139,6 +139,7 @@
             let html = '';
 
             if (data.proyectos.length > 0) {
+              
               html += '<div class="card">';
                 html += '<div class="card-content">';
                 html += '<table class="table is-fullwidth is-centered" >';
@@ -175,6 +176,7 @@
                 html += '</table>';
                 html += '</div>';
                 html += '</div>';
+                html += '<br><a href="/home/proyectos" class="button is-primary is-pulled-right is-rounded">Regresar a la vista general</a>';
                 } 
                 else {
                   html = '<h2>No hay proyectos registrados que coincidan con la búsqueda</h2>';

@@ -36,6 +36,8 @@ router.get('/registra/delete/:id', isAuth, actController.postRegistraDelete);
 
 router.post('/delete', isAuth, actController.postDeleteAct);
 
+router.get('/tareas/buscar/:valor', isAuth, actController.getBuscarAct);
+
 
 
 // ------------- PROYECTOS -------------

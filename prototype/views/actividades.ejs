@@ -18,17 +18,10 @@
               </div>
               </div>
             </div>
-   
-            <p class="control has-icons-left">
-              <input class="input is-rounded has-background-light" type="text" placeholder="Buscar tarea">
-              <span class="icon is-small is-left">
-                <i class="fas fa-search"></i>
-              </span>
-            </p>
           </div>
         </div>
       </div>
-    <div class="block">
+    <div class="block" id="lista_actividades">
       <%- include('partials/table.ejs'); -%>
     </div>
         
@@ -187,95 +180,4 @@
         });
 
       </script> 
-
-      
-<script>
-  const accion_asincrona = () => {
-    const valor = document.getElementById('buscar_actividad').value;
-
-    //función que manda la petición asíncrona
-    fetch('/home/tareas/buscar/' + valor, {
-        method: 'GET'
-    }).then(result => {
-        return result.json(); //Regresa otra promesa
-    }).then(data => {
-        //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
-        console.log(data);
-        let html = '';
-
-        if (data.empleados.length > 0) {
-          html += '<div class="card">'
-          for ( e of data.empleados) {
-            html += '<div class="column is-half">';
-            html += '<div class="card-content">'
-            html += '<table class="table is-fullwidth">';
-            html += '<thead>';
-            html += '<tr>';
-            html += '<th>Proyecto</th>';
-            html += '<th>Actividad</th>';
-            html += '<th>Duración</th>';
-            html += '<th>Colaboradores</th>';
-            html += '<th>Fecha</th>';
-            html += '</tr>';
-            html += '</thead>';
-            html += ' <tbody>';
-            html += 'for (let a of actividades) {';
-            html += ' let array = String(a.fecha).split(" ")';
-            html += '<tr>';
-            html += '<td> a.nombre_proyecto';
-            html += '<td>';
-            html += ' <p> a.descripcion_actividad </p>';
-            html += '</td>';
-            html += ' <td> a.num_horas.toFixed(1)</td>';
-            html += '<td>';
-            html += '  <div class="columns is-multiline is-gapless">';
-            for (let participante of a.participantes) { 
-              html +=  '<div class="column is-one-quarter mx-0">';
-              html +=    '<span class="icon-text">';
-                html +=    '<span class="icon">';
-                  html +=     ' <i class="fa-solid fa-circle-user"></i>';
-                  html +=  ' </span>';
-                html +=   ' <span> participante.nombre </span>';
-                html +=' </span>';
-              html += '</div>';
-           }
-           html += '</div>';
-           html += ' </td>';
-           html += ' <td> array[2] + "-" + array[1] + "-" + array[3] </td> ';
-           html += '  <td>';
-           html += '<form action="/home/delete" method="POST">';
-           html += ' <input type="hidden" name="_csrf" value=" csrfToken " >';
-           html += ' <a class="button is-black is-light" href="/home/edit/ a.id_actividad "><span class="icon"><i class="fas fa-edit"></i></span></a>';
-           html += ' <input id="id" name="id" type="hidden" value="a.id_actividad"> &nbsp;';
-           html += ' <a class="button is-danger is-light js-modal-trigger" data-target="delete a.id_actividad"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>';
-           html += '<div id="delete a.id_actividad " class="modal">';
-           html += ' <div class="modal-background"></div>';
-           html += '<div class="modal-content">';
-           html += ' <div class="box">';
-           html += ' <p class="title">¿Desea eliminar la tarea?</p>';
-           html += ' <input type="submit" class="button is-danger" value="Eliminar tarea">';
-           html += '  </div>';
-           html += '  </div>';
-           html += ' </div>';
-           html += ' </form>';
-           html += ' </td>';
-           html += ' </tr>';
-          }
-    html += '  </tbody>';
-    html += '   </table>';
-    html += '   </div>';
-    html += '   </div>';
-        }
-      
-        else {
-          html = '<h2>No hay actividades registradas que coincidan con la búsqueda</h2>';
-        }
-        document.getElementById('lista_empleados').innerHTML = html;
-        
-    }).catch(err => {
-        console.log(err);
-    });
-  };
-  document.getElementById('buscar_actividad').onkeyup = accion_asincrona;
-</script>
         <%- include('partials/tail.ejs'); -%>

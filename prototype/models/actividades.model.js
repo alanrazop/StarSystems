@@ -38,4 +38,8 @@ module.exports = class Actividades {
     static fetchColaboradores(id_actividad){
         return db.execute('SELECT e.nombre FROM empleado e, registra r, actividad a, proyecto p WHERE e.id_empleado = r.id_empleado and a.id_actividad = r.id_actividad and a.id_proyecto = p.id_proyecto and a.id_actividad = ? GROUP BY e.nombre', [id_actividad]);
     }
+
+    static find(valor){
+        return db.execute('SELECT * FROM actividad WHERE descripcion_actividad like ?', ['%' + valor + '%']);
+    }
 }
