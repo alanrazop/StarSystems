@@ -87,7 +87,7 @@ app.all('*', (request, response) => {
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(
-    `Hello from Cloud Run! The container started successfully and is listening for HTTP requests on ${PORT}`
+    `Listening for HTTP requests on ${PORT} or locally as http://localhost:${PORT}`
   );
 });
 
